@@ -22,7 +22,7 @@ android {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -50,6 +50,10 @@ dependencies {
     implementation(Design.APPCOMPAT)
     implementation(Design.MATERIAL)
     implementation(Design.CONSTRAINT_LAYOUT)
+
+    // Modules
+    implementation(project(Modules.MODULE_DOMAIN))
+    implementation(project(Modules.MODULE_UTILS))
 
     //Tests
     testImplementation(Tests.JUNIT)

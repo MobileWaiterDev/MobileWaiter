@@ -11,10 +11,16 @@ object Config {
     val java_version = JavaVersion.VERSION_1_8
 }
 
+//Наши модули
 object Modules {
-
+    const val MODULE_DOMAIN = ":domain"
+    const val MODULE_UTILS = ":utils"
+    const val MODULE_BILLS = ":screenbills"
+    const val MODULE_BILL = ":screenbill"
+    const val MODULE_TABLES = ":screentables"
 }
 
+//Версии библиотек
 object LibVersion {
     const val KOTLIN_STDLIB_VERSION = "kotlin-stdlib-jdk8:1.5.31"
     const val GRADLE_VERSION = "7.0.2"
@@ -30,6 +36,7 @@ object LibVersion {
     const val TEST_ESPRESSO_VERSION = "3.4.0"
 
 }
+
 object Design {
     const val APPCOMPAT = "androidx.appcompat:appcompat:${LibVersion.APPCOMPAT_VERSION}"
     const val MATERIAL = "com.google.android.material:material:${LibVersion.ANDROID_MATERIAL_VERSION}"

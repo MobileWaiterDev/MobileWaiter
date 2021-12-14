@@ -26,7 +26,7 @@ android {
             )
         }
     }
-
+    
     compileOptions {
         sourceCompatibility = Config.java_version
         targetCompatibility = Config.java_version

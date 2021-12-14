@@ -51,6 +51,10 @@ dependencies {
     implementation(Design.MATERIAL)
     implementation(Design.CONSTRAINT_LAYOUT)
 
+    // Modules
+    implementation(project(Modules.MODULE_DOMAIN))
+    implementation(project(Modules.MODULE_UTILS))
+
     //Tests
     testImplementation(Tests.JUNIT)
     androidTestImplementation(Tests.TEST_EXT_JUNIT)
