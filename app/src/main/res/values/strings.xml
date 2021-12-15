@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Mobile Waiter</string>
+    <string name="nav_header_logo_description">Логотип</string>
+    <string name="nav_header_user_icon_description">Иконка пользователя</string>
+    <string name="nav_header_sample_company_title">Company title</string>
+    <string name="nav_header_sample_user_group">User group</string>
+    <string name="nav_header_sample_user_login">User login</string>
 </resources>
