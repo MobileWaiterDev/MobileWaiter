@@ -27,6 +27,8 @@ object LibVersion {
     const val APPCOMPAT_VERSION = "1.3.1"
     const val ANDROID_MATERIAL_VERSION = "1.4.0"
     const val CONSTRAINT_LAYOUT_VERSION = "2.1.2"
+    const val NAVIGATION_FRAGMENT_VERSION = "2.3.5"
+    const val NAVIGATION_UI_KTX_VERSION = "2.3.5"
 
     // Tests
     const val JUNIT_VERSION = "4.13.2"
@@ -39,6 +41,8 @@ object Design {
     const val APPCOMPAT = "androidx.appcompat:appcompat:${LibVersion.APPCOMPAT_VERSION}"
     const val MATERIAL = "com.google.android.material:material:${LibVersion.ANDROID_MATERIAL_VERSION}"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${LibVersion.CONSTRAINT_LAYOUT_VERSION}"
+    const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment:${LibVersion.NAVIGATION_FRAGMENT_VERSION}"
+    const val NAVIGATION_UI_KTX = "androidx.navigation:navigation-ui-ktx:${LibVersion.NAVIGATION_UI_KTX_VERSION}"
 }
 
 object Kotlin {
