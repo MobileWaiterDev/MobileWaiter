@@ -8,3 +8,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Mobile Waiter"
 include ':app'
+include ':utils'
+include ':core'
+include ':ui'
