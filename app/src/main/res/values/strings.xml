@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Mobile Waiter</string>
+    <string name="menu_login">Вход/Смена пользователя</string>
+    <string name="menu_bills">Счета</string>
 </resources>
