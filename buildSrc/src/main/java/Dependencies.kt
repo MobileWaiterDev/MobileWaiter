@@ -13,11 +13,9 @@ object Config {
 
 //Наши модули
 object Modules {
-    const val MODULE_DOMAIN = ":domain"
+    const val MODULE_CORE = ":core"
     const val MODULE_UTILS = ":utils"
-    const val MODULE_BILLS = ":screenbills"
-    const val MODULE_BILL = ":screenbill"
-    const val MODULE_TABLES = ":screentables"
+    const val MODULE_UI = ":ui"
 }
 
 //Версии библиотек
