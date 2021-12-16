@@ -1,11 +1,3 @@
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
-    }
-}
 rootProject.name = "Mobile Waiter"
 include ':app'
 include ':utils'
@@ -13,3 +5,4 @@ include ':core'
 include ':ui'
 include ':models'
 include ':repository'
+include ':domain'
