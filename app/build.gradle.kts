@@ -43,6 +43,9 @@ android {
 
 dependencies {
 
+    implementation(project(Modules.MODULE_CORE))
+
+
     // Kotlin
     implementation(Kotlin.CORE)
 
@@ -55,4 +58,5 @@ dependencies {
     testImplementation(Tests.JUNIT)
     androidTestImplementation(Tests.TEST_EXT_JUNIT)
     androidTestImplementation(Tests.ESPRESSO)
+
 }

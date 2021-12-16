@@ -20,7 +20,7 @@ android {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -40,7 +40,8 @@ android {
 }
 
 dependencies {
-
+     //Modules
+    implementation(project(Modules.MODULE_MODELS))
     // Kotlin
     implementation(Kotlin.CORE)
 
