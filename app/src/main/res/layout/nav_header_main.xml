@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@color/white"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/nav_header_logo_height"
+        android:contentDescription="@string/nav_header_logo_description"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@id/user_panel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/nav_header_logo_width_percent"
+        tools:src="@tools:sample/avatars" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/user_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_header_user_panel_height"
+        android:background="#949494"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/nav_header_title_margin_horizontal"
+            android:layout_marginVertical="@dimen/nav_header_title_margin_vertical"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/nav_header_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/nav_header_sample_company_title" />
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="@dimen/nav_header_user_icon_size"
+            android:layout_height="@dimen/nav_header_user_icon_size"
+            android:layout_marginHorizontal="@dimen/nav_header_user_icon_margin_horizontal"
+            android:layout_marginTop="@dimen/nav_header_user_icon_margin_top"
+            android:contentDescription="@string/nav_header_user_icon_description"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/user_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/nav_header_user_margin_start"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/nav_header_user_text_size"
+            app:layout_constraintBottom_toTopOf="@id/user_name"
+            app:layout_constraintStart_toEndOf="@id/user_icon"
+            app:layout_constraintTop_toTopOf="@id/user_icon"
+            tools:text="@string/nav_header_sample_user_group" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/nav_header_user_margin_start"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/nav_header_user_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/user_icon"
+            app:layout_constraintStart_toEndOf="@id/user_icon"
+            app:layout_constraintTop_toBottomOf="@id/user_group"
+            tools:text="@string/nav_header_sample_user_login" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
