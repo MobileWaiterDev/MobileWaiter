@@ -8,9 +8,20 @@
             android:id="@+id/nav_bills"
             android:icon="@drawable/ic_nav_bills"
             android:title="@string/menu_bills" />
+
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_nav_login"
             android:title="@string/menu_login" />
+
+        <item
+            android:id="@+id/nav_tables"
+            android:icon="@drawable/ic_nav_bills"
+            android:title="@string/menu_tables" />
+
+        <item
+            android:id="@+id/nav_bill"
+            android:icon="@drawable/ic_nav_bills"
+            android:title="@string/menu_bill" />
     </group>
 </menu>

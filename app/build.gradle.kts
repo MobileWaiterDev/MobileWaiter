@@ -39,19 +39,26 @@ android {
     buildFeatures {
         android.buildFeatures.viewBinding = true
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
 
+    implementation(project(Modules.MODULE_UI))
+
     // Kotlin
     implementation(Kotlin.CORE)
+    implementation(Kotlin.STDLIB)
 
     // Design
     implementation(Design.APPCOMPAT)
     implementation(Design.MATERIAL)
     implementation(Design.CONSTRAINT_LAYOUT)
-    implementation(Design.NAVIGATION_FRAGMENT)
-    implementation(Design.NAVIGATION_UI_KTX)
 
     //Tests
     testImplementation(Tests.JUNIT)

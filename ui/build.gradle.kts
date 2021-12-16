@@ -1,39 +1,17 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("kotlin-parcelize")
     kotlin("android")
     kotlin("kapt")
+    id("kotlin-android")
 }
 
 android {
     compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
-        applicationId = Config.APPLICATION_ID
         minSdk = Config.MIN_SDK_VERSION
         targetSdk = Config.TARGET_SDK
-        versionCode = Config.VERSION_CODE
-        versionName = Config.VERSION_NAME
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            )
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = Config.java_version
-        targetCompatibility = Config.java_version
-    }
-
-    kotlinOptions {
-        jvmTarget = Config.JVM_TARGET
     }
 
     buildFeatures {
@@ -43,13 +21,28 @@ android {
 
 dependencies {
 
+    implementation(project(Modules.MODULE_DOMAIN))
+    implementation(project(Modules.MODULE_UTILS))
+    implementation(project(Modules.MODULE_CORE))
+
+    implementation(Design.NAVIGATION_FRAGMENT)
+    implementation(Design.NAVIGATION_UI_KTX)
+
     // Kotlin
     implementation(Kotlin.CORE)
+    implementation(Kotlin.STDLIB)
 
     // Design
     implementation(Design.APPCOMPAT)
     implementation(Design.MATERIAL)
     implementation(Design.CONSTRAINT_LAYOUT)
+
+    // LifeCycle
+    implementation(LifeCycle.LIVEDATA_KTX)
+    implementation(LifeCycle.VIEW_MODEL_KTX)
+
+    // ViewBindingPropertyDelegate
+    implementation(ViewBindingDelegate.DELEGATE)
 
     //Tests
     testImplementation(Tests.JUNIT)
