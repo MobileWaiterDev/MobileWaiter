@@ -50,6 +50,8 @@ dependencies {
     implementation(Design.APPCOMPAT)
     implementation(Design.MATERIAL)
     implementation(Design.CONSTRAINT_LAYOUT)
+    implementation(Design.NAVIGATION_FRAGMENT)
+    implementation(Design.NAVIGATION_UI_KTX)
 
     //Tests
     testImplementation(Tests.JUNIT)
