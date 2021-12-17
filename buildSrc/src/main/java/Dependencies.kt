@@ -14,6 +14,8 @@ object Config {
 //Наши модули
 object Modules {
     const val MODULE_CORE = ":core"
+    const val MODULE_MODELS = ":models"
+    const val MODULE_REPOSITORY = ":repository"
     const val MODULE_UTILS = ":utils"
     const val MODULE_UI = ":ui"
     const val MODULE_DOMAIN = ":domain"

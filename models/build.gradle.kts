@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("kotlin-parcelize")
     kotlin("android")
     kotlin("kapt")
@@ -9,11 +9,9 @@ android {
     compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
-        applicationId = Config.APPLICATION_ID
         minSdk = Config.MIN_SDK_VERSION
         targetSdk = Config.TARGET_SDK
-        versionCode = Config.VERSION_CODE
-        versionName = Config.VERSION_NAME
+
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,7 +20,7 @@ android {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -39,22 +37,12 @@ android {
     buildFeatures {
         android.buildFeatures.viewBinding = true
     }
-
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
 }
 
 dependencies {
 
-    implementation(project(Modules.MODULE_CORE))
-    implementation(project(Modules.MODULE_UI))
-
     // Kotlin
     implementation(Kotlin.CORE)
-    implementation(Kotlin.STDLIB)
 
     // Design
     implementation(Design.APPCOMPAT)
@@ -65,5 +53,4 @@ dependencies {
     testImplementation(Tests.JUNIT)
     androidTestImplementation(Tests.TEST_EXT_JUNIT)
     androidTestImplementation(Tests.ESPRESSO)
-
 }
