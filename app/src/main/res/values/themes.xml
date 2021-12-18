@@ -37,4 +37,12 @@
         <item name="spinBars">true</item>
         <item name="color">#828896</item>
     </style>
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/SwitchButton</item>
+    </style>
+    <style name="SwitchButton" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:textSize">20sp</item>
+        <item name="colorOnSurface">@color/gray</item>
+        <item name="colorSecondary">@color/primary_blue_500</item>
+    </style>
 </resources>

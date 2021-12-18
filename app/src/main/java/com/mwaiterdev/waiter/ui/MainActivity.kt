@@ -13,7 +13,7 @@ import com.google.android.material.navigation.NavigationView
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TitleToolbarListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val viewBinding: ActivityMainBinding by viewBinding()
@@ -45,5 +45,9 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.container)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun updateTitle(title: String) {
+        viewBinding.appBarMain.toolbar.title = title
     }
 }

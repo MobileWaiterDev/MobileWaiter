@@ -27,5 +27,6 @@
     <dimen name="activity_main_version_margin_bottom">16dp</dimen>
     <dimen name="activity_main_version_text_size">16sp</dimen>
     <dimen name="nav_header_user_panel_margin_top">150dp</dimen>
+    <dimen name="margin_filter_component">7dp</dimen>
     <item name="nav_header_logo_width_percent" format="float" type="dimen">0.8</item>
 </resources>

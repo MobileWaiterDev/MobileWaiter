@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/nav_bills"
         android:name="com.mwaiterdev.waiter.ui.bills.BillsFragment"
-        android:label="@string/menu_bills"
         tools:layout="@layout/fragment_bills" />
 
     <fragment

@@ -12,4 +12,8 @@
     <string name="menu_bill">Счет</string>
     <string name="activity_main_exit_button_text">Выход</string>
     <string name="version">Версия ....</string>
+    <string name="menu_item_hals">Залы</string>
+    <string name="menu_item_my_bills">Мои</string>
+    <string name="all_hals_switcher">Все залы</string>
+    <string name="mine_bills_switcher">Мои</string>
 </resources>
