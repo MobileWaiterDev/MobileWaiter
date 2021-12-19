@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item
+            android:id="@+id/hals"
+            android:title="@string/menu_item_hals"
+            app:actionViewClass="com.google.android.material.chip.Chip"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/my_bills"
+            android:title="@string/menu_item_my_bills"
+            app:actionViewClass="android.widget.Switch"
+            android:tooltipText="text"
+            app:showAsAction="ifRoom"/>
+</menu>

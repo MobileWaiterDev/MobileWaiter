@@ -50,6 +50,7 @@ android {
 dependencies {
 
     implementation(project(Modules.MODULE_CORE))
+    implementation(project(Modules.MODULE_DOMAIN))
 
     implementation(Design.NAVIGATION_FRAGMENT)
     implementation(Design.NAVIGATION_UI_KTX)

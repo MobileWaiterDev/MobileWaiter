@@ -27,5 +27,10 @@
     <dimen name="activity_main_version_margin_bottom">16dp</dimen>
     <dimen name="activity_main_version_text_size">16sp</dimen>
     <dimen name="nav_header_user_panel_margin_top">150dp</dimen>
+    <dimen name="margin_filter_component">7dp</dimen>
+    <dimen name="item_bills_margin_text_view">5dp</dimen>
+    <dimen name="item_bills_text_size">15sp</dimen>
+    <dimen name="item_table_cardview_margin">5dp</dimen>
+    <dimen name="item_table_cardview_textsize">15sp</dimen>
     <item name="nav_header_logo_width_percent" format="float" type="dimen">0.8</item>
 </resources>

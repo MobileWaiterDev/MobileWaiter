@@ -2,202 +2,446 @@ package com.mwaiterdev.domain.repository
 
 import com.mwaiterdev.domain.models.*
 
-fun mockDataWaitress(): Waitress =
-    Waitress(
-        1,
-        "Младший офицант",
-        "Гаврил Гаврилов",
-        listOf<Hall>(
-            Hall(
-                11,
-                "Зал 1",
-                listOf<Table>(
-                    Table(
-                        111, 11, 2, true, 1,
-                        Bills(
-                            1111,
-                            1,
-                            listOf(
-                                Orders(1111, "Бифштекс", 500f),
-                                Orders(1112, "Картофель", 200f),
-                                Orders(1113, "Чай", 150f)
-                            )
-                        )
-                    ),
-                    Table(
-                        222, 11, 2, true, 1,
-                        Bills(
-                            2222,
-                            1,
-                            listOf(
-                                Orders(1111, "Мясо", 500f),
-                                Orders(1112, "Картофель", 200f),
-                                Orders(1113, "Кофе", 150f)
-                            )
-                        )
+fun mockDataWaitress(): User = User(
+    1,1, "Василий", true, 1234
+)
+
+fun mockDataHalls() : List<TableGroup> = listOf(TableGroup(
+    1,
+    "Зал 1",
+    true,
+    listOf(
+        Table(
+            1,
+            1,
+            "Table 1",
+            "Busy",
+            true,
+            2,
+            "Василий",
+            Bill(
+                1,
+                1,
+                1,
+                1200,
+                1555.00f,
+                1555.00f,
+                "Vasya",
+                1212,
+                "Name",
+                true,
+                listOf(
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                )
+            )
+        ),
+        Table(
+            1,
+            1,
+            "Table 1",
+            "Busy",
+            true,
+            2,
+            "Василий",
+            Bill(
+                1,
+                1,
+                1,
+                1200,
+                1555.00f,
+                1555.00f,
+                "Vasya",
+                1212,
+                "Name",
+                true,
+                listOf(
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                )
+            )
+        ),
+        Table(
+            1,
+            1,
+            "Table 1",
+            "Busy",
+            true,
+            2,
+            "Василий",
+            Bill(
+                1,
+                1,
+                1,
+                1200,
+                1555.00f,
+                1555.00f,
+                "Vasya",
+                1212,
+                "Name",
+                true,
+                listOf(
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                )
+            )
+        ),
+        Table(
+            1,
+            1,
+            "Table 1",
+            "Busy",
+            true,
+            2,
+            "Василий",
+            Bill(
+                1,
+                1,
+                1,
+                1200,
+                1555.00f,
+                1555.00f,
+                "Vasya",
+                1212,
+                "Name",
+                true,
+                listOf(
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                    Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                )
+            )
+        )
+    )
+),
+    TableGroup(
+        1, "Зал 2", true,
+        listOf(
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
                     )
                 )
             ),
-            Hall(
-                22,
-                "Зал 2",
-                listOf<Table>(
-                    Table(
-                        333, 22, 2, true, 1,
-                        Bills(
-                            1111,
-                            1,
-                            listOf(
-                                Orders(1111, "Бифштекс", 500f),
-                                Orders(1112, "Картофель", 200f),
-                                Orders(1113, "Чай", 150f)
-                            )
-                        )
-                    ),
-                    Table(
-                        222, 11, 2, true, 1,
-                        Bills(
-                            2222,
-                            1,
-                            listOf(
-                                Orders(1111, "Мясо", 500f),
-                                Orders(1112, "Картофель", 200f),
-                                Orders(1113, "Кофе", 150f)
-                            )
-                        )
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                    )
+                )
+            ),
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                    )
+                )
+            ),
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                    )
+                )
+            )
+        )
+    ),
+    TableGroup(
+        1, "Зал 3", true,
+        listOf(
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                    )
+                )
+            ),
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                    )
+                )
+            ),
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                    )
+                )
+            ),
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                    )
+                )
+            )
+        )
+    ),
+    TableGroup(
+        1, "Зал 4", true,
+        listOf(
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                    )
+                )
+            ),
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                    )
+                )
+            ),
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
+                    )
+                )
+            ),
+            Table(
+                1,
+                1,
+                "Table 1",
+                "Busy",
+                true,
+                2,
+                "Василий",
+                Bill(
+                    1,
+                    1,
+                    1,
+                    1200,
+                    1555.00f,
+                    1555.00f,
+                    "Vasya",
+                    1212,
+                    "Name",
+                    true,
+                    listOf(
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12)),
+                        Item(1 ,1,"Beef Stake","Kotleta",true, Price(1,12))
                     )
                 )
             )
         )
     )
-
-fun mockDataHalls() = listOf<Hall>(
-    Hall(
-        11,
-        "Зал 1",
-        listOf<Table>(
-            Table(
-                111, 11, 2, true, 1,
-                Bills(
-                    1111,
-                    1,
-                    listOf(
-                        Orders(1111, "Бифштекс", 500f),
-                        Orders(1112, "Картофель", 200f),
-                        Orders(1113, "Чай", 150f)
-                    )
-                )
-            ),
-            Table(
-                222, 11, 2, true, 1,
-                Bills(
-                    2222,
-                    1,
-                    listOf(
-                        Orders(1111, "Мясо", 500f),
-                        Orders(1112, "Картофель", 200f),
-                        Orders(1113, "Кофе", 150f)
-                    )
-                )
-            ),
-
-            Table(
-                222, 11, 2, true, 1,
-                Bills(
-                    2222,
-                    1,
-                    listOf(
-                        Orders(1111, "Мясо", 500f),
-                        Orders(1112, "Картофель", 200f),
-                        Orders(1113, "Кофе", 150f)
-                    )
-                )
-            )
-
-        )
-    ),
-    Hall(
-        22,
-        "Зал 2",
-        listOf<Table>(
-            Table(
-                333, 22, 2, true, 1,
-                Bills(
-                    1111,
-                    1,
-                    listOf(
-                        Orders(1111, "Бифштекс", 500f),
-                        Orders(1112, "Картофель", 200f),
-                        Orders(1113, "Чай", 150f)
-                    )
-                )
-            ),
-            Table(
-                222, 11, 2, true, 1,
-                Bills(
-                    2222,
-                    1,
-                    listOf(
-                        Orders(1111, "Мясо", 500f),
-                        Orders(1112, "Картофель", 200f),
-                        Orders(1113, "Кофе", 150f)
-                    )
-                )
-            ),
-            Table(
-                222, 11, 2, true, 1,
-                Bills(
-                    2222,
-                    1,
-                    listOf(
-                        Orders(1111, "Мясо", 500f),
-                        Orders(1112, "Картофель", 200f),
-                        Orders(1113, "Кофе", 150f)
-                    )
-                )
-            )
-        )
-    ),
-    Hall(
-        22,
-        "Зал 3",
-        listOf<Table>(
-            Table(
-                333, 22, 2, true, 1,
-                Bills(
-                    1111,
-                    1,
-                    listOf(
-                        Orders(1111, "Бифштекс", 500f),
-                        Orders(1112, "Картофель", 200f),
-                        Orders(1113, "Чай", 150f)
-                    )
-                )
-            ),
-            Table(
-                222, 11, 2, true, 1,
-                Bills(
-                    2222,
-                    1,
-                    listOf(
-                        Orders(1111, "Мясо", 500f),
-                        Orders(1112, "Картофель", 200f),
-                        Orders(1113, "Кофе", 150f)
-                    )
-                )
-            ),
-            Table(
-                222, 11, 2, true, 1,
-                Bills(
-                    2222,
-                    1,
-                    listOf(
-                        Orders(1111, "Мясо", 500f),
-                        Orders(1112, "Картофель", 200f),
-                        Orders(1113, "Кофе", 150f)
-                    )
-                )
-            )
-        )
-    ),
 )

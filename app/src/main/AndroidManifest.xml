@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileWaiter">
         <activity
-            android:name=".ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.MobileWaiter.NoActionBar">
+            android:theme="@style/Theme.MobileWaiter.NoActionBar"
+            android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

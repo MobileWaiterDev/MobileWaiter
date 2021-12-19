@@ -12,4 +12,8 @@
     <string name="menu_bill">Bill</string>
     <string name="activity_main_exit_button_text">Exit</string>
     <string name="version">Version ....</string>
+    <string name="menu_item_hals">hals</string>
+    <string name="menu_item_my_bills">my bills</string>
+    <string name="all_hals_switcher">All hals</string>
+    <string name="mine_bills_switcher">Mine</string>
 </resources>
