@@ -34,19 +34,22 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
 
     private fun setFloatingActionButtonListener() {
         viewBinding.addBill.setOnClickListener {
-            NavHostFragment.findNavController(this).navigate(R.id.nav_bill)
+            NavHostFragment.findNavController(this).navigate(R.id.nav_tables)
         }
+    }
+    private fun setBillItemListener() = View.OnClickListener {
+            NavHostFragment.findNavController(this).navigate(R.id.nav_bill)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
-        viewModel.gedData()
+        viewModel.getData()
     }
 
     private fun renderData(appState: AppState?) {
         when (appState) {
             is AppState.Success -> {
-                viewBinding.billsRecycleView.adapter = AdapterBills(appState.data)
+                viewBinding.billsRecycleView.adapter = AdapterBills(appState.data, setBillItemListener())
                 (activity as TitleToolbarListener).updateTitle(appState.data[0].tables[0].userObserverName)
             }
         }

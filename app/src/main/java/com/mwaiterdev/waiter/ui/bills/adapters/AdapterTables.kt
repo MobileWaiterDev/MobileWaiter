@@ -1,14 +1,15 @@
 package com.mwaiterdev.waiter.ui.bills.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mwaiterdev.domain.models.Table
-import com.mwaiterdev.domain.models.TableGroup
 import com.mwaiterdev.waiter.databinding.ItemTableCardviewBinding
 
 class AdapterTables(
-    private val data: List<Table>
+    private val data: List<Table>,
+    private  val billItemListener: View.OnClickListener
 ) : RecyclerView.Adapter<AdapterTables.ItemTable>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTable = ItemTable(
         ItemTableCardviewBinding.inflate(
@@ -33,7 +34,7 @@ class AdapterTables(
               binding.totalBill.text = data[position].bill.total.toString()
               binding.waitressObserve.text = data[position].userObserverName
               binding.orderRecycleView.adapter = AdapterOrders(data[position].bill.orders)
-
+              binding.root.setOnClickListener(billItemListener)
         }
     }
 }
