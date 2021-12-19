@@ -1,10 +1,12 @@
 package com.mwaiterdev.domain.models
 
 data class Table(
-    val id: Int,
-    val idHall : Int,
-    val countOfGuests: Int,
-    val isReserved: Boolean,
-    val waitressId: Int?,
-    val bill: Bills?
+    val tableId: Int,
+    val tableGroupId : Int,
+    val name: String,
+    val state: String,
+    val askCustomers: Boolean,
+    val maxCustomers: Int,
+    val userObserverName: String,
+    val bill : Bill
 )

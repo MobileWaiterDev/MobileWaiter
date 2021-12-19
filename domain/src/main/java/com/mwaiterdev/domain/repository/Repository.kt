@@ -1,9 +1,9 @@
 package com.mwaiterdev.domain.repository
 
-import com.mwaiterdev.domain.models.Hall
-import com.mwaiterdev.domain.models.Waitress
+import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.models.User
 
 interface Repository {
-    fun getWaitress(id: Int): Waitress
-    fun getHalls(): List<Hall>
+    suspend fun getWaitress(id: Int): User
+    suspend fun getHalls(): List<TableGroup>
 }

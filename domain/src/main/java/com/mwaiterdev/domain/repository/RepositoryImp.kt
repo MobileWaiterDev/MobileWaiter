@@ -1,7 +1,10 @@
 package com.mwaiterdev.domain.repository
 
+import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.models.User
+
 class RepositoryImp : Repository {
-    override fun getWaitress(id: Int): com.mwaiterdev.domain.models.Waitress = mockDataWaitress()
-    override fun getHalls(): List<com.mwaiterdev.domain.models.Hall> = mockDataHalls()
+    override suspend fun getWaitress(id: Int): User = mockDataWaitress()
+    override suspend fun getHalls(): List<TableGroup> = mockDataHalls()
 }
 
