@@ -43,7 +43,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
-        viewModel.gedData()
+        viewModel.getData()
     }
 
     private fun renderData(appState: AppState?) {

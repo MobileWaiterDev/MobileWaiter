@@ -1,41 +1,25 @@
 package com.mwaiterdev.waiter.ui.bills
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.mwaiterdev.domain.AppState
 import com.mwaiterdev.domain.repository.Repository
 import com.mwaiterdev.domain.repository.RepositoryImp
-import kotlinx.coroutines.*
+import com.mwaiterdev.waiter.ui.base.BaseViewModel
+import kotlinx.coroutines.launch
 
 class BillsViewModel(
     private val repository: Repository = RepositoryImp()
-) : ViewModel() {
-    private val liveData = MutableLiveData<AppState>()
-    private val viewModelScopeCoroutine = CoroutineScope(
-        Dispatchers.IO
-                + SupervisorJob()
-                + CoroutineExceptionHandler { _, throwable ->
-            handleError(throwable)
-        }
-    )
+) : BaseViewModel() {
 
-    private fun handleError(throwable: Throwable) {
-        liveData.postValue(AppState.Error(throwable))
+    override fun handleError(throwable: Throwable) {
+        customLiveData.postValue(AppState.Error(throwable))
     }
 
-    fun getLiveData() = liveData
-    fun gedData() {
+    override fun getData() {
         viewModelScopeCoroutine.launch {
-            liveData.postValue(
+            customLiveData.postValue(
                 AppState.Success(repository.getHalls())
             )
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelScopeCoroutine
-            .coroutineContext
-            .cancel()
-    }
 }
