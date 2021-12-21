@@ -20,6 +20,10 @@ dependencies {
     implementation(Kotlin.CORE)
     implementation(Kotlin.STDLIB)
 
+    // Design
+    implementation(Design.APPCOMPAT)
+    implementation(Design.MATERIAL)
+
     //Tests
     testImplementation(Tests.JUNIT)
     androidTestImplementation(Tests.TEST_EXT_JUNIT)

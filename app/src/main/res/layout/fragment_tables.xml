@@ -34,4 +34,15 @@
         app:showText="true"
         app:track="@drawable/custom_track" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tables_list"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/zero"
+        android:layout_marginTop="@dimen/fragment_tables_tables_list_margin_top"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_table_groups" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
