@@ -16,4 +16,5 @@
     <string name="menu_item_my_bills">my bills</string>
     <string name="all_hals_switcher">All hals</string>
     <string name="mine_bills_switcher">Mine</string>
+    <string name="empty" />
 </resources>

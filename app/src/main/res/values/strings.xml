@@ -16,4 +16,5 @@
     <string name="menu_item_my_bills">Мои</string>
     <string name="all_hals_switcher">Все залы</string>
     <string name="mine_bills_switcher">Мои</string>
+    <string name="empty" />
 </resources>

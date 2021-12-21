@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity(), TitleToolbarListener {
         val drawerLayout: DrawerLayout = viewBinding.drawerLayout
         val navView: NavigationView = viewBinding.navView
         val navController = findNavController(R.id.container)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_bills, R.id.nav_login
@@ -49,5 +48,13 @@ class MainActivity : AppCompatActivity(), TitleToolbarListener {
 
     override fun updateTitle(title: String) {
         viewBinding.appBarMain.toolbar.title = title
+    }
+
+    override fun showToolBar(isVisible: Boolean) {
+        if (isVisible) {
+            this.supportActionBar?.show()
+        } else {
+            this.supportActionBar?.hide()
+        }
     }
 }
