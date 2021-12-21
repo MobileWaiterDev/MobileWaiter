@@ -51,6 +51,7 @@ dependencies {
 
     implementation(project(Modules.MODULE_CORE))
     implementation(project(Modules.MODULE_DOMAIN))
+    implementation(project(Modules.MODULE_UTILS))
 
     implementation(Design.NAVIGATION_FRAGMENT)
     implementation(Design.NAVIGATION_UI_KTX)
@@ -71,5 +72,4 @@ dependencies {
     testImplementation(Tests.JUNIT)
     androidTestImplementation(Tests.TEST_EXT_JUNIT)
     androidTestImplementation(Tests.ESPRESSO)
-
 }

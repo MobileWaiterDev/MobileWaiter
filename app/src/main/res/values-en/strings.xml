@@ -17,4 +17,7 @@
     <string name="all_hals_switcher">All hals</string>
     <string name="mine_bills_switcher">Mine</string>
     <string name="empty" />
+    <string name="error_unknown_view_type">Неизвестный view type</string>
+    <string name="example_table_name">1</string>
+    <string name="example_table_group_name">Hall</string>
 </resources>

@@ -17,4 +17,7 @@
     <string name="all_hals_switcher">Все залы</string>
     <string name="mine_bills_switcher">Мои</string>
     <string name="empty" />
+    <string name="error_unknown_view_type">Unknown view type</string>
+    <string name="example_table_name">1</string>
+    <string name="example_table_group_name">ЗАЛ</string>
 </resources>

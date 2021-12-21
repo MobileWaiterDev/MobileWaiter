@@ -12,4 +12,10 @@ interface Repository {
      * @return List
      */
     suspend fun getTableGroups(): List<String>
+
+    /**
+     * Получить список столов для всех залов
+     * @return List
+     */
+    suspend fun getTableGroupsWithTables(): List<TableGroup>
 }

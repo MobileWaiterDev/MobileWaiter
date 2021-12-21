@@ -30,10 +30,10 @@ class AdapterTables(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: List<Table>, position: Int) {
               binding.tableName.text = data[position].name
-              binding.timeBooked.text = data[position].bill.createTime.toString()
-              binding.totalBill.text = data[position].bill.total.toString()
+              binding.timeBooked.text = data[position].bill?.createTime.toString()
+              binding.totalBill.text = data[position].bill?.total.toString()
               binding.waitressObserve.text = data[position].userObserverName
-              binding.orderRecycleView.adapter = AdapterOrders(data[position].bill.orders)
+              binding.orderRecycleView.adapter = data[position].bill?.orders?.let { AdapterOrders(it) }
               binding.root.setOnClickListener(billItemListener)
         }
     }
