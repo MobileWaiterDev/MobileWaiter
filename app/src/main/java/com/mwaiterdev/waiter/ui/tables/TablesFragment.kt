@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -16,13 +15,14 @@ import com.mwaiterdev.utils.extensions.showSnakeBar
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.FragmentTablesBinding
 import com.mwaiterdev.waiter.ui.tables.adapter.TablesAdapter
+import org.koin.android.ext.android.getKoin
 
 class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegate {
 
+    private val scope = getKoin().createScope<TablesFragment>()
+    private val viewModel: TablesViewModel = scope.get()
+
     private val viewBinding: FragmentTablesBinding by viewBinding()
-    private val viewModel by lazy {
-        ViewModelProvider(this).get(TablesViewModel::class.java)
-    }
 
     private val tablesAdapter by lazy { TablesAdapter(this) }
 
@@ -40,13 +40,13 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
         val gridLayoutManager = GridLayoutManager(context, HEADER_SIZE)
         /**
          * Определяем сколько ячеек занимать в зависимости от ItemViewType. Если это заголовок,
-         * то занимаем 4 ячейки. Если это товар, то соответственно одну.
+         * то занимаем 4 ячейки. Если это столик, то соответственно одну.
          */
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (tablesAdapter.getItemViewType(position) == TablesAdapter.HEADER) {
                     HEADER_SIZE
-                } else BILL_SIZE
+                } else TABLE_SIZE
             }
         }
 
@@ -95,6 +95,6 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
         fun newInstance() = TablesFragment()
 
         private const val HEADER_SIZE = 4
-        private const val BILL_SIZE = 1
+        private const val TABLE_SIZE = 1
     }
 }
