@@ -6,4 +6,16 @@ import com.mwaiterdev.domain.models.User
 interface Repository {
     suspend fun getWaitress(id: Int): User
     suspend fun getHalls(): List<TableGroup>
+
+    /**
+     * Получить список залов
+     * @return List
+     */
+    suspend fun getTableGroups(): List<String>
+
+    /**
+     * Получить список столов для всех залов
+     * @return List
+     */
+    suspend fun getTableGroupsWithTables(): List<TableGroup>
 }

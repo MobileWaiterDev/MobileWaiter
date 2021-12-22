@@ -33,7 +33,7 @@ class AdapterBills(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: List<TableGroup>, position: Int) {
             binding.hallsName.text = data[position].name
-            binding.billsCountAndSum.text = data[position].tables[position].bill.total.toString()
+            binding.billsCountAndSum.text = data[position].tables[position].bill?.total.toString()
             binding.tablesRecycleView.adapter = AdapterTables(data[position].tables, billItemListener)
             binding.root.setOnClickListener(hallItemListener(data, layoutPosition))
         }

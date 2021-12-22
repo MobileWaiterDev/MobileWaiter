@@ -7,13 +7,42 @@
     android:fitsSystemWindows="true"
     tools:context="com.mwaiterdev.waiter.ui.tables.TablesFragment">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_table_groups"
+        style="@style/Base.Widget.AppCompat.Spinner"
+        android:layout_width="@dimen/fragment_tables_spinner_width"
+        android:layout_height="@dimen/fragment_tables_spinner_height"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/fragment_tables_spinner_margin"
+        android:background="@drawable/spinner_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_expand"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_tables"
+        android:layout_height="@dimen/fragment_tables_switch_height"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/fragment_tables_switch_margin"
+        android:textOff="@string/empty"
+        android:textOn="@string/empty"
+        android:thumb="@drawable/custom_thumb"
+        app:layout_constraintStart_toEndOf="@id/spinner_table_groups"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showText="true"
+        app:track="@drawable/custom_track" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tables_list"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/zero"
+        android:layout_marginTop="@dimen/fragment_tables_tables_list_margin_top"
+        android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/spinner_table_groups" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
