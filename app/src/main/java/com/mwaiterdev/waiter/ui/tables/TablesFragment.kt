@@ -40,13 +40,13 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
         val gridLayoutManager = GridLayoutManager(context, HEADER_SIZE)
         /**
          * Определяем сколько ячеек занимать в зависимости от ItemViewType. Если это заголовок,
-         * то занимаем 4 ячейки. Если это товар, то соответственно одну.
+         * то занимаем 4 ячейки. Если это столик, то соответственно одну.
          */
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (tablesAdapter.getItemViewType(position) == TablesAdapter.HEADER) {
                     HEADER_SIZE
-                } else BILL_SIZE
+                } else TABLE_SIZE
             }
         }
 
@@ -95,6 +95,6 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
         fun newInstance() = TablesFragment()
 
         private const val HEADER_SIZE = 4
-        private const val BILL_SIZE = 1
+        private const val TABLE_SIZE = 1
     }
 }
