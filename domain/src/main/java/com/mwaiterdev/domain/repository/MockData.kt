@@ -709,3 +709,117 @@ fun mockTableGroupsWithTables(): List<TableGroup> = listOf(
         )
     )
 )
+
+fun mockBillItems(): List<BillItem> =
+    listOf(
+        BillItem(
+            billItemId = 1,
+            billId = 1,
+            itemId = 1,
+            amount = 2,
+            price = 5.0f,
+            subTotal = 10.0f,
+            total = 10.0f,
+            createTime = "2021-12-12 09:35:00"
+        ),
+        BillItem(
+            billItemId = 2,
+            billId = 1,
+            itemId = 5,
+            amount = 1,
+            price = 8.0f,
+            subTotal = 8.0f,
+            total = 8.0f,
+            createTime = "2021-12-12 09:35:15"
+        ),
+        BillItem(
+            billItemId = 3,
+            billId = 1,
+            itemId = 7,
+            amount = 3,
+            price = 12.5f,
+            subTotal = 37.5f,
+            total = 37.5f,
+            createTime = "2021-12-12 09:35:50"
+        )
+    )
+
+fun mockItemGroups(): List<ItemGroup> =
+    listOf(
+        ItemGroup(
+            itemGroupId = 1,
+            name = "Пицца",
+            shortName = "П-ца",
+            available = true
+        ),
+        ItemGroup(
+            itemGroupId = 2,
+            name = "Фрукты",
+            shortName = "Фр-ты",
+            available = true
+        ),
+        ItemGroup(
+            itemGroupId = 3,
+            name = "Сигареты",
+            shortName = "Сиг-ты",
+            available = true
+        ),
+        ItemGroup(
+            itemGroupId = 4,
+            name = "Конфеты",
+            shortName = "Конф.",
+            available = true
+        ),
+    )
+
+fun mockItems(): List<Item> =
+    listOf(
+        Item(
+            itemId = 1,
+            itemGroupId = 1,
+            name = "Пеперони",
+            shorName = "Пеперони",
+            available = true,
+            price = Price(itemId = 1, price = 350)
+        ),
+        Item(
+            itemId = 2,
+            itemGroupId = 1,
+            name = "Четыре сыра",
+            shorName = "Четыре сыра",
+            available = true,
+            price = Price(itemId = 2, price = 360)
+        ),
+        Item(
+            itemId = 3,
+            itemGroupId = 2,
+            name = "Яблоки",
+            shorName = "Яблоки",
+            available = true,
+            price = Price(itemId = 3, price = 180)
+        ),
+        Item(
+            itemId = 4,
+            itemGroupId = 2,
+            name = "Апельсины",
+            shorName = "Апельсины",
+            available = true,
+            price = Price(itemId = 4, price = 190)
+        ),
+        Item(
+            itemId = 5,
+            itemGroupId = 4,
+            name = "Золотой ключик",
+            shorName = "Золотой ключик",
+            available = true,
+            price = Price(itemId = 5, price = 120)
+        ),
+        Item(
+            itemId = 6,
+            itemGroupId = 4,
+            name = "Рачки",
+            shorName = "Рачки",
+            available = true,
+            price = Price(itemId = 5, price = 135)
+        )
+    )

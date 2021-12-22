@@ -1,7 +1,6 @@
 package com.mwaiterdev.domain.repository
 
-import com.mwaiterdev.domain.models.TableGroup
-import com.mwaiterdev.domain.models.User
+import com.mwaiterdev.domain.models.*
 
 interface Repository {
     suspend fun getWaitress(id: Int): User
@@ -18,4 +17,22 @@ interface Repository {
      * @return List
      */
     suspend fun getTableGroupsWithTables(): List<TableGroup>
+
+    /**
+     * Получить список товаров для счета
+     * @return List
+     */
+    suspend fun getBillItems(billId: Long): List<BillItem>
+
+    /**
+     * Получить список категорий товаров меню
+     * @return List
+     */
+    suspend fun getItemGroups(): List<ItemGroup>
+
+    /**
+     * Получить список товаров меню
+     * @return List
+     */
+    suspend fun getItems(): List<Item>
 }

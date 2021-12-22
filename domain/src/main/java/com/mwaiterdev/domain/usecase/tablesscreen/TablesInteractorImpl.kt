@@ -1,4 +1,4 @@
-package com.mwaiterdev.waiter.ui.tables
+package com.mwaiterdev.domain.usecase.tablesscreen
 
 import com.mwaiterdev.domain.models.ITableItem
 import com.mwaiterdev.domain.models.TableGroupItem

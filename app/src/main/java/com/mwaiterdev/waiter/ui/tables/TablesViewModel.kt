@@ -1,7 +1,9 @@
 package com.mwaiterdev.waiter.ui.tables
 
-import com.mwaiterdev.domain.ScreenTablesState
+import com.mwaiterdev.domain.ScreenState
 import com.mwaiterdev.domain.repository.RepositoryImp
+import com.mwaiterdev.domain.usecase.tablesscreen.ITablesInteractor
+import com.mwaiterdev.domain.usecase.tablesscreen.TablesInteractorImpl
 import kotlinx.coroutines.launch
 
 class TablesViewModel(
@@ -12,7 +14,7 @@ class TablesViewModel(
         viewModelScopeCoroutine.launch {
             val result = interactor.getFilterTables()
             if (result.isNullOrEmpty().not()) {
-                getTablesLiveData().postValue(ScreenTablesState.Success(result))
+                getTablesLiveData().postValue(ScreenState.Success(result))
             }
         }
     }
@@ -21,7 +23,7 @@ class TablesViewModel(
         viewModelScopeCoroutine.launch {
             val result = interactor.getTableGroups()
             if (result.isNullOrEmpty().not()) {
-                getTableGroupsLiveData().postValue(ScreenTablesState.Success(result))
+                getTableGroupsLiveData().postValue(ScreenState.Success(result))
             }
         }
     }
