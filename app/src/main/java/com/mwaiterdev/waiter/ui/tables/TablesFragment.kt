@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -16,13 +15,14 @@ import com.mwaiterdev.utils.extensions.showSnakeBar
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.FragmentTablesBinding
 import com.mwaiterdev.waiter.ui.tables.adapter.TablesAdapter
+import org.koin.android.ext.android.getKoin
 
 class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegate {
 
+    private val scope = getKoin().createScope<TablesFragment>()
+    private val viewModel: TablesViewModel = scope.get()
+
     private val viewBinding: FragmentTablesBinding by viewBinding()
-    private val viewModel by lazy {
-        ViewModelProvider(this).get(TablesViewModel::class.java)
-    }
 
     private val tablesAdapter by lazy { TablesAdapter(this) }
 
