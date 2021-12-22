@@ -49,12 +49,10 @@ android {
 
 dependencies {
 
+    //Modules
     implementation(project(Modules.MODULE_CORE))
     implementation(project(Modules.MODULE_DOMAIN))
     implementation(project(Modules.MODULE_UTILS))
-
-    implementation(Design.NAVIGATION_FRAGMENT)
-    implementation(Design.NAVIGATION_UI_KTX)
 
     // ViewBindingPropertyDelegate
     implementation(ViewBindingDelegate.DELEGATE)
@@ -67,6 +65,15 @@ dependencies {
     implementation(Design.APPCOMPAT)
     implementation(Design.MATERIAL)
     implementation(Design.CONSTRAINT_LAYOUT)
+    implementation(Design.NAVIGATION_FRAGMENT)
+    implementation(Design.NAVIGATION_UI_KTX)
+
+    // Koin
+    implementation(Koin.ANDROID)
+    implementation(Koin.ANDROID_COMPAT)
+    implementation(Koin.CORE)
+    implementation(Koin.TEST)
+    implementation(Koin.TEST_JUNIT4)
 
     //Tests
     testImplementation(Tests.JUNIT)
