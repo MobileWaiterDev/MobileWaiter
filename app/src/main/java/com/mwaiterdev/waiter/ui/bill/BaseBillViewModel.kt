@@ -10,7 +10,8 @@ abstract class BaseBillViewModel : ViewModel() {
     private val billItemLiveData = MutableLiveData<ScreenState>()
     private val itemListLiveData = MutableLiveData<ScreenState>()
     private val itemGroupListLiveData = MutableLiveData<ScreenState>()
-    private val operationLiveData = MutableLiveData<ScreenState>()
+    private val operationLiveData = MutableLiveData<Boolean>()
+
     protected val viewModelScopeCoroutine = CoroutineScope(
         Dispatchers.IO
                 + SupervisorJob()
@@ -21,7 +22,7 @@ abstract class BaseBillViewModel : ViewModel() {
 
     abstract fun getBillItems()
     abstract fun getItemGroups()
-    abstract fun getItems()
+    abstract fun getItems(itemGroupId: Long)
 
     fun getBillItemLiveData() = billItemLiveData
     fun getItemListLiveData() = itemListLiveData

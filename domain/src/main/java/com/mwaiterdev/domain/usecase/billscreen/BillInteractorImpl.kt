@@ -9,12 +9,12 @@ class BillInteractorImpl(
     private val repository: Repository
 ) : IBillInteractor {
 
-    override suspend fun getBillItems(billId: Long): List<BillItem> =
-        repository.getBillItems(billId=billId)
+    override suspend fun getBillItems(billId: Long): ArrayList<BillItem> =
+        repository.getBillItems(billId = billId)
 
-    override suspend fun getItemGroups(): List<ItemGroup> =
+    override suspend fun getItemGroups(): ArrayList<ItemGroup> =
         repository.getItemGroups()
 
-    override suspend fun getItems(): List<Item> =
-        repository.getItems()
+    override suspend fun getItems(itemGroupId: Long): List<Item> =
+        repository.getItems(itemGroupId = itemGroupId)
 }

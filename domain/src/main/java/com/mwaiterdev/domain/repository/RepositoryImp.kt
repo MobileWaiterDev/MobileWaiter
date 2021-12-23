@@ -9,12 +9,12 @@ class RepositoryImp : Repository {
     override suspend fun getTableGroupsWithTables(): List<TableGroup> =
         mockTableGroupsWithTables()
 
-    override suspend fun getBillItems(billId: Long): List<BillItem> =
+    override suspend fun getBillItems(billId: Long): ArrayList<BillItem> =
         mockBillItems()
 
-    override suspend fun getItemGroups(): List<ItemGroup> =
+    override suspend fun getItemGroups(): ArrayList<ItemGroup> =
         mockItemGroups()
 
-    override suspend fun getItems(): List<Item> =
-        mockItems()
+    override suspend fun getItems(itemGroupId: Long): List<Item> =
+        mockItems(itemGroupId = itemGroupId)
 }

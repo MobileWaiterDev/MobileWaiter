@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bill_item_card_view_height"
+    android:layout_margin="@dimen/bill_item_card_view_margin"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    app:cardElevation="@dimen/bill_item_card_view_elevation"
+    app:rippleColor="@color/blue">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/amount"
+        android:layout_width="@dimen/bill_item_amount_button_size"
+        android:layout_height="@dimen/bill_item_amount_button_size"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="@dimen/bill_item_amount_button_margin_start"
+        android:backgroundTint="@color/white"
+        android:insetTop="@dimen/zero"
+        android:insetBottom="@dimen/zero"
+        android:padding="@dimen/zero"
+        android:text="@string/example_amount_text"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/bill_item_amount_button_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/blue" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="@dimen/bill_item_name_margin_start"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/bill_item_name_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/amount"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/example_item_name" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="@dimen/bill_item_total_margin_end"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/bill_item_total_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</com.google.android.material.card.MaterialCardView>

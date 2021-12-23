@@ -13,7 +13,7 @@ class BillViewModel(
     override fun getBillItems() {
         viewModelScopeCoroutine.launch {
             getBillItemLiveData().postValue(
-                ScreenState.Success(interactor.getBillItems(0))
+                ScreenState.Success(result = interactor.getBillItems(billId = 0))
             )
         }
     }
@@ -21,15 +21,15 @@ class BillViewModel(
     override fun getItemGroups() {
         viewModelScopeCoroutine.launch {
             getItemGroupListLiveData().postValue(
-                ScreenState.Success(interactor.getItemGroups())
+                ScreenState.Success(result = interactor.getItemGroups())
             )
         }
     }
 
-    override fun getItems() {
+    override fun getItems(itemGroupId: Long) {
         viewModelScopeCoroutine.launch {
             getItemListLiveData().postValue(
-                ScreenState.Success(interactor.getItems())
+                ScreenState.Success(result = interactor.getItems(itemGroupId))
             )
         }
     }

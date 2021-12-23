@@ -22,17 +22,17 @@ interface Repository {
      * Получить список товаров для счета
      * @return List
      */
-    suspend fun getBillItems(billId: Long): List<BillItem>
+    suspend fun getBillItems(billId: Long): ArrayList<BillItem>
 
     /**
      * Получить список категорий товаров меню
      * @return List
      */
-    suspend fun getItemGroups(): List<ItemGroup>
+    suspend fun getItemGroups(): ArrayList<ItemGroup>
 
     /**
      * Получить список товаров меню
      * @return List
      */
-    suspend fun getItems(): List<Item>
+    suspend fun getItems(itemGroupId: Long): List<Item>
 }

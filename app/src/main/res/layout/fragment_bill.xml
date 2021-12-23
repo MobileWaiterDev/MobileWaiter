@@ -7,13 +7,54 @@
     android:fitsSystemWindows="true"
     tools:context="com.mwaiterdev.waiter.ui.bill.BillFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_bill"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bill_items_rv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/zero"
+        app:layout_constraintBottom_toTopOf="@id/button_panel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_bill_button_panel_height"
+        android:background="#EEEEEE"
+        app:layout_constraintBottom_toTopOf="@id/button_panel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bill_items_rv">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/home_menu"
+            android:layout_width="@dimen/fragment_bill_button_size"
+            android:layout_height="@dimen/fragment_bill_button_size"
+            android:backgroundTint="#EEEEEE"
+            android:insetTop="@dimen/zero"
+            android:insetBottom="@dimen/zero"
+            android:stateListAnimator="@null"
+            app:cornerRadius="@dimen/fragment_bill_button_radius"
+            app:icon="@drawable/ic_home"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/zero"
+            app:iconSize="@dimen/fragment_bill_button_icon_size"
+            app:iconTint="@color/dark_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/menu_items_rv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/zero"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="@dimen/fragment_bill_menu_items_rv_height_percent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_panel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
