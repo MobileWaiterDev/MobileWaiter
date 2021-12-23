@@ -18,15 +18,15 @@ class AdapterOrders(
     )
 
     override fun onBindViewHolder(holder: ItemOrder, position: Int) {
-        holder.bind(data, position)
+        holder.bind(data[position])
     }
 
     override fun getItemCount(): Int = data.size
     inner class ItemOrder(
         private val binding: ItemOrdersListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: List<Item>, position: Int) {
-            binding.orderPosition.text = data[position].name
+        fun bind(data: Item) {
+            binding.orderPosition.text = data.name
         }
     }
 }

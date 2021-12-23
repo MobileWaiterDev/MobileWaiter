@@ -9,7 +9,7 @@ import com.mwaiterdev.waiter.databinding.ItemTableCardviewBinding
 
 class AdapterTables(
     private val data: List<Table>,
-    private  val billItemListener: View.OnClickListener
+    private val billItemListener: View.OnClickListener
 ) : RecyclerView.Adapter<AdapterTables.ItemTable>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTable = ItemTable(
         ItemTableCardviewBinding.inflate(
@@ -20,7 +20,7 @@ class AdapterTables(
     )
 
     override fun onBindViewHolder(holder: ItemTable, position: Int) {
-        holder.bind(data, position)
+        holder.bind(data[position])
     }
 
     override fun getItemCount(): Int = data.size
@@ -28,13 +28,13 @@ class AdapterTables(
     inner class ItemTable(
         private val binding: ItemTableCardviewBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: List<Table>, position: Int) {
-              binding.tableName.text = data[position].name
-              binding.timeBooked.text = data[position].bill?.createTime.toString()
-              binding.totalBill.text = data[position].bill?.total.toString()
-              binding.waitressObserve.text = data[position].userObserverName
-              binding.orderRecycleView.adapter = data[position].bill?.orders?.let { AdapterOrders(it) }
-              binding.root.setOnClickListener(billItemListener)
+        fun bind(data: Table) = with(binding) {
+            tableName.text = data.name
+            timeBooked.text = data.bill?.createTime.toString()
+            totalBill.text = data.bill?.total.toString()
+            waitressObserve.text = data.userObserverName
+            orderRecycleView.adapter = data.bill?.orders?.let { AdapterOrders(it) }
+            root.setOnClickListener(billItemListener)
         }
     }
 }

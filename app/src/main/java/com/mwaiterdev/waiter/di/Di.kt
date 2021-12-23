@@ -4,15 +4,17 @@ import com.mwaiterdev.domain.repository.Repository
 import com.mwaiterdev.domain.repository.RepositoryImp
 import com.mwaiterdev.domain.usecase.billscreen.BillInteractorImpl
 import com.mwaiterdev.domain.usecase.billscreen.IBillInteractor
+import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractor
+import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractorImpl
+import com.mwaiterdev.domain.usecase.tablesscreen.ITablesInteractor
+import com.mwaiterdev.domain.usecase.tablesscreen.TablesInteractorImpl
 import com.mwaiterdev.waiter.ui.bill.BillFragment
 import com.mwaiterdev.waiter.ui.bill.BillViewModel
 import com.mwaiterdev.waiter.ui.bills.BillsFragment
 import com.mwaiterdev.waiter.ui.bills.BillsViewModel
 import com.mwaiterdev.waiter.ui.login.LoginFragment
 import com.mwaiterdev.waiter.ui.login.LoginViewModel
-import com.mwaiterdev.domain.usecase.tablesscreen.ITablesInteractor
 import com.mwaiterdev.waiter.ui.tables.TablesFragment
-import com.mwaiterdev.domain.usecase.tablesscreen.TablesInteractorImpl
 import com.mwaiterdev.waiter.ui.tables.TablesViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -33,6 +35,9 @@ object Di {
         factory<IBillInteractor> {
             BillInteractorImpl(repository = get())
         }
+        factory<MainBillsIteractor> {
+            MainBillsIteractorImpl(repository = get())
+        }
     }
 
     fun viewModelModule() = module {
@@ -44,7 +49,7 @@ object Di {
 
         scope<BillsFragment> {
             viewModel() {
-                BillsViewModel(repository = get())
+                BillsViewModel(interactor = get())
             }
         }
 

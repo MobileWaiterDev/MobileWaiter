@@ -73,6 +73,7 @@
     <dimen name="fragment_bill_button_icon_size">40dp</dimen>
     <dimen name="table_item_card_margin">16dp</dimen>
     <dimen name="table_item_card_stroke_width">1dp</dimen>
+    <dimen name="fr_bills_margin_start_switches">15dp</dimen>
     <item name="nav_header_logo_width_percent" format="float" type="dimen">0.8</item>
     <item name="fragment_bill_menu_items_rv_height_percent" type="dimen" format="float">0.3</item>
 </resources>
