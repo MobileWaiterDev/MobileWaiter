@@ -1,13 +1,12 @@
 package com.mwaiterdev.waiter.ui.bills
 
 import com.mwaiterdev.domain.AppState
-import com.mwaiterdev.domain.repository.Repository
-import com.mwaiterdev.domain.repository.RepositoryImp
+import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractor
 import com.mwaiterdev.waiter.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class BillsViewModel(
-    private val repository: Repository = RepositoryImp()
+    private val interactor: MainBillsIteractor
 ) : BaseViewModel() {
 
     override fun handleError(throwable: Throwable) {
@@ -17,7 +16,7 @@ class BillsViewModel(
     override fun getData() {
         viewModelScopeCoroutine.launch {
             customLiveData.postValue(
-                AppState.Success(repository.getHalls())
+                AppState.Success(interactor.getFilterDataTableGroups())
             )
         }
     }
