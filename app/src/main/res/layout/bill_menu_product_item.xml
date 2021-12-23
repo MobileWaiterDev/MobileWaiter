@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/menu_button_width"
+    android:layout_height="@dimen/menu_button_height"
+    android:layout_margin="@dimen/menu_button_padding"
+    android:backgroundTint="#FFAB00"
+    android:orientation="vertical"
+    android:padding="@dimen/zero">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/bill_menu_product_item_name_margin_horizontal"
+            android:ellipsize="end"
+            android:maxLines="@dimen/bill_menu_product_item_name_max_lines"
+            android:textAlignment="center"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/bill_menu_product_item_name_text_size"
+            app:layout_constraintBottom_toTopOf="@id/item_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/example_table_name" />
+
+        <TextView
+            android:id="@+id/item_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/bill_menu_product_item_price_margin_bottom"
+            android:textAlignment="center"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/bill_menu_product_item_price_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/example_table_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

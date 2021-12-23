@@ -2,12 +2,12 @@ package com.mwaiterdev.waiter.ui.tables
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mwaiterdev.domain.ScreenTablesState
+import com.mwaiterdev.domain.ScreenState
 import kotlinx.coroutines.*
 
 abstract class BaseTablesViewModel : ViewModel() {
-    private val tableListLiveData = MutableLiveData<ScreenTablesState>()
-    private val tableGroupListLiveData = MutableLiveData<ScreenTablesState>()
+    private val tableListLiveData = MutableLiveData<ScreenState>()
+    private val tableGroupListLiveData = MutableLiveData<ScreenState>()
     protected val viewModelScopeCoroutine = CoroutineScope(
         Dispatchers.IO
                 + SupervisorJob()

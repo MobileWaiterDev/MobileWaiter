@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.mwaiterdev.domain.ScreenTablesState
+import com.mwaiterdev.domain.ScreenState
 import com.mwaiterdev.domain.models.ITableItem
 import com.mwaiterdev.domain.models.TableGroupItem
 import com.mwaiterdev.domain.models.TableItem
@@ -65,14 +65,14 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
             .observe(viewLifecycleOwner, { fillTables(it) })
     }
 
-    private fun fillTables(appState: ScreenTablesState?) {
-        if (appState is ScreenTablesState.Success) {
+    private fun fillTables(appState: ScreenState?) {
+        if (appState is ScreenState.Success) {
             tablesAdapter.addItems(appState.result as ArrayList<ITableItem>)
         }
     }
 
-    private fun fillSpinnerTableGroups(appState: ScreenTablesState?) {
-        if (appState is ScreenTablesState.Success) {
+    private fun fillSpinnerTableGroups(appState: ScreenState?) {
+        if (appState is ScreenState.Success) {
             ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
