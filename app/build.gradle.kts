@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id("com.android.application")
     id("kotlin-parcelize")
@@ -7,6 +10,18 @@ plugins {
 
 android {
     compileSdk = Config.COMPILE_SDK
+
+    signingConfigs {
+        create("releaseSign")
+        {
+            val properties = Properties()
+            properties.load(FileInputStream(file("./../conf.properties")))
+            storeFile = file("./../waiter.jks")
+            storePassword = properties.getProperty("storePassword", "")
+            keyAlias = properties.getProperty("keyAlias", "")
+            keyPassword = properties.getProperty("keyPassword", "")
+        }
+    }
 
     defaultConfig {
         applicationId = Config.APPLICATION_ID
@@ -24,6 +39,7 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("releaseSign")
         }
     }
 
@@ -45,6 +61,18 @@ android {
             isIncludeAndroidResources = true
         }
     }
+
+    buildTypes.forEach {
+        val properties = Properties()
+        properties.load(FileInputStream(file("./../conf.properties")))
+        val urlBase = properties.getProperty("base_url", "")
+        it.buildConfigField("String", "BASE_URL", urlBase)
+        val appId = properties.getProperty("appid", "")
+        it.buildConfigField("String", "APP_ID", appId)
+        val appToken = properties.getProperty("token", "")
+        it.buildConfigField("String", "API_TOKEN", appToken)
+    }
+
 }
 
 dependencies {
