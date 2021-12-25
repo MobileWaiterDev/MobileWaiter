@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id("com.android.application")
     id("kotlin-parcelize")
@@ -7,6 +10,18 @@ plugins {
 
 android {
     compileSdk = Config.COMPILE_SDK
+
+    signingConfigs {
+        create("releaseSign")
+        {
+            val properties = Properties()
+            properties.load(FileInputStream(file("./../conf.properties")))
+            storeFile = file("./../waiter.jks")
+            storePassword = properties.getProperty("storePassword", "")
+            keyAlias = properties.getProperty("keyAlias", "")
+            keyPassword = properties.getProperty("keyPassword", "")
+        }
+    }
 
     defaultConfig {
         applicationId = Config.APPLICATION_ID
@@ -24,6 +39,7 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("releaseSign")
         }
     }
 
@@ -74,6 +90,12 @@ dependencies {
     implementation(Koin.CORE)
     implementation(Koin.TEST)
     implementation(Koin.TEST_JUNIT4)
+
+    // Retrofit
+    implementation(Retrofit2.RETROFIT)
+    implementation(Retrofit2.CONVERTER_JSON)
+    implementation(Retrofit2.COROUTINES_ADAPTER)
+    implementation(Retrofit2.LOGGING_INTERCEPTOR)
 
     //Tests
     testImplementation(Tests.JUNIT)

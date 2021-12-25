@@ -18,7 +18,7 @@ class BillItemViewHolder(
             total.text = String.format(TOTAL_STRING_TEMPLATE, billItem.amount, billItem.price)
             amount.text = billItem.amount.toString()
             name.text = billItem.name
-            root.click { delegate?.onItemPicked(billItem) }
+            root.click { delegate?.onBillItemPicked(billItem) }
         }
     }
 

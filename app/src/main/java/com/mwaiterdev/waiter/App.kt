@@ -15,7 +15,8 @@ class App : Application() {
                 listOf(
                     Di.interactorModule(),
                     Di.repositoryModule(),
-                    Di.viewModelModule()
+                    Di.viewModelModule(),
+                    Di.waiterApiModule()
                 )
             )
         }

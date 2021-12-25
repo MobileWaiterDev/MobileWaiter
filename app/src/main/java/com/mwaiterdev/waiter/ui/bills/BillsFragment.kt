@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.SimpleItemAnimator
 import by.kirich1409.viewbindingdelegate.CreateMethod
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mwaiterdev.domain.AppState
 import com.mwaiterdev.domain.models.TableGroup
 import com.mwaiterdev.waiter.R
