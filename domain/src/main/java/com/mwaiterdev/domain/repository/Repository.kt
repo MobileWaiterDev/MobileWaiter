@@ -1,16 +1,18 @@
 package com.mwaiterdev.domain.repository
 
-import com.mwaiterdev.domain.models.*
+import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.models.User
+import com.mwaiterdev.domain.models.response.*
 
 interface Repository {
     suspend fun getWaitress(id: Int): User
     suspend fun getHalls(): List<TableGroup>
 
     /**
-     * Получить список залов
-     * @return List
+     * Получить список залов. (Для списка фильтрации)
+     * @return TableGroupsResponse
      */
-    suspend fun getTableGroups(): List<String>
+    suspend fun getTableGroups(): TableGroupsResponse
 
     /**
      * Получить список столов для всех залов
@@ -20,19 +22,40 @@ interface Repository {
 
     /**
      * Получить список товаров для счета
-     * @return List
+     * @param billId Id счета
+     * @return BillItemsResponse
      */
-    suspend fun getBillItems(billId: Long): ArrayList<BillItem>
+    suspend fun getBillItemsById(billId: Long): BillItemsResponse
 
     /**
      * Получить список категорий товаров меню
-     * @return List
+     * @return ItemGroupsResponse
      */
-    suspend fun getItemGroups(): ArrayList<ItemGroup>
+    suspend fun getItemGroups(): ItemGroupsResponse
 
     /**
      * Получить список товаров меню
-     * @return List
+     * @param itemGroupId Id группы товаров
+     * @return ItemsResponse
      */
-    suspend fun getItems(itemGroupId: Long): List<Item>
+    suspend fun getItemsById(itemGroupId: Long): ItemsResponse
+
+    /**
+     * Получить пользователя по пин-коду
+     * @param pin Пин-код пользователя
+     * @return UserResponse
+     */
+    suspend fun getUserByPin(pin: String): UserResponse
+
+    /**
+     * Получить все счета
+     * @return BillsResponse
+     */
+    suspend fun getBills(): BillsResponse
+
+    /**
+     * Получить все столы
+     * @return TablesResponse
+     */
+    suspend fun getTables(): TablesResponse
 }

@@ -15,12 +15,13 @@ import com.mwaiterdev.domain.models.ItemGroup
 import com.mwaiterdev.utils.extensions.showSnakeBar
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.FragmentBillBinding
+import com.mwaiterdev.waiter.ui.IScreenView
 import com.mwaiterdev.waiter.ui.bill.adapter.BillItemAdapter
 import com.mwaiterdev.waiter.ui.bill.adapter.MenuAdapter
 import org.koin.android.ext.android.getKoin
 
 class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
-    MenuAdapter.Delegate {
+    MenuAdapter.Delegate, IScreenView {
 
     private val scope = getKoin().createScope<BillFragment>()
     private val viewModel: BillViewModel = scope.get()
@@ -74,15 +75,36 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
     /** Отобразить меню */
     private fun showMenu(itemGroups: ScreenState?) {
-        if (itemGroups is ScreenState.Success) {
-            menuAdapter.addItems(itemGroups.result as ArrayList<IMenuItem>)
+        when (itemGroups) {
+            is ScreenState.Success -> {
+                showLoading(false)
+                menuAdapter.addItems(itemGroups.result as ArrayList<IMenuItem>)
+            }
+            is ScreenState.Error -> {
+                showLoading(false)
+                showError(itemGroups.error)
+                viewBinding.root.showSnakeBar(itemGroups.error.message.toString())
+            }
+            is ScreenState.Loading -> {
+                showLoading(true)
+            }
         }
     }
 
     /** Отобразить существующие товары в счете */
     private fun showBillItems(billItems: ScreenState?) {
-        if (billItems is ScreenState.Success) {
-            billItemsAdapter.addItems(billItems.result as ArrayList<BillItem>)
+        when (billItems) {
+            is ScreenState.Success -> {
+                showLoading(false)
+                billItemsAdapter.addItems(billItems.result as ArrayList<BillItem>)
+            }
+            is ScreenState.Error -> {
+                showLoading(false)
+                showError(billItems.error)
+            }
+            is ScreenState.Loading -> {
+                showLoading(true)
+            }
         }
     }
 
@@ -90,7 +112,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         fun newInstance() = BillFragment()
     }
 
-    override fun onItemPicked(billItem: BillItem) {
+    override fun onBillItemPicked(billItem: BillItem) {
         viewBinding.root.showSnakeBar(billItem.name)
     }
 
@@ -99,7 +121,14 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
     }
 
     override fun onGroupPicked(group: ItemGroup) {
-        viewBinding.root.showSnakeBar(group.name)
         viewModel.getItems(group.itemGroupId)
+    }
+
+    //ToDo Реализовать отображение анимации загрузки
+    override fun showLoading(visible: Boolean) {
+    }
+
+    override fun showError(error: Throwable) {
+        viewBinding.root.showSnakeBar(error.message.toString())
     }
 }

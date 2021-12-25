@@ -1,7 +1,16 @@
 package com.mwaiterdev.waiter.di
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.mwaiterdev.domain.BuildConfig
+import com.mwaiterdev.domain.api.WaiterApi
+import com.mwaiterdev.domain.api.WaiterApiInterceptor
 import com.mwaiterdev.domain.repository.Repository
-import com.mwaiterdev.domain.repository.RepositoryImp
+import com.mwaiterdev.domain.repository.RepositoryImpl
+import com.mwaiterdev.domain.repository.RepositoryMockImp
+import com.mwaiterdev.domain.repository.datasource.IRemoteDataSource
+import com.mwaiterdev.domain.repository.datasource.RemoteDataSourceImpl
 import com.mwaiterdev.domain.usecase.billscreen.BillInteractorImpl
 import com.mwaiterdev.domain.usecase.billscreen.IBillInteractor
 import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractor
@@ -16,27 +25,56 @@ import com.mwaiterdev.waiter.ui.login.LoginFragment
 import com.mwaiterdev.waiter.ui.login.LoginViewModel
 import com.mwaiterdev.waiter.ui.tables.TablesFragment
 import com.mwaiterdev.waiter.ui.tables.TablesViewModel
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 object Di {
 
+    private const val REPOSITORY_MOCK = "Mock"
+    private const val REPOSITORY_REMOTE = "InMemory"
+
     fun repositoryModule() = module {
-        single<Repository> {
-            RepositoryImp()
+        single<Repository>(qualifier = named(REPOSITORY_MOCK)) {
+            RepositoryMockImp()
+        }
+
+        single<Repository>(qualifier = named(REPOSITORY_REMOTE)) {
+            RepositoryImpl(dataSource = get())
+        }
+
+        single<IRemoteDataSource> {
+            RemoteDataSourceImpl(waiterApi = get())
         }
     }
 
     fun interactorModule() = module {
         factory<ITablesInteractor> {
-            TablesInteractorImpl(repository = get())
+            TablesInteractorImpl(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
         }
 
         factory<IBillInteractor> {
-            BillInteractorImpl(repository = get())
+            BillInteractorImpl(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
         }
         factory<MainBillsIteractor> {
-            MainBillsIteractorImpl(repository = get())
+            MainBillsIteractorImpl(
+                repository = get(
+                    named(REPOSITORY_MOCK)
+                )
+            )
         }
     }
 
@@ -63,6 +101,38 @@ object Di {
             viewModel() {
                 BillViewModel(interactor = get())
             }
+        }
+    }
+
+    fun waiterApiModule() = module {
+        single<Interceptor> {
+            WaiterApiInterceptor()
+        }
+
+        single<Gson> {
+            GsonBuilder()
+                .create()
+        }
+
+        single<WaiterApi> {
+            Retrofit.Builder()
+                .baseUrl(BuildConfig.BASE_URL)
+                .client(
+                    OkHttpClient.Builder()
+                        .addInterceptor(interceptor = get())
+                        .addInterceptor(HttpLoggingInterceptor().apply {
+                            level = if (BuildConfig.DEBUG) {
+                                HttpLoggingInterceptor.Level.BODY
+                            } else {
+                                HttpLoggingInterceptor.Level.NONE
+                            }
+                        })
+                        .build()
+                )
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create(get()))
+                .build()
+                .create(WaiterApi::class.java)
         }
     }
 }

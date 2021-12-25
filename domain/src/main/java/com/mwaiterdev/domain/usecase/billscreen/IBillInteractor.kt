@@ -10,17 +10,17 @@ interface IBillInteractor {
      * Получить список товаров в счете
      * @return List<BillItem>
      */
-    suspend fun getBillItems(billId: Long): ArrayList<BillItem>
+    suspend fun getBillItemsById(billId: Long): List<BillItem>
 
     /**
      * Получить список категорий меню
-     * @return List<ItemGroup>
+     * @return ItemGroupsResponse
      */
-    suspend fun getItemGroups(): ArrayList<ItemGroup>
+    suspend fun getItemGroups(): List<ItemGroup>
 
     /**
      * Получить список товаров меню
      * @return List
      */
-    suspend fun getItems(itemGroupId: Long): List<Item>
+    suspend fun getItemsById(itemGroupId: Long): List<Item>
 }

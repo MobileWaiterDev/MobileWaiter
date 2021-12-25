@@ -61,18 +61,6 @@ android {
             isIncludeAndroidResources = true
         }
     }
-
-    buildTypes.forEach {
-        val properties = Properties()
-        properties.load(FileInputStream(file("./../conf.properties")))
-        val urlBase = properties.getProperty("base_url", "")
-        it.buildConfigField("String", "BASE_URL", urlBase)
-        val appId = properties.getProperty("appid", "")
-        it.buildConfigField("String", "APP_ID", appId)
-        val appToken = properties.getProperty("token", "")
-        it.buildConfigField("String", "API_TOKEN", appToken)
-    }
-
 }
 
 dependencies {
@@ -102,6 +90,12 @@ dependencies {
     implementation(Koin.CORE)
     implementation(Koin.TEST)
     implementation(Koin.TEST_JUNIT4)
+
+    // Retrofit
+    implementation(Retrofit2.RETROFIT)
+    implementation(Retrofit2.CONVERTER_JSON)
+    implementation(Retrofit2.COROUTINES_ADAPTER)
+    implementation(Retrofit2.LOGGING_INTERCEPTOR)
 
     //Tests
     testImplementation(Tests.JUNIT)

@@ -17,7 +17,7 @@ class BillItemAdapter(private val delegate: Delegate?) :
          * товара из списка счета.
          * @param billItem Товар
          */
-        fun onItemPicked(billItem: BillItem)
+        fun onBillItemPicked(billItem: BillItem)
     }
 
     private val data = ArrayList<BillItem>()
@@ -28,8 +28,6 @@ class BillItemAdapter(private val delegate: Delegate?) :
         data.clear()
         data.addAll(newList)
     }
-
-    fun clear() = data.clear()
 
     override fun getItemCount() = data.size
 
@@ -44,7 +42,6 @@ class BillItemAdapter(private val delegate: Delegate?) :
 
     override fun onBindViewHolder(holder: BillItemViewHolder, position: Int) =
         holder.bind(data[position], delegate)
-
 
     inner class DiffUtilCallback(
         private var oldItems: ArrayList<BillItem>,

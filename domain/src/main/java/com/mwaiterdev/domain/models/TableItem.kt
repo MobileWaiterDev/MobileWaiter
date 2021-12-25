@@ -1,10 +1,10 @@
 package com.mwaiterdev.domain.models
 
 data class TableItem(
-    val tableId: Int,
-    val tableGroupId: Int,
+    val tableId: Long,
+    val tableGroupId: Long,
     val name: String,
-    val state: String,
+    val state: Int,
     val askCustomers: Boolean,
     val maxCustomers: Int
 ) : ITableItem
