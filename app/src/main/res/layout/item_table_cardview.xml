@@ -22,6 +22,7 @@
             android:id="@+id/table_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:textSize="@dimen/item_table_cardview_textsize"
             android:layout_margin="@dimen/item_table_cardview_margin"
             tools:text="Table 1"/>
@@ -32,6 +33,7 @@
             android:layout_weight="2"
             android:gravity="end"
             android:textSize="@dimen/item_table_cardview_textsize"
+            android:textStyle="bold"
             android:layout_margin="@dimen/item_table_cardview_margin"
             tools:text="14:35"/>
     </LinearLayout>
@@ -43,11 +45,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <androidx.appcompat.widget.AppCompatImageButton
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icon_print_bill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/item_table_cardview_margin"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_printer"
             />
         <TextView
@@ -56,6 +59,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center|end"
+            android:textStyle="bold"
             android:textSize="@dimen/item_table_cardview_textsize"
             android:layout_margin="@dimen/item_table_cardview_margin"
             tools:text="Петров П."/>
@@ -78,18 +82,31 @@
             android:id="@+id/icon_count_customers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:layout_margin="15dp"
             android:src="@drawable/ic_customer_count"
             />
         <TextView
-            android:id="@+id/total_bill"
-            android:layout_width="0dp"
+            android:id="@+id/count_of_bills"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="end|center"
+            android:layout_weight="1"
+            android:layout_gravity="center"
             android:textSize="@dimen/item_table_cardview_textsize"
+            android:textStyle="bold"
             android:layout_margin="5dp"
-            tools:text="1555.00"/>
+            tools:text="2"/>
+
+        <TextView
+            android:id="@+id/total_bill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="2"
+            android:gravity="center|end"
+            android:textSize="@dimen/item_table_cardview_textsize"
+            android:textStyle="bold"
+            tools:text="1555.00" />
     </LinearLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.models.response.BillsResponse
 import com.mwaiterdev.waiter.databinding.ItemBillsBinding
 
 class AdapterBills(
-    private val data: List<TableGroup>,
-    private val billItemListener: View.OnClickListener
+    private val data: List<BillsResponse.TableGroup>,
+    private val billItemListener: (Long?) -> View.OnClickListener
 ) : RecyclerView.Adapter<AdapterBills.ItemBills>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemBills = ItemBills(
@@ -28,16 +28,36 @@ class AdapterBills(
 
 
     inner class ItemBills(
-            private val binding: ItemBillsBinding
+        private val binding: ItemBillsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: TableGroup)=with(binding) {
+        fun bind(data: BillsResponse.TableGroup) = with(binding) {
             hallsName.text = data.name
-            billsCountAndSum.text = data.tables[layoutPosition].bill?.total.toString()
-            tablesRecycleView.adapter = AdapterTables(data.tables, billItemListener)
+            billsCountAndSum.text = getCountAndTotalBills(data, data.tableGroupId)
+            if (!data.tables.isNullOrEmpty()) {
+                tablesRecycleView.adapter = AdapterTables(data.tables, billItemListener)
+            }
             root.setOnClickListener(hallItemListener(data))
         }
 
-        private fun hallItemListener(data: TableGroup) = View.OnClickListener {
+        private fun getCountAndTotalBills(
+            data: BillsResponse.TableGroup?,
+            tableGroupId: Long
+        ): CharSequence {
+            val totalBills = mutableListOf<Float>()
+            val tablesGroupByTableGroup = data
+                ?.tables
+                ?.filter { table -> table.tableGroupId == tableGroupId }
+
+            tablesGroupByTableGroup?.forEach {
+                it?.bills?.forEach {
+                    totalBills.add(it.total)
+                }
+            }
+            return "Count of Bills ${totalBills.size} - ${totalBills.sum()} $"
+
+        }
+
+        private fun hallItemListener(data: BillsResponse.TableGroup) = View.OnClickListener {
             data.isExpanded = !data.isExpanded
             println(data.isExpanded)
             if (data.isExpanded) {

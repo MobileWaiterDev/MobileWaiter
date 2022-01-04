@@ -20,7 +20,8 @@ data class BillsResponse(
         @SerializedName("tableGroupTotal")
         val tableGroupTotal: Int,
         @SerializedName("tables")
-        val tables: List<Table> = arrayListOf()
+        val tables: List<Table> = arrayListOf(),
+        var isExpanded: Boolean = false
     ) {
         data class Table(
             @SerializedName("askCustomers")

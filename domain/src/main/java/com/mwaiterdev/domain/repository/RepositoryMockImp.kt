@@ -6,7 +6,7 @@ import com.mwaiterdev.domain.models.response.*
 
 class RepositoryMockImp : Repository {
     override suspend fun getWaitress(id: Int): User = mockDataWaitress()
-    override suspend fun getHalls(): List<TableGroup> = mockDataHalls()
+    override suspend fun getHalls(): BillsResponse = mockDataHalls()
 
     override suspend fun getTableGroups(): TableGroupsResponse = mockDataTableGroups()
     override suspend fun getTableGroupsWithTables(): List<TableGroup> =

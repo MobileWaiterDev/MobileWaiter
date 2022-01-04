@@ -6,7 +6,7 @@ import com.mwaiterdev.domain.models.response.*
 
 interface Repository {
     suspend fun getWaitress(id: Int): User
-    suspend fun getHalls(): List<TableGroup>
+    suspend fun getHalls(): BillsResponse
 
     /**
      * Получить список залов. (Для списка фильтрации)

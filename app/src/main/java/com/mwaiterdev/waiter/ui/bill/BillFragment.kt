@@ -1,6 +1,7 @@
 package com.mwaiterdev.waiter.ui.bill
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +19,7 @@ import com.mwaiterdev.waiter.databinding.FragmentBillBinding
 import com.mwaiterdev.waiter.ui.IScreenView
 import com.mwaiterdev.waiter.ui.bill.adapter.BillItemAdapter
 import com.mwaiterdev.waiter.ui.bill.adapter.MenuAdapter
+import com.mwaiterdev.waiter.ui.bills.BillsFragment
 import org.koin.android.ext.android.getKoin
 
 class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
@@ -38,7 +40,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
         viewModel.getBillItems()
         viewModel.getItemGroups()
-
+        Log.e("arguments", arguments?.get(BillsFragment.BILL_ID).toString())
         viewBinding.homeMenu.setOnClickListener {
             viewModel.getItemGroups()
         }
