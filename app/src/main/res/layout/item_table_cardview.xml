@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mwaiterdev.waiter.ui.base.SquareCardView
+<com.mwaiterdev.waiter.ui.base.customview.SquareCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height= "0dp"
     app:layout_constraintDimensionRatio="1"
     android:layout_margin="10dp"
     app:cardCornerRadius="15dp"
     android:orientation="vertical">
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,10 +68,11 @@
         android:id="@+id/order_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="3"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_margin="5dp"
         tools:listitem="@layout/item_orders_list"
-        tools:itemCount="3"/>
+        tools:itemCount="10"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,7 +84,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:layout_margin="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="10dp"
             android:src="@drawable/ic_customer_count"
             />
         <TextView
@@ -94,7 +96,7 @@
             android:layout_gravity="center"
             android:textSize="@dimen/item_table_cardview_textsize"
             android:textStyle="bold"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             tools:text="2"/>
 
         <TextView
@@ -110,4 +112,4 @@
     </LinearLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-</com.mwaiterdev.waiter.ui.base.SquareCardView>
+</com.mwaiterdev.waiter.ui.base.customview.SquareCardView>

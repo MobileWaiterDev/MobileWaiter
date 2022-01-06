@@ -21,7 +21,12 @@ class AdapterOrders(
         holder.bind(data?.get(position))
     }
 
-    override fun getItemCount(): Int = data?.size!!
+    override fun getItemCount(): Int {
+        if (!data.isNullOrEmpty()){
+            return data.size
+        }
+        return 0
+    }
     inner class ItemOrder(
         private val binding: ItemOrdersListBinding
     ) : RecyclerView.ViewHolder(binding.root) {

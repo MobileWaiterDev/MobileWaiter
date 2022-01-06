@@ -1,9 +1,11 @@
 package com.mwaiterdev.waiter.ui.bills
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -53,31 +55,30 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
         viewModel.getData()
     }
 
+    override fun onResume() {
+        viewModel.getData()
+        super.onResume()
+    }
+
     private fun renderData(appState: AppState?) {
         when (appState) {
             is AppState.Success -> {
                 if (appState.data is BillsResponse) {
-                    (viewBinding.billsRecycleView.itemAnimator as SimpleItemAnimator)
-                        .supportsChangeAnimations = false
-                    viewBinding.billsRecycleView.adapter = AdapterBills(
-                        (appState.data as BillsResponse).tableGroups
-                    ) { billId: Long? -> setBillItemListener(billId) }
-                    viewBinding.spinnerTableGroups.adapter = ArrayAdapter(
-                        requireContext(),
-                        R.layout.support_simple_spinner_dropdown_item,
-                        (appState.data as BillsResponse).tableGroups.map {
-                            it.name
-                        } as MutableList<String>)
-                    (activity as TitleToolbarListener).updateTitle(
-                        ((appState.data as BillsResponse)
-                            .tableGroups)
-                            .first()
-                            .tables
-                            .first()
-                            .bills
-                            .first()
-                            .createdByUserName
-                    )
+                    initAdapter(appState.data as BillsResponse)
+                    initExpandedFilter(appState.data as BillsResponse)
+                    initTitleToolBar(appState.data as BillsResponse)
+                    viewBinding.mineBillsSwitcher.setOnCheckedChangeListener { _, isChecked ->                         Log.e("error", "clicked")
+                            (viewBinding.billsRecycleView.adapter as AdapterBills).getMineBills(
+                                (appState.data as BillsResponse).tableGroups
+                                    .first()
+                                    .tables
+                                    .first()
+                                    .bills
+                                    .first()
+                                    .createdByUserId,
+                                isChecked
+                            )
+                    }
                 }
             }
             is AppState.Error -> {
@@ -85,6 +86,59 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
             }
             else -> null
         }
+    }
+
+    private fun initTitleToolBar(data: BillsResponse) {
+        (activity as TitleToolbarListener).updateTitle(
+            data.tableGroups
+                .first()
+                .tables
+                .first()
+                .bills
+                .first()
+                .createdByUserName
+        )
+    }
+
+    private fun initAdapter(data: BillsResponse) {
+        (viewBinding.billsRecycleView.itemAnimator as SimpleItemAnimator)
+            .supportsChangeAnimations = false
+        viewBinding.billsRecycleView.adapter = AdapterBills(
+            data.tableGroups
+        ) { billId: Long? -> setBillItemListener(billId) }
+    }
+
+    private fun initExpandedFilter(data: BillsResponse) {
+        val listTitleOfHals = data.tableGroups.map {
+            it.name
+        } as MutableList<String>
+        listTitleOfHals.add(0, "All Hals")
+
+        viewBinding.spinnerTableGroups.adapter = ArrayAdapter(
+            requireContext(),
+            R.layout.support_simple_spinner_dropdown_item,
+            listTitleOfHals
+        )
+
+        viewBinding.spinnerTableGroups.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    (viewBinding.billsRecycleView.adapter as AdapterBills).filter.filter(
+                        listTitleOfHals[position]
+                    )
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    viewBinding.billsRecycleView.adapter = AdapterBills(
+                        data.tableGroups
+                    ) { billId: Long? -> setBillItemListener(billId) }
+                }
+            }
     }
 
     companion object {

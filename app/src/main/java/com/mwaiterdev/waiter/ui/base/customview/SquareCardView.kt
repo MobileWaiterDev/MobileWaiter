@@ -1,4 +1,4 @@
-package com.mwaiterdev.waiter.ui.base
+package com.mwaiterdev.waiter.ui.base.customview
 
 import android.content.Context
 import android.util.AttributeSet
