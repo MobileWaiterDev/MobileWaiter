@@ -33,27 +33,18 @@
            <com.google.android.material.switchmaterial.SwitchMaterial
                style="@style/Widget.App.Switch"
                android:id="@+id/mine_bills_switcher"
-               android:layout_width="wrap_content"
+               android:layout_width="0dp"
                android:layout_height="wrap_content"
+               android:layout_weight="2"
                android:thumb="@drawable/custom_thumb"
                app:track="@drawable/custom_track"
+               android:gravity="end|center"
+               android:layout_margin="10dp"
                android:layout_marginStart="@dimen/fr_bills_margin_start_switches"
                android:layout_marginEnd="@dimen/margin_filter_component"
                android:layout_marginTop="@dimen/margin_filter_component"
                android:layout_marginBottom="@dimen/margin_filter_component"
                android:text="@string/mine_bills_switcher"
-               />
-           <com.google.android.material.switchmaterial.SwitchMaterial
-               style="@style/Widget.App.Switch"
-               android:id="@+id/bills_switcher"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:thumb="@drawable/custom_thumb"
-               app:track="@drawable/custom_track"
-               android:layout_marginStart="@dimen/fr_bills_margin_start_switches"
-               android:layout_marginEnd="@dimen/margin_filter_component"
-               android:layout_marginTop="@dimen/margin_filter_component"
-               android:layout_marginBottom="@dimen/margin_filter_component"
                />
        </LinearLayout>
    </LinearLayout>

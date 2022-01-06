@@ -2,7 +2,7 @@ package com.mwaiterdev.waiter.ui.bills
 
 import com.mwaiterdev.domain.AppState
 import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractor
-import com.mwaiterdev.waiter.ui.base.BaseViewModel
+import com.mwaiterdev.waiter.ui.base.viemodel.BaseViewModel
 import kotlinx.coroutines.launch
 
 class BillsViewModel(

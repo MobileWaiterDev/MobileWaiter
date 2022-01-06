@@ -72,7 +72,7 @@ object Di {
         factory<MainBillsIteractor> {
             MainBillsIteractorImpl(
                 repository = get(
-                    named(REPOSITORY_MOCK)
+                    named(REPOSITORY_REMOTE)
                 )
             )
         }

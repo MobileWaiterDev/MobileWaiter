@@ -10,9 +10,8 @@ class RepositoryImpl(private val dataSource: IRemoteDataSource) : Repository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getHalls(): List<TableGroup> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getHalls(): BillsResponse =
+        dataSource.getBills()
 
     override suspend fun getTableGroups(): TableGroupsResponse =
         dataSource.getTableGroups()

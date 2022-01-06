@@ -1,7 +1,7 @@
 package com.mwaiterdev.domain.usecase.mainbillsscreen
 
-import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.models.response.BillsResponse
 
 interface MainBillsIteractor {
-    suspend fun getFilterDataTableGroups(): List<TableGroup>
+    suspend fun getFilterDataTableGroups(): BillsResponse
 }

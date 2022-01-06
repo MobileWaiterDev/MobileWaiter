@@ -1,4 +1,4 @@
-package com.mwaiterdev.waiter.ui.base
+package com.mwaiterdev.waiter.ui.base.viemodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -1,17 +1,21 @@
 package com.mwaiterdev.waiter.ui.bills
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.SimpleItemAnimator
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mwaiterdev.domain.AppState
-import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.models.response.BillsResponse
+import com.mwaiterdev.utils.extensions.showAlertDialogFragment
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.FragmentBillsBinding
 import com.mwaiterdev.waiter.ui.TitleToolbarListener
@@ -40,8 +44,10 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
         }
     }
 
-    private fun setBillItemListener() = View.OnClickListener {
-        NavHostFragment.findNavController(this).navigate(R.id.nav_bill)
+    private fun setBillItemListener(billId: Long?) = View.OnClickListener {
+        NavHostFragment.findNavController(this).navigate(R.id.nav_bill, bundleOf().apply {
+            billId?.let { billId -> putLong(BILL_ID, billId) }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,32 +55,94 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
         viewModel.getData()
     }
 
+    override fun onResume() {
+        viewModel.getData()
+        super.onResume()
+    }
+
     private fun renderData(appState: AppState?) {
         when (appState) {
             is AppState.Success -> {
-                if (appState.data is List<*>) {
-                    (viewBinding.billsRecycleView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
-                        false
-                    viewBinding.billsRecycleView.adapter = AdapterBills(
-                        appState.data as List<TableGroup>,
-                        setBillItemListener()
-                    )
-                    viewBinding.spinnerTableGroups.adapter = ArrayAdapter(
-                        requireContext(),
-                        R.layout.support_simple_spinner_dropdown_item,
-                        (appState.data as List<TableGroup>).map {
-                            it.name
-                        } as List<*>)
-                    (activity as TitleToolbarListener).updateTitle((appState.data as List<TableGroup>)[0].tables[0].userObserverName)
+                if (appState.data is BillsResponse) {
+                    initAdapter(appState.data as BillsResponse)
+                    initExpandedFilter(appState.data as BillsResponse)
+                    initTitleToolBar(appState.data as BillsResponse)
+                    viewBinding.mineBillsSwitcher.setOnCheckedChangeListener { _, isChecked ->                         Log.e("error", "clicked")
+                            (viewBinding.billsRecycleView.adapter as AdapterBills).getMineBills(
+                                (appState.data as BillsResponse).tableGroups
+                                    .first()
+                                    .tables
+                                    .first()
+                                    .bills
+                                    .first()
+                                    .createdByUserId,
+                                isChecked
+                            )
+                    }
                 }
             }
-            else -> {
-                TODO()
+            is AppState.Error -> {
+                showAlertDialogFragment(requireContext(), appState.error.localizedMessage)
             }
+            else -> null
         }
     }
 
+    private fun initTitleToolBar(data: BillsResponse) {
+        (activity as TitleToolbarListener).updateTitle(
+            data.tableGroups
+                .first()
+                .tables
+                .first()
+                .bills
+                .first()
+                .createdByUserName
+        )
+    }
+
+    private fun initAdapter(data: BillsResponse) {
+        (viewBinding.billsRecycleView.itemAnimator as SimpleItemAnimator)
+            .supportsChangeAnimations = false
+        viewBinding.billsRecycleView.adapter = AdapterBills(
+            data.tableGroups
+        ) { billId: Long? -> setBillItemListener(billId) }
+    }
+
+    private fun initExpandedFilter(data: BillsResponse) {
+        val listTitleOfHals = data.tableGroups.map {
+            it.name
+        } as MutableList<String>
+        listTitleOfHals.add(0, "All Hals")
+
+        viewBinding.spinnerTableGroups.adapter = ArrayAdapter(
+            requireContext(),
+            R.layout.support_simple_spinner_dropdown_item,
+            listTitleOfHals
+        )
+
+        viewBinding.spinnerTableGroups.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    (viewBinding.billsRecycleView.adapter as AdapterBills).filter.filter(
+                        listTitleOfHals[position]
+                    )
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    viewBinding.billsRecycleView.adapter = AdapterBills(
+                        data.tableGroups
+                    ) { billId: Long? -> setBillItemListener(billId) }
+                }
+            }
+    }
+
     companion object {
+        const val BILL_ID = "billId"
         fun newInstance() = BillsFragment()
     }
 }
