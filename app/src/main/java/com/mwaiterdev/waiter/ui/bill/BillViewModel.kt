@@ -42,10 +42,11 @@ class BillViewModel(
         )
     }
 
-    fun loadBill(billId: Long) {
+    fun loadBill(billId: Long, tableId: Long) {
         /* Если счет новый*/
         if (billId == ZERO_VALUE) {
             viewModelScopeCoroutine.launch {
+                createBill(tableId).join()
                 getItems()
             }
         } else {
@@ -58,9 +59,23 @@ class BillViewModel(
 
     override fun getData() {}
 
+    private fun createBill(tableId: Long) =
+        viewModelScopeCoroutine.launch {
+            val newBill = interactor.createBill(tableId = tableId)
+            if (newBill.data != ZERO_VALUE) {
+                getLiveData().postValue(
+                    ScreenState.Success(data = newBill)
+                )
+            } else {
+                getLiveData().postValue(
+                    ScreenState.Error(error = Exception(ERROR_MESSAGE))
+                )
+            }
+        }
+
     companion object {
         //ToDo Вынести в ресурсы и создать интерактор для получения данных с ресурсов
-        const val ERROR_MESSAGE = "Ошибка при получении данных"
+        const val ERROR_MESSAGE = "Ошибка при выполнении операции..."
         const val ZERO_VALUE = 0L
     }
 }

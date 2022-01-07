@@ -58,4 +58,11 @@ interface Repository {
      * @return TablesResponse
      */
     suspend fun getTables(): TablesResponse
+
+    /**
+     * Создать новый счет
+     * @param tableId Id столика
+     * @return NewBillResponse
+     */
+    suspend fun createBill(tableId: Long): NewBillResponse
 }

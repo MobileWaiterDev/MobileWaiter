@@ -13,6 +13,7 @@ import com.mwaiterdev.domain.models.Item
 import com.mwaiterdev.domain.models.ItemGroup
 import com.mwaiterdev.domain.models.response.BillItems
 import com.mwaiterdev.domain.models.response.ItemGroups
+import com.mwaiterdev.domain.models.response.NewBill
 import com.mwaiterdev.utils.extensions.showSnakeBar
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.FragmentBillBinding
@@ -34,6 +35,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
     private val menuAdapter by lazy { MenuAdapter(this) }
 
     private val billId: Long by lazy { arguments?.getLong(KEY_BILL_ID) ?: ZERO_VALUE }
+    private val tableId: Long by lazy { arguments?.getLong(KEY_TABLE_ID) ?: ZERO_VALUE }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initRecyclerForBillItems()
@@ -41,7 +43,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
         viewModel.getLiveData()
             .observe(viewLifecycleOwner, { billItems -> renderData(billItems) })
-        viewModel.loadBill(billId)
+        viewModel.loadBill(billId, tableId)
 
         viewBinding.homeMenu.setOnClickListener {
             viewModel.getItems(ZERO_VALUE)
@@ -77,22 +79,30 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
     }
 
     /** Отобразить существующие товары в счете */
-    private fun renderData(billItems: ScreenState?) {
-        when (billItems) {
+    private fun renderData(result: ScreenState?) {
+        when (result) {
             is ScreenState.Success -> {
                 showLoading(false)
-                when (billItems.data) {
+                when (result.data) {
                     is BillItems -> {
-                        billItemsAdapter.addItems((billItems.data as BillItems).data)
+                        billItemsAdapter.addItems((result.data as BillItems).data)
                     }
                     is ItemGroups -> {
-                        menuAdapter.addItems((billItems.data as ItemGroups).data)
+                        menuAdapter.addItems((result.data as ItemGroups).data)
+                    }
+                    is NewBill -> {
+                        viewBinding
+                            .root
+                            .showSnakeBar(
+                                String
+                                    .format(NEW_BILL_CREATED_LOG, (result.data as NewBill).data)
+                            )
                     }
                 }
             }
             is ScreenState.Error -> {
                 showLoading(false)
-                showError(billItems.error)
+                showError(result.error)
             }
             is ScreenState.Loading -> {
                 showLoading(true)
@@ -122,8 +132,10 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
     companion object {
         const val KEY_BILL_ID = "billId"
+        const val KEY_TABLE_ID = "tableId"
         const val ZERO_VALUE = 0L
         const val NEW_BILL_STRING = "Новый счет"
         const val OLD_BILL_STRING = "BillId: %s"
+        const val NEW_BILL_CREATED_LOG = "Создан новый счет с billId: %s"
     }
 }

@@ -37,4 +37,7 @@ class RepositoryImpl(private val dataSource: IRemoteDataSource) : Repository {
 
     override suspend fun getTables(): TablesResponse =
         dataSource.getTables()
+
+    override suspend fun createBill(tableId: Long): NewBillResponse =
+        dataSource.createBill(tableId = tableId)
 }
