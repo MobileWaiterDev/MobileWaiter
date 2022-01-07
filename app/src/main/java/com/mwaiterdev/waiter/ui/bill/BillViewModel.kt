@@ -1,69 +1,66 @@
 package com.mwaiterdev.waiter.ui.bill
 
 import com.mwaiterdev.domain.ScreenState
-import com.mwaiterdev.domain.repository.RepositoryMockImp
-import com.mwaiterdev.domain.usecase.billscreen.BillInteractorImpl
 import com.mwaiterdev.domain.usecase.billscreen.IBillInteractor
 import kotlinx.coroutines.launch
 
 class BillViewModel(
-    private val interactor: IBillInteractor =
-        BillInteractorImpl(repository = RepositoryMockImp())
+    private val interactor: IBillInteractor
 ) : BaseBillViewModel() {
 
-    override fun getBillItems() {
+    private fun getBillItems(billId: Long) =
         viewModelScopeCoroutine.launch {
-            val result = interactor.getBillItemsById(billId = SIMPLE_BILL_ID)
-            if (result.isNullOrEmpty().not()) {
-                getBillItemLiveData().postValue(
-                    ScreenState.Success(result = result)
+            val billItems = interactor.getBillItemsById(billId = billId)
+            if (billItems.data.isNullOrEmpty().not()) {
+                getLiveData().postValue(
+                    ScreenState.Success(data = billItems)
                 )
             } else {
-                getBillItemLiveData().postValue(
+                getLiveData().postValue(
                     ScreenState.Error(error = Exception(ERROR_MESSAGE))
                 )
             }
         }
-    }
 
-    override fun getItemGroups() {
+    fun getItems(itemGroupId: Long = ZERO_VALUE) =
         viewModelScopeCoroutine.launch {
-            val result = interactor.getItemGroups()
-            if (result.isNullOrEmpty().not()) {
-                getItemGroupListLiveData().postValue(
-                    ScreenState.Success(result = result)
+            val result = interactor.getMenu(itemGroupId)
+            if (result.data.isNullOrEmpty().not()) {
+                getLiveData().postValue(
+                    ScreenState.Success(data = result)
                 )
             } else {
-                getItemGroupListLiveData().postValue(
+                getLiveData().postValue(
                     ScreenState.Error(error = Exception(ERROR_MESSAGE))
                 )
             }
         }
-    }
-
-    override fun getItems(itemGroupId: Long) {
-        viewModelScopeCoroutine.launch {
-            val result = interactor.getItemsById(itemGroupId)
-            if (result.isNullOrEmpty().not()) {
-                getItemListLiveData().postValue(
-                    ScreenState.Success(result = result)
-                )
-            } else {
-                getItemListLiveData().postValue(
-                    ScreenState.Error(error = Exception(ERROR_MESSAGE))
-                )
-            }
-        }
-    }
 
     override fun handleError(throwable: Throwable) {
+        getLiveData().postValue(
+            ScreenState.Error(error = throwable)
+        )
     }
+
+    fun loadBill(billId: Long) {
+        /* Если счет новый*/
+        if (billId == ZERO_VALUE) {
+            viewModelScopeCoroutine.launch {
+                getItems()
+            }
+        } else {
+            viewModelScopeCoroutine.launch {
+                getBillItems(billId).join()
+                getItems()
+            }
+        }
+    }
+
+    override fun getData() {}
 
     companion object {
         //ToDo Вынести в ресурсы и создать интерактор для получения данных с ресурсов
         const val ERROR_MESSAGE = "Ошибка при получении данных"
-
-        //ToDo Организовать передачу billId во фрагмент счета, если счет не создается, а открывается
-        const val SIMPLE_BILL_ID = 1L
+        const val ZERO_VALUE = 0L
     }
 }

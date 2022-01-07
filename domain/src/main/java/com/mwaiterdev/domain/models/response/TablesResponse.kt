@@ -8,7 +8,7 @@ data class TablesResponse(
     @SerializedName("success")
     val success: Boolean,
     @SerializedName("tableGroups")
-    val tableGroups: List<TableGroup> = arrayListOf()
+    val tableGroups: List<TableGroup>?
 ) {
     data class TableGroup(
         @SerializedName("askCustomers")
@@ -18,7 +18,7 @@ data class TablesResponse(
         @SerializedName("tableGroupId")
         val tableGroupId: Long,
         @SerializedName("tables")
-        val tables: List<Table> = arrayListOf()
+        val tables: List<Table>?
     ) {
         data class Table(
             @SerializedName("maxCustomers")

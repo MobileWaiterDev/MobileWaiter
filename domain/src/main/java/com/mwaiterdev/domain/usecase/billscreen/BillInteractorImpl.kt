@@ -1,18 +1,20 @@
 package com.mwaiterdev.domain.usecase.billscreen
 
-import com.mwaiterdev.domain.models.BillItem
-import com.mwaiterdev.domain.models.Item
-import com.mwaiterdev.domain.models.ItemGroup
-import com.mwaiterdev.domain.models.Price
+import com.mwaiterdev.domain.models.*
+import com.mwaiterdev.domain.models.response.BillItems
+import com.mwaiterdev.domain.models.response.ItemGroups
 import com.mwaiterdev.domain.repository.Repository
 
 class BillInteractorImpl(
     private val repository: Repository
 ) : IBillInteractor {
 
-    override suspend fun getBillItemsById(billId: Long): List<BillItem> {
+    override suspend fun getBillItemsById(billId: Long): BillItems {
+        if (billId == ZERO_VALUE) {
+            return BillItems(arrayListOf())
+        }
         val result = repository.getBillItemsById(billId = billId)
-        if (result.success && result.billItems.isNotEmpty()) {
+        if (result.success) {
             val items: ArrayList<BillItem> = arrayListOf()
             result.billItems?.forEach { billItem ->
                 items.add(
@@ -29,51 +31,55 @@ class BillInteractorImpl(
                     )
                 )
             }
-            return items
+            return BillItems(items)
         } else {
-            return arrayListOf()
+            return BillItems(arrayListOf())
         }
     }
 
-    override suspend fun getItemGroups(): List<ItemGroup> {
-        val result = repository.getItemGroups()
-        if (result.success && result.itemGroups.isNotEmpty()) {
-            val items: ArrayList<ItemGroup> = arrayListOf()
-            result.itemGroups?.forEach { itemGroup ->
-                items.add(
-                    ItemGroup(
-                        itemGroupId = itemGroup.itemGroupId,
-                        name = itemGroup.name,
-                        shortName = itemGroup.shortName,
-                        available = itemGroup.available
+    override suspend fun getMenu(itemGroupId: Long): ItemGroups {
+        if (itemGroupId > ZERO_VALUE) {
+            val result = repository.getItemsById(itemGroupId = itemGroupId)
+            if (result.success) {
+                val items: ArrayList<IMenuItem> = arrayListOf()
+                result.items?.forEach { item ->
+                    items.add(
+                        Item(
+                            itemId = item.itemId,
+                            itemGroupId = item.itemGroupId,
+                            name = item.name,
+                            shorName = item.shortName,
+                            available = item.available,
+                            price = Price(itemId = item.itemId, price = item.price)
+                        )
                     )
-                )
+                }
+                return ItemGroups(items)
+            } else {
+                return ItemGroups(arrayListOf())
             }
-            return items
         } else {
-            return arrayListOf()
+            val result = repository.getItemGroups()
+            if (result.success) {
+                val items: ArrayList<IMenuItem> = arrayListOf()
+                result.itemGroups?.forEach { itemGroup ->
+                    items.add(
+                        ItemGroup(
+                            itemGroupId = itemGroup.itemGroupId,
+                            name = itemGroup.name,
+                            shortName = itemGroup.shortName,
+                            available = itemGroup.available
+                        )
+                    )
+                }
+                return ItemGroups(items)
+            } else {
+                return ItemGroups(arrayListOf())
+            }
         }
     }
 
-    override suspend fun getItemsById(itemGroupId: Long): List<Item> {
-        val result = repository.getItemsById(itemGroupId = itemGroupId)
-        if (result.success && result.items.isNotEmpty()) {
-            val items: ArrayList<Item> = arrayListOf()
-            result.items?.forEach { item ->
-                items.add(
-                    Item(
-                        itemId = item.itemId,
-                        itemGroupId = item.itemGroupId,
-                        name = item.name,
-                        shorName = item.shortName,
-                        available = item.available,
-                        price = Price(itemId = item.itemId, price = item.price)
-                    )
-                )
-            }
-            return items
-        } else {
-            return arrayListOf()
-        }
+    companion object {
+        const val ZERO_VALUE = 0L
     }
 }

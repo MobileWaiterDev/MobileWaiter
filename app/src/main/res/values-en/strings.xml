@@ -22,4 +22,6 @@
     <string name="example_table_group_name">Hall</string>
     <string name="example_amount_text">1</string>
     <string name="example_item_name">Item name</string>
+    <string name="example_item_sub_total">2.0 x 125.0</string>
+    <string name="example_item_total">125.0</string>
 </resources>

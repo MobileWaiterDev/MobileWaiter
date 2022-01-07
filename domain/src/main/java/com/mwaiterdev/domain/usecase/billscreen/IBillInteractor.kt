@@ -1,26 +1,20 @@
 package com.mwaiterdev.domain.usecase.billscreen
 
-import com.mwaiterdev.domain.models.BillItem
-import com.mwaiterdev.domain.models.Item
-import com.mwaiterdev.domain.models.ItemGroup
+import com.mwaiterdev.domain.models.response.BillItems
+import com.mwaiterdev.domain.models.response.ItemGroups
 
 interface IBillInteractor {
-
     /**
      * Получить список товаров в счете
-     * @return List<BillItem>
+     * @param billId Id счета
+     * @return BillItems
      */
-    suspend fun getBillItemsById(billId: Long): List<BillItem>
+    suspend fun getBillItemsById(billId: Long): BillItems
 
     /**
-     * Получить список категорий меню
-     * @return ItemGroupsResponse
+     * Получить список категорий/товаров меню
+     * @param itemGroupId Id категории меню
+     * @return ItemGroups
      */
-    suspend fun getItemGroups(): List<ItemGroup>
-
-    /**
-     * Получить список товаров меню
-     * @return List
-     */
-    suspend fun getItemsById(itemGroupId: Long): List<Item>
+    suspend fun getMenu(itemGroupId: Long): ItemGroups
 }

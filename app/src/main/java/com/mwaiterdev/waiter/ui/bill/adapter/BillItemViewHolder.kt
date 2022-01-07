@@ -15,9 +15,11 @@ class BillItemViewHolder(
 
     fun bind(billItem: BillItem, delegate: BillItemAdapter.Delegate?) {
         with(viewBinding) {
-            total.text = String.format(TOTAL_STRING_TEMPLATE, billItem.amount, billItem.price)
+            subTotal.text = String.format(TOTAL_STRING_TEMPLATE, billItem.amount, billItem.price)
+            total.text = billItem.total.toString()
             amount.text = billItem.amount.toString()
             name.text = billItem.name
+            dataCreate.text = billItem.createTime
             root.click { delegate?.onBillItemPicked(billItem) }
         }
     }

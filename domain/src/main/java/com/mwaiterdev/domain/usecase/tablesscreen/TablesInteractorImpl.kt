@@ -3,15 +3,17 @@ package com.mwaiterdev.domain.usecase.tablesscreen
 import com.mwaiterdev.domain.models.ITableItem
 import com.mwaiterdev.domain.models.TableGroupItem
 import com.mwaiterdev.domain.models.TableItem
+import com.mwaiterdev.domain.models.response.TableGroups
+import com.mwaiterdev.domain.models.response.Tables
 import com.mwaiterdev.domain.repository.Repository
 
 class TablesInteractorImpl(
     private val repository: Repository
 ) : ITablesInteractor {
 
-    override suspend fun getTables(): List<ITableItem> {
+    override suspend fun getTables(): Tables {
         val result = repository.getTables()
-        if (result.success && result.tableGroups.isNotEmpty()) {
+        if (result.success) {
             val items: ArrayList<ITableItem> = arrayListOf()
             result.tableGroups?.forEach { groupTable ->
                 items.add(
@@ -35,22 +37,22 @@ class TablesInteractorImpl(
                     )
                 }
             }
-            return items
+            return Tables(items)
         } else {
-            return arrayListOf()
+            return Tables(arrayListOf())
         }
     }
 
-    override suspend fun getTableGroups(): List<String> {
+    override suspend fun getTableGroups(): TableGroups {
         val result = repository.getTableGroups()
-        return if (result.success && result.tableGroups.isNotEmpty()) {
+        return if (result.success) {
             val items: ArrayList<String> = arrayListOf()
             result.tableGroups?.forEach { groupTable ->
                 items.add(groupTable.name)
             }
-            items
+            TableGroups(items)
         } else {
-            arrayListOf()
+            TableGroups(arrayListOf())
         }
     }
 }
