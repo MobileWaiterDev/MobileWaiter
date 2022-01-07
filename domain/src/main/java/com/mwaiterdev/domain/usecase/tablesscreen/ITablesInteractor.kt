@@ -1,17 +1,18 @@
 package com.mwaiterdev.domain.usecase.tablesscreen
 
-import com.mwaiterdev.domain.models.ITableItem
+import com.mwaiterdev.domain.models.response.TableGroups
+import com.mwaiterdev.domain.models.response.Tables
 
 interface ITablesInteractor {
     /**
      * Получить список столов
-     * @return List<ITableItem>
+     * @return Tables
      */
-    suspend fun getTables(): List<ITableItem>
+    suspend fun getTables(): Tables
 
     /**
      * Получить список залов
-     * @return List<String>
+     * @return TableGroups
      */
-    suspend fun getTableGroups(): List<String>
+    suspend fun getTableGroups(): TableGroups
 }

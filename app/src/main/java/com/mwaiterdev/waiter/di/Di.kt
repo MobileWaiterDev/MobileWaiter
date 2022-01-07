@@ -37,7 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object Di {
 
     private const val REPOSITORY_MOCK = "Mock"
-    private const val REPOSITORY_REMOTE = "InMemory"
+    private const val REPOSITORY_REMOTE = "Remote"
 
     fun repositoryModule() = module {
         single<Repository>(qualifier = named(REPOSITORY_MOCK)) {

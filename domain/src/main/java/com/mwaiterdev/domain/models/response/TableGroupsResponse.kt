@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class TableGroupsResponse(
     @SerializedName("tableGroups")
-    val tableGroups: List<TableGroup> = arrayListOf(),
+    val tableGroups: List<TableGroup>?,
     @SerializedName("message")
     val message: String,
     @SerializedName("success")

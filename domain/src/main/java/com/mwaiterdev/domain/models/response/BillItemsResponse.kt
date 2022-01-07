@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class BillItemsResponse(
     @SerializedName("billItems")
-    val billItems: List<BillItem> = arrayListOf(),
+    val billItems: List<BillItem>?,
     @SerializedName("message")
     val message: String,
     @SerializedName("success")

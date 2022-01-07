@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ItemsResponse(
     @SerializedName("items")
-    val items: List<Item> = arrayListOf(),
+    val items: List<Item>?,
     @SerializedName("message")
     val message: String,
     @SerializedName("success")

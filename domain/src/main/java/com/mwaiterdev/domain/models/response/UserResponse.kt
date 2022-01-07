@@ -8,7 +8,7 @@ data class UserResponse(
     @SerializedName("success")
     val success: Boolean,
     @SerializedName("user")
-    val user: List<User> = arrayListOf()
+    val user: List<User>?
 ) {
     data class User(
         @SerializedName("active")

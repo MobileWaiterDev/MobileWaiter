@@ -6,8 +6,7 @@ import com.mwaiterdev.domain.ScreenState
 import kotlinx.coroutines.*
 
 abstract class BaseTablesViewModel : ViewModel() {
-    private val tableListLiveData = MutableLiveData<ScreenState>()
-    private val tableGroupListLiveData = MutableLiveData<ScreenState>()
+    private val customLiveData = MutableLiveData<ScreenState>()
     protected val viewModelScopeCoroutine = CoroutineScope(
         Dispatchers.IO
                 + SupervisorJob()
@@ -16,11 +15,10 @@ abstract class BaseTablesViewModel : ViewModel() {
         }
     )
 
-    abstract fun getTables()
-    abstract fun getTableGroups()
+    abstract fun handleError(throwable: Throwable): Any
 
-    fun getTablesLiveData() = tableListLiveData
-    fun getTableGroupsLiveData() = tableGroupListLiveData
+    abstract fun getData()
+    fun getLiveData() = customLiveData
 
     override fun onCleared() {
         super.onCleared()
@@ -28,6 +26,4 @@ abstract class BaseTablesViewModel : ViewModel() {
             .coroutineContext
             .cancel()
     }
-
-    abstract fun handleError(throwable: Throwable)
 }

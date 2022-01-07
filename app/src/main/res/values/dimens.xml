@@ -57,7 +57,7 @@
     <dimen name="bill_item_name_margin_start">70dp</dimen>
     <dimen name="bill_item_name_text_size">14sp</dimen>
     <dimen name="bill_item_total_margin_end">16dp</dimen>
-    <dimen name="bill_item_total_text_size">14sp</dimen>
+    <dimen name="bill_item_sub_total_text_size">10sp</dimen>
     <dimen name="menu_button_width">90dp</dimen>
     <dimen name="menu_button_height">70dp</dimen>
     <dimen name="menu_button_padding">16dp</dimen>
@@ -74,6 +74,9 @@
     <dimen name="table_item_card_margin">16dp</dimen>
     <dimen name="table_item_card_stroke_width">1dp</dimen>
     <dimen name="fr_bills_margin_start_switches">15dp</dimen>
+    <dimen name="bill_item_category_text_size">8sp</dimen>
+    <dimen name="bill_item_name_margin_top">15dp</dimen>
+    <dimen name="bill_item_sub_total_margin_top">20dp</dimen>
     <item name="nav_header_logo_width_percent" format="float" type="dimen">0.8</item>
-    <item name="fragment_bill_menu_items_rv_height_percent" type="dimen" format="float">0.3</item>
+    <item name="fragment_bill_menu_items_rv_height_percent" format="float" type="dimen">0.3</item>
 </resources>
