@@ -24,4 +24,7 @@ class RemoteDataSourceImpl(private val waiterApi: WaiterApi) : IRemoteDataSource
 
     override suspend fun getTableGroups(): TableGroupsResponse =
         waiterApi.getTableGroupAsync().await()
+
+    override suspend fun createBill(tableId: Long): NewBillResponse =
+        waiterApi.createBillAsync(tableId).await()
 }

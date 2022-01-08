@@ -1,6 +1,7 @@
 package com.mwaiterdev.domain.repository.datasource
 
 import com.mwaiterdev.domain.models.response.*
+import retrofit2.http.Query
 
 interface IRemoteDataSource {
     /**
@@ -47,4 +48,11 @@ interface IRemoteDataSource {
      * @return TableGroupsResponse
      */
     suspend fun getTableGroups(): TableGroupsResponse
+
+    /**
+     * Создать новый счет
+     * @param tableId Id столика
+     * @return NewBillResponse
+     */
+    suspend fun createBill(@Query("tableId") tableId: Long): NewBillResponse
 }

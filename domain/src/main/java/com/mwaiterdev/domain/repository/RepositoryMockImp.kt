@@ -32,4 +32,8 @@ class RepositoryMockImp : Repository {
     override suspend fun getTables(): TablesResponse {
         TODO("Not yet implemented")
     }
+
+    override suspend fun createBill(tableId: Long): NewBillResponse {
+        TODO("Not yet implemented")
+    }
 }

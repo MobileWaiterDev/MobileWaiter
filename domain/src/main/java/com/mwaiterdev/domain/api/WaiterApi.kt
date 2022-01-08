@@ -58,4 +58,12 @@ interface WaiterApi {
      */
     @GET("/MWaiter/?Method=getTableGroups")
     fun getTableGroupAsync(): Deferred<TableGroupsResponse>
+
+    /**
+     * Создать новый счет
+     * @param tableId Id столика
+     * @return NewBillResponse
+     */
+    @GET("/MWaiter/?Method=createBill")
+    fun createBillAsync(@Query("tableId") tableId: Long): Deferred<NewBillResponse>
 }

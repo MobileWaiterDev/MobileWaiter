@@ -3,6 +3,7 @@ package com.mwaiterdev.waiter.ui.tables
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -86,7 +87,9 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
 
     override fun onItemPicked(table: TableItem) {
         NavHostFragment.findNavController(this)
-            .navigate(R.id.nav_bill)
+            .navigate(R.id.nav_bill, bundleOf().apply {
+                putLong(KEY_TABLE_ID, table.tableId)
+            })
     }
 
     override fun onGroupPicked(group: TableGroupItem) {
@@ -98,5 +101,7 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
 
         private const val HEADER_SIZE = 4
         private const val TABLE_SIZE = 1
+
+        const val KEY_TABLE_ID = "tableId"
     }
 }

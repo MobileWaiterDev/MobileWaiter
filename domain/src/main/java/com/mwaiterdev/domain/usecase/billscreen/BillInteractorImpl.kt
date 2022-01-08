@@ -3,6 +3,7 @@ package com.mwaiterdev.domain.usecase.billscreen
 import com.mwaiterdev.domain.models.*
 import com.mwaiterdev.domain.models.response.BillItems
 import com.mwaiterdev.domain.models.response.ItemGroups
+import com.mwaiterdev.domain.models.response.NewBill
 import com.mwaiterdev.domain.repository.Repository
 
 class BillInteractorImpl(
@@ -76,6 +77,15 @@ class BillInteractorImpl(
             } else {
                 return ItemGroups(arrayListOf())
             }
+        }
+    }
+
+    override suspend fun createBill(tableId: Long): NewBill {
+        val result = repository.createBill(tableId)
+        return if (result.success) {
+            NewBill(result.billId)
+        } else {
+            NewBill(ZERO_VALUE)
         }
     }
 
