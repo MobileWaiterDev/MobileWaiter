@@ -8,7 +8,7 @@ import com.mwaiterdev.domain.models.response.BillsResponse
 import com.mwaiterdev.waiter.databinding.ItemTableCardviewBinding
 
 class AdapterTables(
-    private val data: List<BillsResponse.TableGroup.Table>,
+    private val bills: List<BillsResponse.TableGroup.Table.Bill>?,
     private val billItemListener: (Long?) -> View.OnClickListener
 ) : RecyclerView.Adapter<AdapterTables.ItemTable>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTable = ItemTable(
@@ -20,53 +20,28 @@ class AdapterTables(
     )
 
     override fun onBindViewHolder(holder: ItemTable, position: Int) {
-        holder.bind(data[position])
+        holder.bind(bills?.get(position))
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int {
+        if (!bills.isNullOrEmpty()){
+            return bills.size
+        }
+        return 0
+    }
 
     inner class ItemTable(
         private val binding: ItemTableCardviewBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: BillsResponse.TableGroup.Table) = with(binding) {
-            tableName.text = data.name
-            timeBooked.text = getDataById(data.tableId, data, TypeDataReq.CreatedTime)
-            totalBill.text = getDataById(data.tableId, data, TypeDataReq.TotalBill)
-            waitressObserve.text = getDataById(data.tableId, data, TypeDataReq.UserName)
-            countOfBills.text = getDataById(data.tableId, data, TypeDataReq.BillsCount)
-            if (!data.bills.isNullOrEmpty()){
-                orderRecycleView.adapter = AdapterOrders(getBillItems(data.tableId, data))
-            }
-            root.setOnClickListener(billItemListener.invoke(data?.bills?.first()?.billId))
-        }
-
-        private fun getDataById(
-            tableId: Long?,
-            data: BillsResponse.TableGroup.Table?,
-            typeData: TypeDataReq
-        ): CharSequence {
-              data?.bills?.map {
-                  if (it.tableId == tableId){
-                      return when(typeData){
-                          is TypeDataReq.CreatedTime -> it.createTime.subSequence(11, it.createTime.length)
-                          is TypeDataReq.UserName -> it.createdByUserName
-                          is TypeDataReq.BillsCount -> it.customers.toString()
-                          is TypeDataReq.TotalBill -> it.total.toString()
-                      }
-                  }
-              }
-            return "Free"
-        }
-
-        private fun getBillItems(
-            tableId: Long,
-            data: BillsResponse.TableGroup.Table): List<BillsResponse.TableGroup.Table.Bill.BillItem>?{
-            data.bills.map {
-                if (tableId == it.tableId){
-                    return it.billItems
-                }
-            }
-            return null
+        fun bind(data: BillsResponse.TableGroup.Table.Bill?) = with(binding) {
+            tableName.text = data?.tableName
+            timeBooked.text = data?.createTime?.subSequence(11, data.createTime.length)
+            totalBill.text = data?.total.toString()
+            waitressObserve.text = data?.createdByUserName
+            countOfBills.text = data?.customers.toString()
+            orderRecycleView.adapter =
+                data?.billId?.let { AdapterOrders(data?.billItems, billItemListener, it) }
+            root.setOnClickListener(billItemListener.invoke(data?.billId))
         }
     }
 }

@@ -8,7 +8,7 @@ data class BillsResponse(
     @SerializedName("success")
     val success: Boolean,
     @SerializedName("tableGroups")
-    val tableGroups: List<TableGroup> = arrayListOf()
+    var tableGroups: List<TableGroup>? = arrayListOf()
 ) {
     data class TableGroup(
         @SerializedName("name")
@@ -20,7 +20,7 @@ data class BillsResponse(
         @SerializedName("tableGroupTotal")
         val tableGroupTotal: Int,
         @SerializedName("tables")
-        val tables: List<Table> = arrayListOf(),
+        var tables: List<Table>? = arrayListOf(),
         var isExpanded: Boolean = false
     ) {
         data class Table(
@@ -29,7 +29,7 @@ data class BillsResponse(
             @SerializedName("askCustomersTableGroup")
             val askCustomersTableGroup: Boolean,
             @SerializedName("bills")
-            val bills: List<Bill> = arrayListOf(),
+            var bills: List<Bill>? = arrayListOf(),
             @SerializedName("maxCustomers")
             val maxCustomers: Int,
             @SerializedName("name")
@@ -47,7 +47,7 @@ data class BillsResponse(
                 @SerializedName("billId")
                 val billId: Long,
                 @SerializedName("billItems")
-                val billItems: List<BillItem> = arrayListOf(),
+                val billItems: List<BillItem>? = arrayListOf(),
                 @SerializedName("billNumber")
                 val billNumber: Long,
                 @SerializedName("clientId")

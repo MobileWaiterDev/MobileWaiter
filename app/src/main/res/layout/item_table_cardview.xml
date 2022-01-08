@@ -67,7 +67,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/order_recycle_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/height_of_order_items_bills_fragment"
         android:layout_weight="3"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_margin="5dp"
