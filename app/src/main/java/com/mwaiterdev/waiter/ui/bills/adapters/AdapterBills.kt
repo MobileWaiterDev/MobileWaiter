@@ -110,9 +110,12 @@ class AdapterBills(
         fun bind(data: BillsResponse.TableGroup?) = with(binding) {
             hallsName.text = data?.name
             billsCountAndSum.text = data?.tableGroupId?.let { getCountAndTotalBills(data, it) }
+            val bills = data?.tables?.flatMap { table ->
+                table.bills as List<BillsResponse.TableGroup.Table.Bill>
+            }
             if (!data?.tables.isNullOrEmpty()) {
                 tablesRecycleView.adapter =
-                    data?.tables?.let { AdapterTables(it, billItemListener) }
+                    AdapterTables(bills, billItemListener)
             }
             root.setOnClickListener(data?.let { hallItemListener(it) })
         }

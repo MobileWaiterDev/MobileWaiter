@@ -67,11 +67,12 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
                     initAdapter(appState.data as BillsResponse)
                     initExpandedFilter(appState.data as BillsResponse)
                     initTitleToolBar(appState.data as BillsResponse)
-                    viewBinding.mineBillsSwitcher.setOnCheckedChangeListener { _, isChecked ->                         Log.e("error", "clicked")
-                            (viewBinding.billsRecycleView.adapter as AdapterBills).getMineBills(
-                                1L,
-                                isChecked
-                            )
+                    viewBinding.mineBillsSwitcher.setOnCheckedChangeListener { _, isChecked ->
+                        Log.e("error", "clicked")
+                        (viewBinding.billsRecycleView.adapter as AdapterBills).getMineBills(
+                            1L,
+                            isChecked
+                        )
                     }
                 }
             }
@@ -90,9 +91,9 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
             ?.bills
             ?.first()?.let {
                 (activity as TitleToolbarListener).updateTitle(
-                it
-                    .createdByUserName
-            )
+                    it
+                        .createdByUserName
+                )
             }
     }
 

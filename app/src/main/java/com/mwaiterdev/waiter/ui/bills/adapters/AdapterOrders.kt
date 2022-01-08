@@ -25,19 +25,20 @@ class AdapterOrders(
     }
 
     override fun getItemCount(): Int {
-        if (!data.isNullOrEmpty()){
-            return if (data.size >= ITEMS_COUNT){
+        if (!data.isNullOrEmpty()) {
+            return if (data.size >= ITEMS_COUNT) {
                 ITEMS_COUNT
             } else data.size
         }
         return 0
     }
+
     inner class ItemOrder(
         private val binding: ItemOrdersListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: BillsResponse.TableGroup.Table.Bill.BillItem?) {
-            binding.orderPosition.text = data?.name
-            binding.root.setOnClickListener(billItemListener.invoke(billId))
+        fun bind(data: BillsResponse.TableGroup.Table.Bill.BillItem?) = with(binding) {
+            orderPosition.text = data?.name
+            root.setOnClickListener(billItemListener.invoke(billId))
         }
     }
 
