@@ -35,7 +35,11 @@ class AdapterTables(
             waitressObserve.text = getDataById(data.tableId, data, TypeDataReq.UserName)
             countOfBills.text = getDataById(data.tableId, data, TypeDataReq.BillsCount)
             if (!data.bills.isNullOrEmpty()){
-                orderRecycleView.adapter = AdapterOrders(getBillItems(data.tableId, data))
+                orderRecycleView.adapter = data?.bills?.first()?.billId?.let {
+                    AdapterOrders(getBillItems(data.tableId, data), billItemListener,
+                        it
+                    )
+                }
             }
             root.setOnClickListener(billItemListener.invoke(data?.bills?.first()?.billId))
         }
@@ -61,7 +65,7 @@ class AdapterTables(
         private fun getBillItems(
             tableId: Long,
             data: BillsResponse.TableGroup.Table): List<BillsResponse.TableGroup.Table.Bill.BillItem>?{
-            data.bills.map {
+            data.bills?.map {
                 if (tableId == it.tableId){
                     return it.billItems
                 }

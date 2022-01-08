@@ -56,8 +56,8 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     }
 
     override fun onResume() {
-        viewModel.getData()
         super.onResume()
+        viewModel.getData()
     }
 
     private fun renderData(appState: AppState?) {
@@ -69,13 +69,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
                     initTitleToolBar(appState.data as BillsResponse)
                     viewBinding.mineBillsSwitcher.setOnCheckedChangeListener { _, isChecked ->                         Log.e("error", "clicked")
                             (viewBinding.billsRecycleView.adapter as AdapterBills).getMineBills(
-                                (appState.data as BillsResponse).tableGroups
-                                    .first()
-                                    .tables
-                                    .first()
-                                    .bills
-                                    .first()
-                                    .createdByUserId,
+                                1L,
                                 isChecked
                             )
                     }
@@ -89,15 +83,17 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     }
 
     private fun initTitleToolBar(data: BillsResponse) {
-        (activity as TitleToolbarListener).updateTitle(
-            data.tableGroups
-                .first()
-                .tables
-                .first()
-                .bills
-                .first()
-                .createdByUserName
-        )
+        data.tableGroups
+            ?.first()
+            ?.tables
+            ?.first()
+            ?.bills
+            ?.first()?.let {
+                (activity as TitleToolbarListener).updateTitle(
+                it
+                    .createdByUserName
+            )
+            }
     }
 
     private fun initAdapter(data: BillsResponse) {
@@ -109,7 +105,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     }
 
     private fun initExpandedFilter(data: BillsResponse) {
-        val listTitleOfHals = data.tableGroups.map {
+        val listTitleOfHals = data.tableGroups?.map {
             it.name
         } as MutableList<String>
         listTitleOfHals.add(0, "All Hals")
