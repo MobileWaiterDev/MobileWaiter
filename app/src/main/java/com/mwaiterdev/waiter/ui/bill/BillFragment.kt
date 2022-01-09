@@ -14,6 +14,7 @@ import com.mwaiterdev.domain.models.BillItem
 import com.mwaiterdev.domain.models.Item
 import com.mwaiterdev.domain.models.ItemGroup
 import com.mwaiterdev.domain.models.response.BillItems
+import com.mwaiterdev.domain.models.response.BillsInfo
 import com.mwaiterdev.domain.models.response.ItemGroups
 import com.mwaiterdev.domain.models.response.NewBill
 import com.mwaiterdev.utils.extensions.showSnakeBar
@@ -57,6 +58,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         }
 
         viewModel.getMenu()
+        viewModel.loadBill(billId)
     }
 
     private fun setTitle(title: String) {
@@ -113,6 +115,9 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
                                 String
                                     .format(NEW_BILL_CREATED_LOG, (result.data as NewBill).data)
                             )
+                    }
+                    is BillsInfo -> {
+                        Log.d("WaiterDebug", "renderData -> BillsInfo ${result.data as BillsInfo}")
                     }
                 }
             }

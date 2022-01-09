@@ -3,7 +3,6 @@ package com.mwaiterdev.waiter.ui.bill
 import android.util.Log
 import com.mwaiterdev.domain.ScreenState
 import com.mwaiterdev.domain.usecase.billscreen.IBillInteractor
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class BillViewModel(
@@ -59,9 +58,16 @@ class BillViewModel(
             }
         }
 
-    override fun loadBill(billId: Long): Job {
-        TODO("Not yet implemented")
-    }
+    override fun loadBill(billId: Long) =
+        viewModelScopeCoroutine.launch {
+            operationLiveData().postValue(
+                ScreenState.Loading
+            )
+            val billInfo = interactor.getBillInfo(billId = billId)
+            operationLiveData().postValue(
+                ScreenState.Success(data = billInfo)
+            )
+        }
 
     override fun handleError(throwable: Throwable) {}
 
