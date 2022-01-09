@@ -6,7 +6,9 @@ import com.mwaiterdev.domain.ScreenState
 import kotlinx.coroutines.*
 
 abstract class BaseBillViewModel : ViewModel() {
-    private val customLiveData = MutableLiveData<ScreenState>()
+    private val billItemsLiveData = MutableLiveData<ScreenState>()
+    private val menuLiveData = MutableLiveData<ScreenState>()
+    private val operationLiveData = MutableLiveData<ScreenState>()
     protected val viewModelScopeCoroutine = CoroutineScope(
         Dispatchers.IO
                 + SupervisorJob()
@@ -17,8 +19,14 @@ abstract class BaseBillViewModel : ViewModel() {
 
     abstract fun handleError(throwable: Throwable): Any
 
-    abstract fun getData()
-    fun getLiveData() = customLiveData
+    fun billItemsLiveData() = billItemsLiveData
+    fun menuLiveData() = menuLiveData
+    fun operationLiveData() = operationLiveData
+
+    abstract fun createBill(tableId: Long): Job
+    abstract fun loadBill(billId: Long): Job
+    abstract fun getMenu(itemGroupId: Long = 0L): Job
+    abstract fun getBillItems(billId: Long): Job
 
     override fun onCleared() {
         super.onCleared()

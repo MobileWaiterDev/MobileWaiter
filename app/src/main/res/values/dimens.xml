@@ -78,6 +78,7 @@
     <dimen name="bill_item_name_margin_top">15dp</dimen>
     <dimen name="bill_item_sub_total_margin_top">20dp</dimen>
     <dimen name="height_of_order_items_bills_fragment">100dp</dimen>
+    <dimen name="fragment_bill_bill_items_rv_margin_top">5dp</dimen>
     <item name="nav_header_logo_width_percent" format="float" type="dimen">0.8</item>
     <item name="fragment_bill_menu_items_rv_height_percent" format="float" type="dimen">0.3</item>
 </resources>
