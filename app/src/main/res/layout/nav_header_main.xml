@@ -9,19 +9,19 @@
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/logo"
         android:layout_width="@dimen/zero"
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_height="@dimen/nav_header_logo_height"
         android:contentDescription="@string/nav_header_logo_description"
-        android:minHeight="@dimen/nav_header_logo_height"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:scaleType="fitCenter"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="@dimen/nav_header_logo_width_percent"
-        tools:src="@tools:sample/avatars" />
+        android:src="@drawable/logo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/user_panel"
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/nav_header_sample_company_title" />
+            android:text="@string/nav_header_sample_company_title" />
 
         <ImageView
             android:id="@+id/user_icon"
@@ -57,9 +57,10 @@
             android:layout_marginTop="@dimen/nav_header_user_icon_margin_top"
             android:contentDescription="@string/nav_header_user_icon_description"
             android:scaleType="fitCenter"
+            android:src="@drawable/ic_user_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
-            tools:src="@tools:sample/avatars" />
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/user_group"
@@ -72,7 +73,7 @@
             app:layout_constraintBottom_toTopOf="@id/user_name"
             app:layout_constraintStart_toEndOf="@id/user_icon"
             app:layout_constraintTop_toTopOf="@id/user_icon"
-            tools:text="@string/nav_header_sample_user_group" />
+            android:text="@string/nav_header_sample_user_group" />
 
         <TextView
             android:id="@+id/user_name"
@@ -85,7 +86,7 @@
             app:layout_constraintBottom_toBottomOf="@id/user_icon"
             app:layout_constraintStart_toEndOf="@id/user_icon"
             app:layout_constraintTop_toBottomOf="@id/user_group"
-            tools:text="@string/nav_header_sample_user_login" />
+            android:text="@string/nav_header_sample_user_login" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

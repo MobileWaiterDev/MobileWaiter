@@ -2,15 +2,15 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">320dp</dimen>
+    <dimen name="nav_header_vertical_spacing">0dp</dimen>
+    <dimen name="nav_header_height">360dp</dimen>
     <dimen name="nav_header_user_icon_size">50dp</dimen>
     <dimen name="nav_header_user_icon_margin_horizontal">15dp</dimen>
     <dimen name="nav_header_user_icon_margin_top">25dp</dimen>
     <dimen name="nav_header_title_text_size">24sp</dimen>
     <dimen name="nav_header_user_text_size">14sp</dimen>
     <dimen name="zero">0dp</dimen>
-    <dimen name="nav_header_logo_height">140dp</dimen>
+    <dimen name="nav_header_logo_height">180dp</dimen>
     <dimen name="nav_header_user_panel_height">180dp</dimen>
     <dimen name="nav_header_title_margin_horizontal">10dp</dimen>
     <dimen name="nav_header_title_margin_vertical">16dp</dimen>
@@ -26,7 +26,7 @@
     <dimen name="activity_main_version_margin_start">10dp</dimen>
     <dimen name="activity_main_version_margin_bottom">16dp</dimen>
     <dimen name="activity_main_version_text_size">16sp</dimen>
-    <dimen name="nav_header_user_panel_margin_top">150dp</dimen>
+    <dimen name="nav_header_user_panel_margin_top">220dp</dimen>
     <dimen name="margin_filter_component">7dp</dimen>
     <dimen name="item_bills_margin_text_view">18dp</dimen>
     <dimen name="item_bills_text_size">20sp</dimen>
@@ -74,11 +74,11 @@
     <dimen name="table_item_card_margin">16dp</dimen>
     <dimen name="table_item_card_stroke_width">1dp</dimen>
     <dimen name="fr_bills_margin_start_switches">15dp</dimen>
-    <dimen name="bill_item_category_text_size">8sp</dimen>
+    <dimen name="bill_item_data_create_text_size">10sp</dimen>
     <dimen name="bill_item_name_margin_top">15dp</dimen>
     <dimen name="bill_item_sub_total_margin_top">20dp</dimen>
     <dimen name="height_of_order_items_bills_fragment">100dp</dimen>
     <dimen name="fragment_bill_bill_items_rv_margin_top">5dp</dimen>
-    <item name="nav_header_logo_width_percent" format="float" type="dimen">0.8</item>
+    <item name="nav_header_logo_width_percent" format="float" type="dimen">1.1</item>
     <item name="fragment_bill_menu_items_rv_height_percent" format="float" type="dimen">0.3</item>
 </resources>

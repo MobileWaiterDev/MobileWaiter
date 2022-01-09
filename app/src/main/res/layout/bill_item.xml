@@ -37,7 +37,7 @@
         android:layout_marginStart="@dimen/bill_item_name_margin_start"
         android:layout_marginTop="@dimen/bill_item_name_margin_top"
         android:textColor="@color/gray"
-        android:textSize="@dimen/bill_item_category_text_size"
+        android:textSize="@dimen/bill_item_data_create_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/amount"
         app:layout_constraintTop_toTopOf="parent"
