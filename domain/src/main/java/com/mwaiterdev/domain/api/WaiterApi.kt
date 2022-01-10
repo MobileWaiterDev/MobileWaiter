@@ -66,4 +66,12 @@ interface WaiterApi {
      */
     @GET("/MWaiter/?Method=createBill")
     fun createBillAsync(@Query("tableId") tableId: Long): Deferred<NewBillResponse>
+
+    /**
+     * Информация о счете
+     * @param billId Id счета
+     * @return BillInfoResponse
+     */
+    @GET("/MWaiter/?Method=getBillInfo")
+    fun getBillInfoAsync(@Query("billId") billId: Long): Deferred<BillsInfoResponse>
 }

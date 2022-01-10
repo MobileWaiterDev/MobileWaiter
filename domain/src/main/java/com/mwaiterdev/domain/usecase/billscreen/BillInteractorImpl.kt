@@ -2,6 +2,7 @@ package com.mwaiterdev.domain.usecase.billscreen
 
 import com.mwaiterdev.domain.models.*
 import com.mwaiterdev.domain.models.response.BillItems
+import com.mwaiterdev.domain.models.response.BillsInfo
 import com.mwaiterdev.domain.models.response.ItemGroups
 import com.mwaiterdev.domain.models.response.NewBill
 import com.mwaiterdev.domain.repository.Repository
@@ -88,6 +89,9 @@ class BillInteractorImpl(
             NewBill(ZERO_VALUE)
         }
     }
+
+    override suspend fun getBillInfo(billId: Long): BillsInfo =
+        BillsInfo(repository.getBillInfo(billId = billId).billInfo)
 
     companion object {
         const val ZERO_VALUE = 0L

@@ -3,9 +3,9 @@
     <string name="app_name">Mobile Waiter</string>
     <string name="nav_header_logo_description">Logo</string>
     <string name="nav_header_user_icon_description">User icon</string>
-    <string name="nav_header_sample_company_title">Company title</string>
-    <string name="nav_header_sample_user_group">User group</string>
-    <string name="nav_header_sample_user_login">User login</string>
+    <string name="nav_header_sample_company_title">Cafe "Smile"</string>
+    <string name="nav_header_sample_user_group">Waiter</string>
+    <string name="nav_header_sample_user_login">Ivanov I.I.</string>
     <string name="menu_bills">Bills</string>
     <string name="menu_login">LogIn/User change</string>
     <string name="menu_tables">Tables</string>

@@ -1,6 +1,7 @@
 package com.mwaiterdev.domain.usecase.billscreen
 
 import com.mwaiterdev.domain.models.response.BillItems
+import com.mwaiterdev.domain.models.response.BillsInfo
 import com.mwaiterdev.domain.models.response.ItemGroups
 import com.mwaiterdev.domain.models.response.NewBill
 
@@ -25,4 +26,11 @@ interface IBillInteractor {
      * @return NewBill
      */
     suspend fun createBill(tableId: Long): NewBill
+
+    /**
+     * Информация о счете
+     * @param billId Id счета
+     * @return BillInfoResponse
+     */
+    suspend fun getBillInfo(billId: Long): BillsInfo
 }

@@ -3,9 +3,9 @@
     <string name="app_name">Мобильный официант</string>
     <string name="nav_header_logo_description">Логотип</string>
     <string name="nav_header_user_icon_description">Иконка пользователя</string>
-    <string name="nav_header_sample_company_title">Название компании</string>
-    <string name="nav_header_sample_user_group">Группа пользователя</string>
-    <string name="nav_header_sample_user_login">Логин пользователя</string>
+    <string name="nav_header_sample_company_title">Кафе "Улыбка"</string>
+    <string name="nav_header_sample_user_group">Официант</string>
+    <string name="nav_header_sample_user_login">Иванов И.И.</string>
     <string name="menu_bills">Счета</string>
     <string name="menu_login">Вход/Смена пользователя</string>
     <string name="menu_tables">Столы</string>

@@ -11,6 +11,7 @@
         android:id="@+id/bill_items_rv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero"
+        android:layout_marginTop="@dimen/fragment_bill_bill_items_rv_margin_top"
         app:layout_constraintBottom_toTopOf="@id/button_panel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,5 +57,17 @@
         app:layout_constraintHeight_percent="@dimen/fragment_bill_menu_items_rv_height_percent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_panel" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indeterminateAnimationType="contiguous"
+        app:indicatorColor="@array/progress_colors"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

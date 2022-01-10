@@ -1,7 +1,9 @@
 package com.mwaiterdev.waiter.ui.bill
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.mwaiterdev.domain.models.BillItem
 import com.mwaiterdev.domain.models.Item
 import com.mwaiterdev.domain.models.ItemGroup
 import com.mwaiterdev.domain.models.response.BillItems
+import com.mwaiterdev.domain.models.response.BillsInfo
 import com.mwaiterdev.domain.models.response.ItemGroups
 import com.mwaiterdev.domain.models.response.NewBill
 import com.mwaiterdev.utils.extensions.showSnakeBar
@@ -40,20 +43,22 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initRecyclerForBillItems()
         initRecyclerForMenu()
-
-        viewModel.getLiveData()
-            .observe(viewLifecycleOwner, { billItems -> renderData(billItems) })
-        viewModel.loadBill(billId, tableId)
+        initObserver()
 
         viewBinding.homeMenu.setOnClickListener {
-            viewModel.getItems(ZERO_VALUE)
+            viewModel.getMenu(ZERO_VALUE)
         }
 
         if (billId == ZERO_VALUE) {
+            viewModel.createBill(tableId)
             setTitle(NEW_BILL_STRING)
         } else {
+            viewModel.getBillItems(billId)
             setTitle(String.format(OLD_BILL_STRING, billId))
         }
+
+        viewModel.getMenu()
+        viewModel.loadBill(billId)
     }
 
     private fun setTitle(title: String) {
@@ -78,25 +83,41 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         billsRV.setHasFixedSize(true)
     }
 
-    /** Отобразить существующие товары в счете */
+    private fun initObserver() {
+        viewModel.billItemsLiveData()
+            .observe(viewLifecycleOwner, { billItems -> renderData(result = billItems) })
+
+        viewModel.menuLiveData()
+            .observe(viewLifecycleOwner, { menuItems -> renderData(result = menuItems) })
+
+        viewModel.operationLiveData()
+            .observe(viewLifecycleOwner, { result -> renderData(result = result) })
+    }
+
     private fun renderData(result: ScreenState?) {
         when (result) {
             is ScreenState.Success -> {
                 showLoading(false)
                 when (result.data) {
-                    is BillItems -> {
-                        billItemsAdapter.addItems((result.data as BillItems).data)
-                    }
                     is ItemGroups -> {
+                        Log.d("WaiterDebug", "renderData -> ItemGroups")
                         menuAdapter.addItems((result.data as ItemGroups).data)
                     }
+                    is BillItems -> {
+                        Log.d("WaiterDebug", "renderData -> BillItems")
+                        billItemsAdapter.addItems((result.data as BillItems).data)
+                    }
                     is NewBill -> {
+                        Log.d("WaiterDebug", "renderData -> NewBill")
                         viewBinding
                             .root
                             .showSnakeBar(
                                 String
                                     .format(NEW_BILL_CREATED_LOG, (result.data as NewBill).data)
                             )
+                    }
+                    is BillsInfo -> {
+                        Log.d("WaiterDebug", "renderData -> BillsInfo ${result.data as BillsInfo}")
                     }
                 }
             }
@@ -106,6 +127,9 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
             }
             is ScreenState.Loading -> {
                 showLoading(true)
+            }
+            else -> {
+                throw IllegalArgumentException("Unknown State")
             }
         }
     }
@@ -119,11 +143,12 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
     }
 
     override fun onGroupPicked(group: ItemGroup) {
-        viewModel.getItems(group.itemGroupId)
+        viewModel.getMenu(group.itemGroupId)
     }
 
     //ToDo Реализовать отображение анимации загрузки
     override fun showLoading(visible: Boolean) {
+        viewBinding.progress.isVisible = visible
     }
 
     override fun showError(error: Throwable) {

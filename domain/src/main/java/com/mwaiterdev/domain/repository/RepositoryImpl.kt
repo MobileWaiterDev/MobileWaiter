@@ -40,4 +40,7 @@ class RepositoryImpl(private val dataSource: IRemoteDataSource) : Repository {
 
     override suspend fun createBill(tableId: Long): NewBillResponse =
         dataSource.createBill(tableId = tableId)
+
+    override suspend fun getBillInfo(billId: Long): BillsInfoResponse =
+        dataSource.getBillInfo(billId = billId)
 }
