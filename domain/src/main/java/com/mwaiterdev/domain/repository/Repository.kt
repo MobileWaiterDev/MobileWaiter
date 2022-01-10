@@ -72,4 +72,19 @@ interface Repository {
      * @return BillInfoResponse
      */
     suspend fun getBillInfo(billId: Long): BillsInfoResponse
+
+    /**
+     * Добавить товар в счет
+     * @param billId Id счета
+     * @param itemId Id товара
+     * @param amount Количество
+     * @param price Цена
+     * @return OperationResult
+     */
+    suspend fun addItemIntoBill(
+        billId: Long,
+        itemId: Long,
+        amount: Float,
+        price: Float
+    ): OperationResult
 }

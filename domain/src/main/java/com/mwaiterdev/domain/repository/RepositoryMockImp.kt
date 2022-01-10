@@ -40,4 +40,13 @@ class RepositoryMockImp : Repository {
     override suspend fun getBillInfo(billId: Long): BillsInfoResponse {
         TODO("Not yet implemented")
     }
+
+    override suspend fun addItemIntoBill(
+        billId: Long,
+        itemId: Long,
+        amount: Float,
+        price: Float
+    ): OperationResult {
+        TODO("Not yet implemented")
+    }
 }

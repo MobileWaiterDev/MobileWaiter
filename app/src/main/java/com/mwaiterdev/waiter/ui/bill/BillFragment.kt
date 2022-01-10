@@ -45,6 +45,8 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         initRecyclerForMenu()
         initObserver()
 
+        viewModel.setCurrentBill(billId)
+
         viewBinding.homeMenu.setOnClickListener {
             viewModel.getMenu(ZERO_VALUE)
         }
@@ -53,7 +55,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
             viewModel.createBill(tableId)
             setTitle(NEW_BILL_STRING)
         } else {
-            viewModel.getBillItems(billId)
+            viewModel.getBillItems()
             setTitle(String.format(OLD_BILL_STRING, billId))
         }
 
@@ -106,9 +108,11 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
                     is BillItems -> {
                         Log.d("WaiterDebug", "renderData -> BillItems")
                         billItemsAdapter.addItems((result.data as BillItems).data)
+                        viewBinding.billItemsRv.smoothScrollToPosition(billItemsAdapter.itemCount)
                     }
                     is NewBill -> {
                         Log.d("WaiterDebug", "renderData -> NewBill")
+                        viewModel.setCurrentBill((result.data as NewBill).data)
                         viewBinding
                             .root
                             .showSnakeBar(
@@ -139,7 +143,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
     }
 
     override fun onItemPicked(item: Item) {
-        viewBinding.root.showSnakeBar(item.name)
+        viewModel.addItemIntoBill(item.itemId, DEFAULT_AMOUNT, item.price.price)
     }
 
     override fun onGroupPicked(group: ItemGroup) {
@@ -162,5 +166,6 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         const val NEW_BILL_STRING = "Новый счет"
         const val OLD_BILL_STRING = "BillId: %s"
         const val NEW_BILL_CREATED_LOG = "Создан новый счет с billId: %s"
+        const val DEFAULT_AMOUNT = 1f
     }
 }

@@ -33,4 +33,19 @@ interface IBillInteractor {
      * @return BillInfoResponse
      */
     suspend fun getBillInfo(billId: Long): BillsInfo
+
+    /**
+     * Добавить товар в счет
+     * @param billId Id счета
+     * @param itemId Id товара
+     * @param amount Количество
+     * @param price Цена
+     * @return Boolean
+     */
+    suspend fun addItemIntoBill(
+        billId: Long,
+        itemId: Long,
+        amount: Float,
+        price: Float
+    ): Boolean
 }

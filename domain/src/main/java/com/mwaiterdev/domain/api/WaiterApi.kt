@@ -2,8 +2,8 @@ package com.mwaiterdev.domain.api
 
 import com.mwaiterdev.domain.models.response.*
 import kotlinx.coroutines.Deferred
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
+
 
 interface WaiterApi {
 
@@ -74,4 +74,13 @@ interface WaiterApi {
      */
     @GET("/MWaiter/?Method=getBillInfo")
     fun getBillInfoAsync(@Query("billId") billId: Long): Deferred<BillsInfoResponse>
+
+    @FormUrlEncoded
+    @POST("/MWaiter/?Method=addItemIntoBill")
+    fun addItemIntoBillAsync(
+        @Field("billId") billId: Long,
+        @Field("itemId") itemId: Long,
+        @Field("amount") amount: Float,
+        @Field("price") price: Float
+    ): Deferred<OperationResult>
 }
