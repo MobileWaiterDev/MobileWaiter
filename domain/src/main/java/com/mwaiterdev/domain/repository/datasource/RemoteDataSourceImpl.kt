@@ -30,4 +30,17 @@ class RemoteDataSourceImpl(private val waiterApi: WaiterApi) : IRemoteDataSource
 
     override suspend fun getBillInfo(billId: Long): BillsInfoResponse =
         waiterApi.getBillInfoAsync(billId = billId).await()
+
+    override suspend fun addItemIntoBill(
+        billId: Long,
+        itemId: Long,
+        amount: Float,
+        price: Float
+    ): OperationResult =
+        waiterApi.addItemIntoBillAsync(
+            billId = billId,
+            itemId = itemId,
+            amount = amount,
+            price = price
+        ).await()
 }

@@ -93,6 +93,21 @@ class BillInteractorImpl(
     override suspend fun getBillInfo(billId: Long): BillsInfo =
         BillsInfo(repository.getBillInfo(billId = billId).billInfo)
 
+    override suspend fun addItemIntoBill(
+        billId: Long,
+        itemId: Long,
+        amount: Float,
+        price: Float
+    ): Boolean {
+        val result = repository.addItemIntoBill(
+            billId = billId,
+            itemId = itemId,
+            amount = amount,
+            price = price
+        )
+        return result.success
+    }
+
     companion object {
         const val ZERO_VALUE = 0L
     }
