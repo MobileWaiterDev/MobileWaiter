@@ -18,6 +18,13 @@ class BillItemAdapter(private val delegate: Delegate?) :
          * @param billItem Товар
          */
         fun onBillItemPicked(billItem: BillItem)
+
+        /**
+         * Событие наступает при клике
+         * по кнопке изменения количества.
+         * @param billItem Товар
+         */
+        fun onUpdateAmountPicked(billItem: BillItem)
     }
 
     private val data = ArrayList<BillItem>()

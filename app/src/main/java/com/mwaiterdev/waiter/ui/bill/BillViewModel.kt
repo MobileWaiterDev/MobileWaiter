@@ -15,13 +15,14 @@ class BillViewModel(
         currentBillId = billId
     }
 
-    override fun getBillItems() =
+    override fun getBillItems(needScrollToPosition: Boolean) =
         viewModelScopeCoroutine.launch {
             billItemsLiveData().postValue(
                 ScreenState.Loading
             )
             Log.d("WaiterDebug", "fun getBillItems($currentBillId)")
-            val billItems = interactor.getBillItemsById(billId = currentBillId)
+            val billItems =
+                interactor.getBillItemsById(billId = currentBillId, needScrollToPosition)
             if (billItems.data.isNullOrEmpty().not()) {
                 billItemsLiveData().postValue(
                     ScreenState.Success(data = billItems)
@@ -86,7 +87,19 @@ class BillViewModel(
                 amount = amount,
                 price = price
             ).also {
-                getBillItems()
+                getBillItems(needScrollToPosition = true)
+            }
+        }
+    }
+
+    fun updateAmount(billItemId: Long, amount: Float, price: Float) {
+        viewModelScopeCoroutine.launch {
+            interactor.updateAmount(
+                billItemId = billItemId,
+                amount = amount,
+                price = price
+            ).also {
+                getBillItems(needScrollToPosition = false)
             }
         }
     }

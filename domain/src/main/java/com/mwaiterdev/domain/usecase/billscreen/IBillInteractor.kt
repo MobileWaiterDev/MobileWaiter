@@ -11,7 +11,7 @@ interface IBillInteractor {
      * @param billId Id счета
      * @return BillItems
      */
-    suspend fun getBillItemsById(billId: Long): BillItems
+    suspend fun getBillItemsById(billId: Long, needScrollToPosition: Boolean = false): BillItems
 
     /**
      * Получить список категорий/товаров меню
@@ -45,6 +45,19 @@ interface IBillInteractor {
     suspend fun addItemIntoBill(
         billId: Long,
         itemId: Long,
+        amount: Float,
+        price: Float
+    ): Boolean
+
+    /**
+     * Изменить количество товара в счете
+     * @param billItemId Id товара в счете
+     * @param amount Количество
+     * @param price Цена
+     * @return Boolean
+     */
+    suspend fun updateAmount(
+        billItemId: Long,
         amount: Float,
         price: Float
     ): Boolean

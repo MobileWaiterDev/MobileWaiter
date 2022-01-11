@@ -1,5 +1,7 @@
 package com.mwaiterdev.waiter.ui.bill
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -22,12 +24,14 @@ import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.FragmentBillBinding
 import com.mwaiterdev.waiter.ui.IScreenView
 import com.mwaiterdev.waiter.ui.TitleToolbarListener
+import com.mwaiterdev.waiter.ui.amountdialog.AmountDialog
+import com.mwaiterdev.waiter.ui.amountdialog.AmountTypeValue
 import com.mwaiterdev.waiter.ui.bill.adapter.BillItemAdapter
 import com.mwaiterdev.waiter.ui.bill.adapter.MenuAdapter
 import org.koin.android.ext.android.getKoin
 
 class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
-    MenuAdapter.Delegate, IScreenView {
+    MenuAdapter.Delegate, IScreenView, AmountDialog.IAmountDialog {
 
     private val scope = getKoin().createScope<BillFragment>()
     private val viewModel: BillViewModel = scope.get()
@@ -69,7 +73,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
     private fun initRecyclerForMenu() {
         val menuRV: RecyclerView = viewBinding.menuItemsRv
-        val gridLayoutManager = GridLayoutManager(context, 3)
+        val gridLayoutManager = GridLayoutManager(context, SPAN_COUNT)
 
         menuRV.layoutManager = gridLayoutManager
         menuRV.adapter = menuAdapter
@@ -108,7 +112,9 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
                     is BillItems -> {
                         Log.d("WaiterDebug", "renderData -> BillItems")
                         billItemsAdapter.addItems((result.data as BillItems).data)
-                        viewBinding.billItemsRv.smoothScrollToPosition(billItemsAdapter.itemCount)
+                        if ((result.data as BillItems).needScrollToPosition) {
+                            viewBinding.billItemsRv.smoothScrollToPosition(billItemsAdapter.itemCount)
+                        }
                     }
                     is NewBill -> {
                         Log.d("WaiterDebug", "renderData -> NewBill")
@@ -142,6 +148,19 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         viewBinding.root.showSnakeBar(billItem.name)
     }
 
+    override fun onUpdateAmountPicked(billItem: BillItem) {
+        val dialogFragment = AmountDialog(AmountTypeValue.FLOAT)
+
+        val args = Bundle()
+        args.putLong(ARG_BILL_ITEM_ID, billItem.billItemId)
+        args.putFloat(ARG_PRICE, billItem.price)
+        dialogFragment.arguments = args;
+
+        dialogFragment.setAmountDialogListener(this)
+        dialogFragment.isCancelable = false
+        dialogFragment.show(parentFragmentManager, AmountDialog.TAG)
+    }
+
     override fun onItemPicked(item: Item) {
         viewModel.addItemIntoBill(item.itemId, DEFAULT_AMOUNT, item.price.price)
     }
@@ -159,14 +178,33 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         viewBinding.root.showSnakeBar(error.message.toString())
     }
 
+    override fun resultValue(resultCode: Int, data: Intent?, args: Bundle?) {
+        val billItemId = args?.getLong(ARG_BILL_ITEM_ID) ?: ZERO_VALUE
+        val price = args?.getFloat(ARG_PRICE) ?: ZERO_FLOAT_VALUE
+
+        if (billItemId > ZERO_VALUE && price > ZERO_FLOAT_VALUE) {
+            if (resultCode == Activity.RESULT_OK) {
+                data?.getFloatExtra(AmountDialog.KEY_RESULT, ERROR_VALUE)
+                    ?.also {
+                        viewModel.updateAmount(billItemId, it, price)
+                    }
+            }
+        }
+    }
+
     companion object {
         const val KEY_BILL_ID = "billId"
         const val KEY_TABLE_ID = "tableId"
         const val ZERO_VALUE = 0L
+        const val ZERO_FLOAT_VALUE = 0f
         const val NEW_BILL_STRING = "Новый счет"
         const val OLD_BILL_STRING = "BillId: %s"
         const val NEW_BILL_CREATED_LOG = "Создан новый счет с billId: %s"
         const val DEFAULT_AMOUNT = 1f
         const val ERROR_VALUE = -1f
+        const val SPAN_COUNT = 3
+
+        const val ARG_BILL_ITEM_ID = "billItemId"
+        const val ARG_PRICE = "price"
     }
 }

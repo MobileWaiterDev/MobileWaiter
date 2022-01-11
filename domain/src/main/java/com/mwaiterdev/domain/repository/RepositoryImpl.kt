@@ -56,4 +56,15 @@ class RepositoryImpl(private val dataSource: IRemoteDataSource) : Repository {
             amount = amount,
             price = price
         )
+
+    override suspend fun updateAmount(
+        billItemId: Long,
+        amount: Float,
+        price: Float
+    ): OperationResult =
+        dataSource.updateAmount(
+            billItemId = billItemId,
+            amount = amount,
+            price = price
+        )
 }
