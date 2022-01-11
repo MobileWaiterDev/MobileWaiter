@@ -106,4 +106,15 @@ interface WaiterApi {
         @Field("amount") amount: Float,
         @Field("price") price: Float
     ): Deferred<OperationResult>
+
+    /**
+     * Удалить товар из счета
+     * @param billItemId Id товара в счете
+     * @return OperationResult
+     */
+    @FormUrlEncoded
+    @POST("/MWaiter/?Method=deleteItem")
+    fun deleteItemAsync(
+        @Field("billItemId") billItemId: Long,
+    ): Deferred<OperationResult>
 }

@@ -8,7 +8,7 @@ import com.mwaiterdev.domain.models.BillItem
 import com.mwaiterdev.waiter.R
 
 class BillItemAdapter(private val delegate: Delegate?) :
-    RecyclerView.Adapter<BillItemViewHolder?>() {
+    RecyclerView.Adapter<BillItemViewHolder?>(), BillItemTouchHelperAdapter {
 
     interface Delegate {
 
@@ -25,6 +25,12 @@ class BillItemAdapter(private val delegate: Delegate?) :
          * @param billItem Товар
          */
         fun onUpdateAmountPicked(billItem: BillItem)
+
+        /**
+         * Событие наступает при свайпе товара справа налево.
+         * @param billItem Товар
+         */
+        fun onDeletePicked(billItem: BillItem)
     }
 
     private val data = ArrayList<BillItem>()
@@ -49,6 +55,10 @@ class BillItemAdapter(private val delegate: Delegate?) :
 
     override fun onBindViewHolder(holder: BillItemViewHolder, position: Int) =
         holder.bind(data[position], delegate)
+
+    override fun onItemSwipe(position: Int) {
+        delegate?.onDeletePicked(data[position])
+    }
 
     inner class DiffUtilCallback(
         private var oldItems: ArrayList<BillItem>,

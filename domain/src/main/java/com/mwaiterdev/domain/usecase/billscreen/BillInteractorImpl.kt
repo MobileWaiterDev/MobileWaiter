@@ -117,6 +117,13 @@ class BillInteractorImpl(
         return result.success
     }
 
+    override suspend fun deleteItem(billItemId: Long): Boolean {
+        val result = repository.deleteItem(
+            billItemId = billItemId,
+        )
+        return result.success
+    }
+
     companion object {
         const val ZERO_VALUE = 0L
     }

@@ -67,4 +67,7 @@ class RepositoryImpl(private val dataSource: IRemoteDataSource) : Repository {
             amount = amount,
             price = price
         )
+
+    override suspend fun deleteItem(billItemId: Long): OperationResult =
+        dataSource.deleteItem(billItemId)
 }

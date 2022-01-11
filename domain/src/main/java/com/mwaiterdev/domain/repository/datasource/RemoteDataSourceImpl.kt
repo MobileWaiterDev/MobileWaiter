@@ -54,4 +54,7 @@ class RemoteDataSourceImpl(private val waiterApi: WaiterApi) : IRemoteDataSource
             amount = amount,
             price = price
         ).await()
+
+    override suspend fun deleteItem(billItemId: Long): OperationResult =
+        waiterApi.deleteItemAsync(billItemId).await()
 }

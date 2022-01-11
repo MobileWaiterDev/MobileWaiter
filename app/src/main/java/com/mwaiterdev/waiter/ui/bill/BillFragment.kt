@@ -8,6 +8,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -27,6 +28,7 @@ import com.mwaiterdev.waiter.ui.TitleToolbarListener
 import com.mwaiterdev.waiter.ui.amountdialog.AmountDialog
 import com.mwaiterdev.waiter.ui.amountdialog.AmountTypeValue
 import com.mwaiterdev.waiter.ui.bill.adapter.BillItemAdapter
+import com.mwaiterdev.waiter.ui.bill.adapter.BillItemTouchHelperCallback
 import com.mwaiterdev.waiter.ui.bill.adapter.MenuAdapter
 import org.koin.android.ext.android.getKoin
 
@@ -87,6 +89,10 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         billsRV.layoutManager = linearLayoutManager
         billsRV.adapter = billItemsAdapter
         billsRV.setHasFixedSize(true)
+
+        val callback: ItemTouchHelper.Callback = BillItemTouchHelperCallback(billItemsAdapter)
+        val touchHelper = ItemTouchHelper(callback)
+        touchHelper.attachToRecyclerView(billsRV)
     }
 
     private fun initObserver() {
@@ -161,6 +167,11 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         dialogFragment.show(parentFragmentManager, AmountDialog.TAG)
     }
 
+    override fun onDeletePicked(billItem: BillItem) {
+        viewModel.deleteItem(billItem.billItemId)
+        Log.d("waiterDebug", "Удаляем $billItem")
+    }
+
     override fun onItemPicked(item: Item) {
         viewModel.addItemIntoBill(item.itemId, DEFAULT_AMOUNT, item.price.price)
     }
@@ -184,9 +195,14 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
         if (billItemId > ZERO_VALUE && price > ZERO_FLOAT_VALUE) {
             if (resultCode == Activity.RESULT_OK) {
-                data?.getFloatExtra(AmountDialog.KEY_RESULT, ERROR_VALUE)
+                data
+                    ?.getFloatExtra(AmountDialog.KEY_RESULT, ERROR_VALUE)
                     ?.also {
-                        viewModel.updateAmount(billItemId, it, price)
+                        if (it == ZERO_FLOAT_VALUE) {
+                            viewModel.deleteItem(billItemId)
+                        } else {
+                            viewModel.updateAmount(billItemId, it, price)
+                        }
                     }
             }
         }

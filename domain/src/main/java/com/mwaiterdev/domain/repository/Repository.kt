@@ -100,4 +100,13 @@ interface Repository {
         amount: Float,
         price: Float
     ): OperationResult
+
+    /**
+     * Удалить товар из счета
+     * @param billItemId Id товара в счете
+     * @return OperationResult
+     */
+    suspend fun deleteItem(
+        billItemId: Long,
+    ): OperationResult
 }

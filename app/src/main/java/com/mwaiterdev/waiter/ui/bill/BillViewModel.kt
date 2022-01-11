@@ -104,6 +104,16 @@ class BillViewModel(
         }
     }
 
+    fun deleteItem(billItemId: Long) {
+        viewModelScopeCoroutine.launch {
+            interactor.deleteItem(
+                billItemId = billItemId,
+            ).also {
+                getBillItems(needScrollToPosition = false)
+            }
+        }
+    }
+
     companion object {
         //ToDo Вынести в ресурсы и создать интерактор для получения данных с ресурсов
         const val ERROR_MESSAGE = "Ошибка при выполнении операции..."
