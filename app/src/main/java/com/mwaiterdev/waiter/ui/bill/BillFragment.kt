@@ -142,6 +142,10 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         viewBinding.root.showSnakeBar(billItem.name)
     }
 
+    override fun onUpdateAmountPicked(billItem: BillItem) {
+        viewBinding.root.showSnakeBar(billItem.amount.toString())
+    }
+
     override fun onItemPicked(item: Item) {
         viewModel.addItemIntoBill(item.itemId, DEFAULT_AMOUNT, item.price.price)
     }

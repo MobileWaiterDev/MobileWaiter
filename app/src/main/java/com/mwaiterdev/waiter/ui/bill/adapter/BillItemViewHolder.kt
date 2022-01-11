@@ -21,6 +21,7 @@ class BillItemViewHolder(
             name.text = billItem.name
             dataCreate.text = billItem.createTime
             root.click { delegate?.onBillItemPicked(billItem) }
+            amount.click { delegate?.onUpdateAmountPicked(billItem) }
         }
     }
 
