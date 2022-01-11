@@ -167,5 +167,6 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         const val OLD_BILL_STRING = "BillId: %s"
         const val NEW_BILL_CREATED_LOG = "Создан новый счет с billId: %s"
         const val DEFAULT_AMOUNT = 1f
+        const val ERROR_VALUE = -1f
     }
 }
