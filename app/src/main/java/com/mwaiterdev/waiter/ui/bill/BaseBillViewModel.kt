@@ -26,7 +26,7 @@ abstract class BaseBillViewModel : ViewModel() {
     abstract fun createBill(tableId: Long): Job
     abstract fun loadBill(billId: Long): Job
     abstract fun getMenu(itemGroupId: Long = 0L): Job
-    abstract fun getBillItems(): Job
+    abstract fun getBillItems(needScrollToPosition: Boolean = false): Job
 
     override fun onCleared() {
         super.onCleared()

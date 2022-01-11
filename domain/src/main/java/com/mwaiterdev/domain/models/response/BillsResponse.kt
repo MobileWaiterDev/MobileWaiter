@@ -18,7 +18,7 @@ data class BillsResponse(
         @SerializedName("tableGroupId")
         val tableGroupId: Long,
         @SerializedName("tableGroupTotal")
-        val tableGroupTotal: Int,
+        val tableGroupTotal: Float,
         @SerializedName("tables")
         var tables: List<Table>? = arrayListOf(),
         var isExpanded: Boolean = false

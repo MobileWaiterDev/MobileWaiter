@@ -11,7 +11,7 @@ class BillInteractorImpl(
     private val repository: Repository
 ) : IBillInteractor {
 
-    override suspend fun getBillItemsById(billId: Long): BillItems {
+    override suspend fun getBillItemsById(billId: Long, needScrollToPosition: Boolean): BillItems {
         if (billId == ZERO_VALUE) {
             return BillItems(arrayListOf())
         }
@@ -33,7 +33,7 @@ class BillInteractorImpl(
                     )
                 )
             }
-            return BillItems(items)
+            return BillItems(items, needScrollToPosition)
         } else {
             return BillItems(arrayListOf())
         }
@@ -102,6 +102,15 @@ class BillInteractorImpl(
         val result = repository.addItemIntoBill(
             billId = billId,
             itemId = itemId,
+            amount = amount,
+            price = price
+        )
+        return result.success
+    }
+
+    override suspend fun updateAmount(billItemId: Long, amount: Float, price: Float): Boolean {
+        val result = repository.updateAmount(
+            billItemId = billItemId,
             amount = amount,
             price = price
         )

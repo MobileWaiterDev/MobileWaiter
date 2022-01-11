@@ -87,4 +87,17 @@ interface Repository {
         amount: Float,
         price: Float
     ): OperationResult
+
+    /**
+     * Изменить количество товара в счете
+     * @param billItemId Id товара в счете
+     * @param amount Количество
+     * @param price Цена
+     * @return OperationResult
+     */
+    suspend fun updateAmount(
+        billItemId: Long,
+        amount: Float,
+        price: Float
+    ): OperationResult
 }

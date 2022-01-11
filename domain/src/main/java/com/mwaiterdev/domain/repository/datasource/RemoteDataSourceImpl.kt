@@ -43,4 +43,15 @@ class RemoteDataSourceImpl(private val waiterApi: WaiterApi) : IRemoteDataSource
             amount = amount,
             price = price
         ).await()
+
+    override suspend fun updateAmount(
+        billItemId: Long,
+        amount: Float,
+        price: Float
+    ): OperationResult =
+        waiterApi.updateAmountAsync(
+            billItemId = billItemId,
+            amount = amount,
+            price = price
+        ).await()
 }

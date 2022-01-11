@@ -22,8 +22,10 @@ class AmountDialog(private val typeValue: AmountTypeValue) : DialogFragment() {
     private var listener: IAmountDialog? = null
     private val viewBinding: FragmentAmountDialogBinding by viewBinding(CreateMethod.INFLATE)
 
+    private var args: Bundle? = null
+
     interface IAmountDialog {
-        fun resultValue(resultCode: Int, data: Intent?)
+        fun resultValue(resultCode: Int, data: Intent?, args: Bundle?)
     }
 
     fun setAmountDialogListener(listener: IAmountDialog?) {
@@ -39,7 +41,7 @@ class AmountDialog(private val typeValue: AmountTypeValue) : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val args = arguments
+        args = arguments
         val title = args?.getString(ARG_TITLE)
         val message = args?.getString(ARG_MESSAGE)
 
@@ -71,26 +73,26 @@ class AmountDialog(private val typeValue: AmountTypeValue) : DialogFragment() {
                 Intent().putExtras(bundleOf().apply {
                     putInt(KEY_RESULT, viewBinding.inputValue.text.toString().toInt())
                 }).also {
-                    listener?.resultValue(Activity.RESULT_OK, it)
+                    listener?.resultValue(Activity.RESULT_OK, it, args)
                 }
             }
             AmountTypeValue.FLOAT -> {
                 Intent().putExtras(bundleOf().apply {
                     putFloat(KEY_RESULT, viewBinding.inputValue.text.toString().toFloat())
                 }).also {
-                    listener?.resultValue(Activity.RESULT_OK, it)
+                    listener?.resultValue(Activity.RESULT_OK, it, args)
                 }
             }
             AmountTypeValue.STRING -> {
                 Intent().putExtras(bundleOf().apply {
                     putString(KEY_RESULT, viewBinding.inputValue.text.toString())
                 }).also {
-                    listener?.resultValue(Activity.RESULT_OK, it)
+                    listener?.resultValue(Activity.RESULT_OK, it, args)
                 }
             }
         }
 
-    private fun buttonNoClick() = listener?.resultValue(Activity.RESULT_CANCELED, null)
+    private fun buttonNoClick() = listener?.resultValue(Activity.RESULT_CANCELED, null, null)
 
     companion object {
         const val KEY_RESULT = "result"

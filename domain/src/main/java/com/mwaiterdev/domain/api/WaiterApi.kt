@@ -75,11 +75,34 @@ interface WaiterApi {
     @GET("/MWaiter/?Method=getBillInfo")
     fun getBillInfoAsync(@Query("billId") billId: Long): Deferred<BillsInfoResponse>
 
+    /**
+     * Добавить товар в счет
+     * @param billId Id счета
+     * @param itemId Id товара
+     * @param amount Количество
+     * @param price Цена
+     * @return OperationResult
+     */
     @FormUrlEncoded
     @POST("/MWaiter/?Method=addItemIntoBill")
     fun addItemIntoBillAsync(
         @Field("billId") billId: Long,
         @Field("itemId") itemId: Long,
+        @Field("amount") amount: Float,
+        @Field("price") price: Float
+    ): Deferred<OperationResult>
+
+    /**
+     * Изменить количество товара в счете
+     * @param billItemId Id товара в счете
+     * @param amount Количество
+     * @param price Цена
+     * @return OperationResult
+     */
+    @FormUrlEncoded
+    @POST("/MWaiter/?Method=updateAmount")
+    fun updateAmountAsync(
+        @Field("billItemId") billItemId: Long,
         @Field("amount") amount: Float,
         @Field("price") price: Float
     ): Deferred<OperationResult>
