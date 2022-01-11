@@ -61,4 +61,13 @@ interface IBillInteractor {
         amount: Float,
         price: Float
     ): Boolean
+
+    /**
+     * Удалить товар из счета
+     * @param billItemId Id товара в счете
+     * @return Boolean
+     */
+    suspend fun deleteItem(
+        billItemId: Long,
+    ): Boolean
 }
