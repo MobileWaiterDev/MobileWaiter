@@ -3,6 +3,8 @@ package com.mwaiterdev.waiter.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavDirections
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -12,6 +14,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.navigation.NavigationView
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.ActivityMainBinding
+import com.mwaiterdev.waiter.ui.bills.BillsFragment
 
 class MainActivity : AppCompatActivity(), TitleToolbarListener {
 
@@ -41,6 +44,7 @@ class MainActivity : AppCompatActivity(), TitleToolbarListener {
         navView.setupWithNavController(navController)
     }
 
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.container)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -56,5 +60,12 @@ class MainActivity : AppCompatActivity(), TitleToolbarListener {
         } else {
             this.supportActionBar?.hide()
         }
+    }
+
+
+
+    override fun onBackPressed() {
+        val navController = findNavController(R.id.container)
+       navController.popBackStack(R.id.nav_bills, true)
     }
 }

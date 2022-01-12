@@ -2,16 +2,13 @@ package com.mwaiterdev.waiter.ui.bills
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.SimpleItemAnimator
-import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mwaiterdev.domain.AppState
 import com.mwaiterdev.domain.models.response.BillsResponse
@@ -24,19 +21,25 @@ import org.koin.android.ext.android.getKoin
 
 class BillsFragment : Fragment(R.layout.fragment_bills) {
 
-    private val viewBinding: FragmentBillsBinding by viewBinding(CreateMethod.INFLATE)
     private val scope = getKoin().createScope<BillsFragment>()
     private val viewModel: BillsViewModel = scope.get()
+    private val viewBinding: FragmentBillsBinding by viewBinding()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    private var data: BillsResponse? = null
+    private var adapter: AdapterBills? = null
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         setFloatingActionButtonListener()
-        return viewBinding.root
     }
+
+    override fun onStart() {
+        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getData()
+        super.onStart()
+    }
+
 
     private fun setFloatingActionButtonListener() {
         viewBinding.addBill.setOnClickListener {
@@ -50,36 +53,34 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
         })
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
-        viewModel.getData()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getData()
-    }
 
     private fun renderData(appState: AppState?) {
         when (appState) {
             is AppState.Success -> {
                 if (appState.data is BillsResponse) {
-                    initAdapter(appState.data as BillsResponse)
-                    initExpandedFilter(appState.data as BillsResponse)
-                    initTitleToolBar(appState.data as BillsResponse)
-                    viewBinding.mineBillsSwitcher.setOnCheckedChangeListener { _, isChecked ->
-                        Log.e("error", "clicked")
-                        (viewBinding.billsRecycleView.adapter as AdapterBills).getMineBills(
-                            1L,
-                            isChecked
-                        )
+                    data = appState.data as BillsResponse
+                    data?.let { data ->
+                        initAdapter(data)
+                        initExpandedFilter(data)
+                        initTitleToolBar(data)
                     }
+                    initSwitchMine()
                 }
             }
             is AppState.Error -> {
                 showAlertDialogFragment(requireContext(), appState.error.localizedMessage)
             }
             else -> null
+        }
+    }
+
+    private fun initSwitchMine() {
+        viewBinding.mineBillsSwitcher.setOnCheckedChangeListener { _, isChecked ->
+            adapter?.getMineBills(
+                1L,
+                isChecked
+            )
+            viewBinding.spinnerTableGroups.adapter.getItem(0)
         }
     }
 
@@ -100,16 +101,18 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     private fun initAdapter(data: BillsResponse) {
         (viewBinding.billsRecycleView.itemAnimator as SimpleItemAnimator)
             .supportsChangeAnimations = false
-        viewBinding.billsRecycleView.adapter = AdapterBills(
+        viewBinding.billsRecycleView.setHasFixedSize(true)
+        adapter = AdapterBills(
             data.tableGroups
         ) { billId: Long? -> setBillItemListener(billId) }
+        viewBinding.billsRecycleView.adapter = adapter
     }
 
     private fun initExpandedFilter(data: BillsResponse) {
         val listTitleOfHals = data.tableGroups?.map {
             it.name
         } as MutableList<String>
-        listTitleOfHals.add(0, "All Hals")
+        listTitleOfHals.add(0, ALL_HALS)
 
         viewBinding.spinnerTableGroups.adapter = ArrayAdapter(
             requireContext(),
@@ -125,9 +128,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
                     position: Int,
                     id: Long
                 ) {
-                    (viewBinding.billsRecycleView.adapter as AdapterBills).filter.filter(
-                        listTitleOfHals[position]
-                    )
+                    adapter?.filter?.filter(listTitleOfHals[position])
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -138,8 +139,10 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
             }
     }
 
+
     companion object {
         const val BILL_ID = "billId"
+        const val ALL_HALS = "All Hals"
         fun newInstance() = BillsFragment()
     }
 }
