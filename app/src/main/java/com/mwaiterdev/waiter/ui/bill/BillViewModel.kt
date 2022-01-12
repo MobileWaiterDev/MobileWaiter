@@ -80,11 +80,7 @@ class BillViewModel(
             )
         }
 
-    override fun handleError(throwable: Throwable) {
-        billItemsLiveData().postValue(
-            ScreenState.Error(error = throwable)
-        )
-    }
+    override fun handleError(throwable: Throwable) {}
 
     fun addItemIntoBill(itemId: Long, amount: Float, price: Float) {
         viewModelScopeCoroutine.launch {
