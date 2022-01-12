@@ -1,5 +1,6 @@
 package com.mwaiterdev.waiter.ui.bills.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +48,8 @@ class AdapterBills(
     override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults {
             filteredData.clear()
-            if (constraint.isNullOrBlank() || constraint == "All Hals") {
+            fullData.clear()
+            if (constraint.isNullOrBlank() || constraint == ALL_HALS) {
                 if (data != null) {
                     filteredData.addAll(data)
                 }
@@ -85,6 +87,7 @@ class AdapterBills(
                 fullData.addAll(data)
             }
         }
+
         notifyDataSetChanged()
     }
 
@@ -140,8 +143,7 @@ class AdapterBills(
 
         private fun hallItemListener(data: BillsResponse.TableGroup) = View.OnClickListener {
             data.isExpanded = !data.isExpanded
-            println(data.isExpanded)
-            if (data.isExpanded) {
+            if (data.isExpanded && !data.tables.isNullOrEmpty()) {
                 binding.tablesRecycleView.visibility = View.VISIBLE
                 binding.headerTitleHall.setBackgroundColor(
                     binding.root.context.resources.getColor(
@@ -158,8 +160,12 @@ class AdapterBills(
                     )
                 )
             }
-            notifyItemChanged(layoutPosition)
+            notifyDataSetChanged()
         }
+    }
+
+    companion object {
+        private const val ALL_HALS = "All Hals"
     }
 
 }
