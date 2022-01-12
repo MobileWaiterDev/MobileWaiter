@@ -81,7 +81,8 @@
     <dimen name="fragment_bill_bill_items_rv_margin_top">5dp</dimen>
     <dimen name="amount_dialog_input_layout_margin_top">32dp</dimen>
     <dimen name="amount_dialog_input_layout_margin_bottom">32dp</dimen>
-    <item name="nav_header_logo_width_percent" format="float" type="dimen">1.1</item>
+    <item name="nav_header_logo_width_percent" format="float" type="dimen">1.0</item>
     <item name="fragment_bill_menu_items_rv_height_percent" format="float" type="dimen">0.3</item>
-    <item name="amount_dialog_input_layout_width_percent" type="dimen" format="float">0.8</item>
+    <item name="amount_dialog_input_layout_width_percent" format="float" type="dimen">0.8</item>
+    <item name="nav_header_logo_height_percent" format="float" type="dimen">1.0</item>
 </resources>

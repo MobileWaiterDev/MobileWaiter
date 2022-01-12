@@ -27,6 +27,10 @@ class BillViewModel(
                 billItemsLiveData().postValue(
                     ScreenState.Success(data = billItems)
                 )
+            } else {
+                billItemsLiveData().postValue(
+                    ScreenState.Error(error = Exception(ERROR_NO_DATA))
+                )
             }
         }
 
@@ -58,7 +62,6 @@ class BillViewModel(
                 operationLiveData().postValue(
                     ScreenState.Success(data = newBill)
                 )
-
             } else {
                 operationLiveData().postValue(
                     ScreenState.Error(error = Exception(ERROR_MESSAGE))
@@ -77,7 +80,11 @@ class BillViewModel(
             )
         }
 
-    override fun handleError(throwable: Throwable) {}
+    override fun handleError(throwable: Throwable) {
+        billItemsLiveData().postValue(
+            ScreenState.Error(error = throwable)
+        )
+    }
 
     fun addItemIntoBill(itemId: Long, amount: Float, price: Float) {
         viewModelScopeCoroutine.launch {
@@ -117,6 +124,7 @@ class BillViewModel(
     companion object {
         //ToDo Вынести в ресурсы и создать интерактор для получения данных с ресурсов
         const val ERROR_MESSAGE = "Ошибка при выполнении операции..."
+        const val ERROR_NO_DATA = "Отсутствуют данные..."
         const val ZERO_VALUE = 0L
     }
 }

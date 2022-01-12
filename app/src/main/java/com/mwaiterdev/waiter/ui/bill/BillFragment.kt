@@ -109,45 +109,67 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
     private fun renderData(result: ScreenState?) {
         when (result) {
             is ScreenState.Success -> {
-                showLoading(false)
-                when (result.data) {
-                    is ItemGroups -> {
-                        Log.d("WaiterDebug", "renderData -> ItemGroups")
-                        menuAdapter.addItems((result.data as ItemGroups).data)
-                    }
-                    is BillItems -> {
-                        Log.d("WaiterDebug", "renderData -> BillItems")
-                        billItemsAdapter.addItems((result.data as BillItems).data)
-                        if ((result.data as BillItems).needScrollToPosition) {
-                            viewBinding.billItemsRv.smoothScrollToPosition(billItemsAdapter.itemCount)
-                        }
-                    }
-                    is NewBill -> {
-                        Log.d("WaiterDebug", "renderData -> NewBill")
-                        viewModel.setCurrentBill((result.data as NewBill).data)
-                        viewBinding
-                            .root
-                            .showSnakeBar(
-                                String
-                                    .format(NEW_BILL_CREATED_LOG, (result.data as NewBill).data)
-                            )
-                    }
-                    is BillsInfo -> {
-                        Log.d("WaiterDebug", "renderData -> BillsInfo ${result.data as BillsInfo}")
-                    }
-                }
+                renderSuccess(result)
             }
             is ScreenState.Error -> {
-                showLoading(false)
-                showError(result.error)
+                renderError(result)
             }
             is ScreenState.Loading -> {
-                showLoading(true)
+                renderLoading()
             }
             else -> {
-                throw IllegalArgumentException("Unknown State")
+                throw IllegalArgumentException(ILLEGAL_STATE_ERROR)
             }
         }
+    }
+
+    private fun renderLoading() {
+        showLoading(true)
+    }
+
+    private fun renderError(result: ScreenState.Error) {
+        showLoading(false)
+        showError(result.error)
+    }
+
+    private fun renderSuccess(result: ScreenState.Success) {
+        showLoading(false)
+        when (result.data) {
+            is ItemGroups -> {
+                showMenu(result)
+            }
+            is BillItems -> {
+                showBillItems(result)
+            }
+            is NewBill -> {
+                setCurrentBill(result)
+            }
+            is BillsInfo -> {
+                showBillInfo(result)
+            }
+        }
+    }
+
+    private fun showBillInfo(result: ScreenState.Success) {
+        Log.d("WaiterDebug", "renderData -> BillsInfo ${result.data as BillsInfo}")
+    }
+
+    private fun setCurrentBill(result: ScreenState.Success) {
+        Log.d("WaiterDebug", "renderData -> NewBill")
+        viewModel.setCurrentBill((result.data as NewBill).data)
+    }
+
+    private fun showBillItems(result: ScreenState.Success) {
+        Log.d("WaiterDebug", "renderData -> BillItems")
+        billItemsAdapter.addItems((result.data as BillItems).data)
+        if ((result.data as BillItems).needScrollToPosition) {
+            viewBinding.billItemsRv.smoothScrollToPosition(billItemsAdapter.itemCount)
+        }
+    }
+
+    private fun showMenu(result: ScreenState.Success) {
+        Log.d("WaiterDebug", "renderData -> ItemGroups")
+        menuAdapter.addItems((result.data as ItemGroups).data)
     }
 
     override fun onBillItemPicked(billItem: BillItem) {
@@ -180,7 +202,6 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         viewModel.getMenu(group.itemGroupId)
     }
 
-    //ToDo Реализовать отображение анимации загрузки
     override fun showLoading(visible: Boolean) {
         viewBinding.progress.isVisible = visible
     }
@@ -194,17 +215,25 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         val price = args?.getFloat(ARG_PRICE) ?: ZERO_FLOAT_VALUE
 
         if (billItemId > ZERO_VALUE && price > ZERO_FLOAT_VALUE) {
-            if (resultCode == Activity.RESULT_OK) {
-                data
-                    ?.getFloatExtra(AmountDialog.KEY_RESULT, ERROR_VALUE)
-                    ?.also {
-                        if (it == ZERO_FLOAT_VALUE) {
-                            viewModel.deleteItem(billItemId)
-                        } else {
-                            viewModel.updateAmount(billItemId, it, price)
-                        }
+            doItemOperation(resultCode, data, billItemId, price)
+        }
+    }
+
+    private fun doItemOperation(
+        resultCode: Int,
+        data: Intent?,
+        billItemId: Long,
+        price: Float
+    ) {
+        if (resultCode == Activity.RESULT_OK) {
+            data?.getFloatExtra(AmountDialog.KEY_RESULT, ERROR_VALUE)
+                ?.also {
+                    if (it == ZERO_FLOAT_VALUE) {
+                        viewModel.deleteItem(billItemId)
+                    } else {
+                        viewModel.updateAmount(billItemId, it, price)
                     }
-            }
+                }
         }
     }
 
@@ -215,11 +244,10 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         const val ZERO_FLOAT_VALUE = 0f
         const val NEW_BILL_STRING = "Новый счет"
         const val OLD_BILL_STRING = "BillId: %s"
-        const val NEW_BILL_CREATED_LOG = "Создан новый счет с billId: %s"
         const val DEFAULT_AMOUNT = 1f
         const val ERROR_VALUE = -1f
         const val SPAN_COUNT = 3
-
+        const val ILLEGAL_STATE_ERROR = "Unknown State"
         const val ARG_BILL_ITEM_ID = "billItemId"
         const val ARG_PRICE = "price"
     }
