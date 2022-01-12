@@ -8,27 +8,24 @@
     <fragment
         android:id="@+id/nav_bills"
         android:name="com.mwaiterdev.waiter.ui.bills.BillsFragment"
-        tools:layout="@layout/fragment_bills" >
-        <action
-            android:id="@+id/action_nav_bills_to_nav_bill"
-            app:destination="@id/nav_bill" />
-    </fragment>
+        tools:layout="@layout/fragment_bills" />
 
     <fragment
         android:id="@+id/nav_login"
         android:name="com.mwaiterdev.waiter.ui.login.LoginFragment"
         android:label="@string/menu_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_nav_login_to_nav_bills"
-            app:destination="@id/nav_bills" />
-    </fragment>
+        tools:layout="@layout/fragment_login" />
 
     <fragment
         android:id="@+id/nav_tables"
         android:name="com.mwaiterdev.waiter.ui.tables.TablesFragment"
         android:label="@string/menu_tables"
-        tools:layout="@layout/fragment_tables" />
+        tools:layout="@layout/fragment_tables">
+        <action
+            android:id="@+id/action_tables_to_bill"
+            app:destination="@id/nav_bill"
+            app:popUpTo="@id/nav_bills" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_bill"

@@ -1,13 +1,15 @@
 package com.mwaiterdev.domain.repository
 
-import com.mwaiterdev.domain.models.*
+import com.mwaiterdev.domain.models.Table
+import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.models.User
 import com.mwaiterdev.domain.models.response.*
 
 fun mockDataWaitress(): User = User(
     1, 1, "Василий", true, 1234
 )
 
-fun mockDataHalls(): BillsResponse = BillsResponse("ok", true)
+fun mockDataHalls(): BillsResponse = BillsResponse("ok", true, null)
 
 fun mockDataTableGroups(): TableGroupsResponse =
     TableGroupsResponse(arrayListOf(), message = "ОК", success = true)

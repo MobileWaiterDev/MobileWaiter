@@ -87,7 +87,7 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
 
     override fun onItemPicked(table: TableItem) {
         NavHostFragment.findNavController(this)
-            .navigate(R.id.nav_bill, bundleOf().apply {
+            .navigate(R.id.action_tables_to_bill, bundleOf().apply {
                 putLong(KEY_TABLE_ID, table.tableId)
             })
     }

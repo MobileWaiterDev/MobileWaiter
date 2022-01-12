@@ -85,11 +85,11 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
 
     private fun initTitleToolBar(data: BillsResponse) {
         data.tableGroups
-            ?.first()
+            ?.firstOrNull()
             ?.tables
-            ?.first()
+            ?.firstOrNull()
             ?.bills
-            ?.first()?.let {
+            ?.firstOrNull()?.let {
                 (activity as TitleToolbarListener).updateTitle(
                     it
                         .createdByUserName
