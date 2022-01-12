@@ -70,18 +70,22 @@ class AmountDialog(private val typeValue: AmountTypeValue) : DialogFragment() {
     private fun buttonOkClick() =
         when (typeValue) {
             AmountTypeValue.INTEGER -> {
-                Intent().putExtras(bundleOf().apply {
-                    putInt(KEY_RESULT, viewBinding.inputValue.text.toString().toInt())
-                }).also {
-                    listener?.resultValue(Activity.RESULT_OK, it, args)
-                }
+                viewBinding.inputValue.text.toString().toIntOrNull()?.let {
+                    Intent().putExtras(bundleOf().apply {
+                        putInt(KEY_RESULT, it)
+                    }).also {
+                        listener?.resultValue(Activity.RESULT_OK, it, args)
+                    }
+                } ?: listener?.resultValue(Activity.RESULT_CANCELED, null, null)
             }
             AmountTypeValue.FLOAT -> {
-                Intent().putExtras(bundleOf().apply {
-                    putFloat(KEY_RESULT, viewBinding.inputValue.text.toString().toFloat())
-                }).also {
-                    listener?.resultValue(Activity.RESULT_OK, it, args)
-                }
+                viewBinding.inputValue.text.toString().toFloatOrNull()?.let {
+                    Intent().putExtras(bundleOf().apply {
+                        putFloat(KEY_RESULT, it)
+                    }).also {
+                        listener?.resultValue(Activity.RESULT_OK, it, args)
+                    }
+                } ?: listener?.resultValue(Activity.RESULT_CANCELED, null, null)
             }
             AmountTypeValue.STRING -> {
                 Intent().putExtras(bundleOf().apply {
