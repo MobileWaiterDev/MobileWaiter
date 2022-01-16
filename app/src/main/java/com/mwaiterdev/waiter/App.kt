@@ -18,6 +18,7 @@ class App : Application() {
                     Di.viewModelModule(),
                     Di.waiterApiModule(),
                     Di.useCasesModule()
+                    Di.sharedPrefModule()
                 )
             )
         }

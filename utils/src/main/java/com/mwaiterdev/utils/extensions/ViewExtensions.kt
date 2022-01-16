@@ -18,7 +18,7 @@ fun Fragment.arguments(vararg arguments: Pair<String, Any>): Fragment {
     return this
 }
 
-fun Fragment.showAlertDialogFragment(context: Context, message: String?){
+fun showAlertDialogFragment(context: Context, message: String?){
     AlertDialog.Builder(context)
         .setTitle(message)
         .setMessage(message)

@@ -16,6 +16,7 @@ import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractor
 import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractorImpl
 import com.mwaiterdev.domain.usecase.tablesscreen.ITablesInteractor
 import com.mwaiterdev.domain.usecase.tablesscreen.TablesInteractorImpl
+import com.mwaiterdev.utils.extensions.SharedPreferenceHelper
 import com.mwaiterdev.waiter.ui.bill.BillFragment
 import com.mwaiterdev.waiter.ui.bill.BillViewModel
 import com.mwaiterdev.waiter.ui.bills.BillsFragment
@@ -27,6 +28,7 @@ import com.mwaiterdev.waiter.ui.tables.TablesViewModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -70,6 +72,12 @@ object Di {
         }
     }
 
+    fun sharedPrefModule() = module {
+        factory <SharedPreferenceHelper>{
+            SharedPreferenceHelper(get())
+        }
+    }
+
     fun viewModelModule() = module {
         scope<LoginFragment> {
             viewModel() {
@@ -79,9 +87,11 @@ object Di {
 
         scope<BillsFragment> {
             viewModel() {
-                BillsViewModel(interactor = get())
+                BillsViewModel(interactor = get(),
+                               preferences = get())
             }
         }
+
 
         scope<TablesFragment> {
             viewModel() {
