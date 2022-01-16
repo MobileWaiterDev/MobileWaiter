@@ -21,7 +21,7 @@ data class BillsResponse(
         val tableGroupTotal: Float,
         @SerializedName("tables")
         var tables: List<Table>?,
-        var isExpanded: Boolean = false
+        var isExpanded: Boolean = true
     ) {
         data class Table(
             @SerializedName("askCustomers")
