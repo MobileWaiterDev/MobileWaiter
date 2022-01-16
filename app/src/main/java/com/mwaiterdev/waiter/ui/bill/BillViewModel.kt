@@ -2,11 +2,17 @@ package com.mwaiterdev.waiter.ui.bill
 
 import android.util.Log
 import com.mwaiterdev.domain.ScreenState
-import com.mwaiterdev.domain.usecase.billscreen.IBillInteractor
+import com.mwaiterdev.domain.usecase.billscreen.*
 import kotlinx.coroutines.launch
 
 class BillViewModel(
-    private val interactor: IBillInteractor
+    private val getBillItemsUseCase: GetBillItemsUseCase,
+    private val getMenuUseCase: GetMenuUseCase,
+    private val createBillUseCase: CreateBillUseCase,
+    private val getBillInfoUseCase: GetBillInfoUseCase,
+    private val addItemIntoBillUseCase: AddItemIntoBillUseCase,
+    private val updateAmountItemUseCase: UpdateAmountItemUseCase,
+    private val deleteItemUseCase: DeleteItemUseCase
 ) : BaseBillViewModel() {
 
     private var currentBillId: Long = ZERO_VALUE
@@ -22,7 +28,7 @@ class BillViewModel(
             )
             Log.d("WaiterDebug", "fun getBillItems($currentBillId)")
             val billItems =
-                interactor.getBillItemsById(billId = currentBillId, needScrollToPosition)
+                getBillItemsUseCase.execute(billId = currentBillId, needScrollToPosition)
             if (billItems.data.isNullOrEmpty().not()) {
                 billItemsLiveData().postValue(
                     ScreenState.Success(data = billItems)
@@ -40,7 +46,7 @@ class BillViewModel(
                 ScreenState.Loading
             )
             Log.d("WaiterDebug", "fun getItems($itemGroupId)")
-            val result = interactor.getMenu(itemGroupId)
+            val result = getMenuUseCase.execute(itemGroupId)
             if (result.data.isNullOrEmpty().not()) {
                 menuLiveData().postValue(
                     ScreenState.Success(data = result)
@@ -57,7 +63,7 @@ class BillViewModel(
             operationLiveData().postValue(
                 ScreenState.Loading
             )
-            val newBill = interactor.createBill(tableId = tableId)
+            val newBill = createBillUseCase.execute(tableId = tableId)
             if (newBill.data != ZERO_VALUE) {
                 operationLiveData().postValue(
                     ScreenState.Success(data = newBill)
@@ -74,7 +80,7 @@ class BillViewModel(
             operationLiveData().postValue(
                 ScreenState.Loading
             )
-            val billInfo = interactor.getBillInfo(billId = billId)
+            val billInfo = getBillInfoUseCase.execute(billId = billId)
             operationLiveData().postValue(
                 ScreenState.Success(data = billInfo)
             )
@@ -84,7 +90,7 @@ class BillViewModel(
 
     fun addItemIntoBill(itemId: Long, amount: Float, price: Float) {
         viewModelScopeCoroutine.launch {
-            interactor.addItemIntoBill(
+            addItemIntoBillUseCase.execute(
                 billId = currentBillId,
                 itemId = itemId,
                 amount = amount,
@@ -97,7 +103,7 @@ class BillViewModel(
 
     fun updateAmount(billItemId: Long, amount: Float, price: Float) {
         viewModelScopeCoroutine.launch {
-            interactor.updateAmount(
+            updateAmountItemUseCase.execute(
                 billItemId = billItemId,
                 amount = amount,
                 price = price
@@ -109,7 +115,7 @@ class BillViewModel(
 
     fun deleteItem(billItemId: Long) {
         viewModelScopeCoroutine.launch {
-            interactor.deleteItem(
+            deleteItemUseCase.execute(
                 billItemId = billItemId,
             ).also {
                 getBillItems(needScrollToPosition = false)
