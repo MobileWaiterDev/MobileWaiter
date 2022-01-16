@@ -16,6 +16,7 @@ object Modules {
     const val MODULE_CORE = ":core"
     const val MODULE_UTILS = ":utils"
     const val MODULE_DOMAIN = ":domain"
+    const val MODULE_DATA = ":data"
 }
 
 //Версии библиотек

@@ -1,6 +1,6 @@
-package com.mwaiterdev.domain.api
+package com.mwaiterdev.data.api
 
-import com.mwaiterdev.domain.BuildConfig
+import com.mwaiterdev.data.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 

@@ -1,8 +1,9 @@
-package com.mwaiterdev.domain.repository
+package com.mwaiterdev.data.repository
 
 import com.mwaiterdev.domain.models.TableGroup
 import com.mwaiterdev.domain.models.User
 import com.mwaiterdev.domain.models.response.*
+import com.mwaiterdev.domain.repository.Repository
 
 class RepositoryMockImp : Repository {
     override suspend fun getWaitress(id: Int): User = mockDataWaitress()

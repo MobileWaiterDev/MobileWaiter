@@ -1,4 +1,4 @@
-package com.mwaiterdev.domain.repository.datasource
+package com.mwaiterdev.data.repository.datasource
 
 import com.mwaiterdev.domain.models.response.*
 

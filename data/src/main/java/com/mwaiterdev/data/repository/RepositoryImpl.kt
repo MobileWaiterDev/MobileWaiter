@@ -1,9 +1,10 @@
-package com.mwaiterdev.domain.repository
+package com.mwaiterdev.data.repository
 
 import com.mwaiterdev.domain.models.TableGroup
 import com.mwaiterdev.domain.models.User
 import com.mwaiterdev.domain.models.response.*
-import com.mwaiterdev.domain.repository.datasource.IRemoteDataSource
+import com.mwaiterdev.domain.repository.Repository
+import com.mwaiterdev.data.repository.datasource.IRemoteDataSource
 
 class RepositoryImpl(private val dataSource: IRemoteDataSource) : Repository {
     override suspend fun getWaitress(id: Int): User {
