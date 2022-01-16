@@ -162,7 +162,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
     private fun showBillItems(result: ScreenState.Success) {
         Log.d("WaiterDebug", "renderData -> BillItems")
         billItemsAdapter.addItems((result.data as BillItems).data)
-        if ((result.data as BillItems).needScrollToPosition) {
+        if ((result.data as BillItems).needScrollToEndPosition) {
             viewBinding.billItemsRv.smoothScrollToPosition(billItemsAdapter.itemCount)
         }
     }
@@ -182,7 +182,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         val args = Bundle()
         args.putLong(ARG_BILL_ITEM_ID, billItem.billItemId)
         args.putFloat(ARG_PRICE, billItem.price)
-        dialogFragment.arguments = args;
+        dialogFragment.arguments = args
 
         dialogFragment.setAmountDialogListener(this)
         dialogFragment.isCancelable = false

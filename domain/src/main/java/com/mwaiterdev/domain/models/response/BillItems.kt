@@ -4,5 +4,5 @@ import com.mwaiterdev.domain.models.BillItem
 
 data class BillItems(
     val data: ArrayList<BillItem>,
-    val needScrollToPosition: Boolean = false
+    val needScrollToEndPosition: Boolean = false
 ) : IResponseResult {}

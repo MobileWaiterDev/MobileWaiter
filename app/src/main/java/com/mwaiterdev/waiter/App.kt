@@ -16,7 +16,8 @@ class App : Application() {
                     Di.interactorModule(),
                     Di.repositoryModule(),
                     Di.viewModelModule(),
-                    Di.waiterApiModule()
+                    Di.waiterApiModule(),
+                    Di.useCasesModule()
                 )
             )
         }
