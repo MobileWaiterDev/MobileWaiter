@@ -82,7 +82,7 @@ object Di {
 
     fun sharedPrefModule() = module {
         factory <SharedPreferenceHelper>{
-            SharedPreferenceHelper(androidApplication())
+            SharedPreferenceHelper(get())
         }
     }
 
