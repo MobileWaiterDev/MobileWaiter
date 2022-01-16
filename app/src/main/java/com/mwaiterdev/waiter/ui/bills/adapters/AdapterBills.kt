@@ -1,6 +1,5 @@
 package com.mwaiterdev.waiter.ui.bills.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +17,19 @@ class AdapterBills(
 ) : RecyclerView.Adapter<AdapterBills.ItemBills>(), Filterable, BillsFilter {
     private val fullData: MutableList<BillsResponse.TableGroup?> = mutableListOf()
     private val filteredData: MutableList<BillsResponse.TableGroup?> = mutableListOf()
+    private var isCheckSwitcher: Boolean = false
+    private var userId: Long = 0
 
     init {
-        if (data != null) {
-            fullData.addAll(data)
+        data?.map {
+            it.isExpanded = true
+        }.apply {
+            if (data != null) {
+                fullData.addAll(data)
+            }
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemBills = ItemBills(
         ItemBillsBinding.inflate(
@@ -35,6 +41,7 @@ class AdapterBills(
 
     override fun onBindViewHolder(holder: ItemBills, position: Int) {
         holder.bind(fullData[position])
+        fullData[position]?.let { holder.hallItemExpand(it) }
     }
 
     override fun getItemCount(): Int {
@@ -50,17 +57,16 @@ class AdapterBills(
             filteredData.clear()
             fullData.clear()
             if (constraint.isNullOrBlank() || constraint == ALL_HALS) {
+                if (data != null && !isCheckSwitcher) {
+                    filteredData.addAll(data)
+                } else {
+                    filterBillsByUserId(userId)
+                }
+            } else {
+                val data = data?.filter { it?.name == constraint }
                 if (data != null) {
                     filteredData.addAll(data)
                 }
-            } else {
-                if (data != null) {
-                    if (fullData.size < data.size) {
-                        fullData.addAll(data)
-                    }
-                }
-                val data = fullData.filter { it?.name == constraint }
-                filteredData.addAll(data)
             }
             return object : FilterResults() {
                 init {
@@ -70,25 +76,15 @@ class AdapterBills(
         }
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            fullData.clear()
             fullData.addAll(results?.values as MutableList<BillsResponse.TableGroup>)
             notifyDataSetChanged()
         }
     }
 
     override fun getMineBills(userId: Long, isCheck: Boolean) {
-        fullData.clear()
-        filteredData.clear()
-        if (isCheck) {
-            filterBillsByUserId(userId)
-            fullData.addAll(filteredData)
-        } else {
-            if (data != null) {
-                fullData.addAll(data)
-            }
-        }
-
-        notifyDataSetChanged()
+        isCheckSwitcher = isCheck
+        this.userId = userId
+        filter.filter(null)
     }
 
     private fun filterBillsByUserId(userId: Long) {
@@ -143,6 +139,10 @@ class AdapterBills(
 
         private fun hallItemListener(data: BillsResponse.TableGroup) = View.OnClickListener {
             data.isExpanded = !data.isExpanded
+            hallItemExpand(data)
+        }
+
+        fun hallItemExpand(data: BillsResponse.TableGroup) {
             if (data.isExpanded && !data.tables.isNullOrEmpty()) {
                 binding.tablesRecycleView.visibility = View.VISIBLE
                 binding.headerTitleHall.setBackgroundColor(
@@ -160,7 +160,6 @@ class AdapterBills(
                     )
                 )
             }
-            notifyDataSetChanged()
         }
     }
 

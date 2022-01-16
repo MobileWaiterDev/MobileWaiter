@@ -1,7 +1,6 @@
 package com.mwaiterdev.waiter.ui.bills
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -24,7 +23,6 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     private val scope = getKoin().createScope<BillsFragment>()
     private val viewModel: BillsViewModel = scope.get()
     private val viewBinding: FragmentBillsBinding by viewBinding()
-
     private var data: BillsResponse? = null
     private var adapter: AdapterBills? = null
 
@@ -36,6 +34,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
 
     override fun onStart() {
         viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.initFilterData()
         viewModel.getData()
         super.onStart()
     }
@@ -65,6 +64,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
                         initTitleToolBar(data)
                     }
                     initSwitchMine()
+                    //adapter?.getMineBills(1L, viewModel.initFilterData())
                 }
             }
             is AppState.Error -> {
@@ -75,12 +75,14 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     }
 
     private fun initSwitchMine() {
+        viewBinding.mineBillsSwitcher.isChecked = viewModel.initFilterData()
         viewBinding.mineBillsSwitcher.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setFilter(isChecked)
             adapter?.getMineBills(
                 1L,
                 isChecked
             )
-            viewBinding.spinnerTableGroups.adapter.getItem(0)
+            viewBinding.spinnerTableGroups.setSelection(0)
         }
     }
 
@@ -106,6 +108,8 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
             data.tableGroups
         ) { billId: Long? -> setBillItemListener(billId) }
         viewBinding.billsRecycleView.adapter = adapter
+        adapter?.getMineBills(1L, isCheck = viewModel.initFilterData())
+
     }
 
     private fun initExpandedFilter(data: BillsResponse) {
@@ -120,6 +124,9 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
             listTitleOfHals
         )
 
+        viewModel.initHallSwitcherItem()
+            .let { position -> viewBinding.spinnerTableGroups.setSelection(position) }
+
         viewBinding.spinnerTableGroups.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -129,6 +136,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
                     id: Long
                 ) {
                     adapter?.filter?.filter(listTitleOfHals[position])
+                    viewModel.setHallSwitcherItem(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
