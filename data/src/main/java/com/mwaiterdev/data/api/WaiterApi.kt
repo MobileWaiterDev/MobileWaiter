@@ -1,9 +1,8 @@
-package com.mwaiterdev.domain.api
+package com.mwaiterdev.data.api
 
 import com.mwaiterdev.domain.models.response.*
 import kotlinx.coroutines.Deferred
 import retrofit2.http.*
-
 
 interface WaiterApi {
 

@@ -1,4 +1,4 @@
-package com.mwaiterdev.domain.repository
+package com.mwaiterdev.data.repository
 
 import com.mwaiterdev.domain.models.Table
 import com.mwaiterdev.domain.models.TableGroup

@@ -69,6 +69,7 @@ dependencies {
     implementation(project(Modules.MODULE_CORE))
     implementation(project(Modules.MODULE_DOMAIN))
     implementation(project(Modules.MODULE_UTILS))
+    implementation(project(Modules.MODULE_DATA))
 
     // ViewBindingPropertyDelegate
     implementation(ViewBindingDelegate.DELEGATE)

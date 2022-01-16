@@ -1,6 +1,6 @@
-package com.mwaiterdev.domain.repository.datasource
+package com.mwaiterdev.data.repository.datasource
 
-import com.mwaiterdev.domain.api.WaiterApi
+import com.mwaiterdev.data.api.WaiterApi
 import com.mwaiterdev.domain.models.response.*
 
 class RemoteDataSourceImpl(private val waiterApi: WaiterApi) : IRemoteDataSource {
