@@ -42,6 +42,8 @@ class AdapterTables(
             orderRecycleView.adapter =
                 data?.billId?.let { AdapterOrders(data?.billItems, billItemListener, it) }
             root.setOnClickListener(billItemListener.invoke(data?.billId))
+
+            orderRecycleView.setOnClickListener(billItemListener.invoke(data?.billId))
         }
     }
 }

@@ -33,7 +33,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     }
 
     override fun onStart() {
-        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getLiveData().observe(viewLifecycleOwner){ renderData(it) }
         viewModel.initFilterData()
         viewModel.getData()
         super.onStart()
@@ -64,7 +64,6 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
                         initTitleToolBar(data)
                     }
                     initSwitchMine()
-                    //adapter?.getMineBills(1L, viewModel.initFilterData())
                 }
             }
             is AppState.Error -> {
@@ -103,7 +102,6 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     private fun initAdapter(data: BillsResponse) {
         (viewBinding.billsRecycleView.itemAnimator as SimpleItemAnimator)
             .supportsChangeAnimations = false
-        viewBinding.billsRecycleView.setHasFixedSize(true)
         adapter = AdapterBills(
             data.tableGroups
         ) { billId: Long? -> setBillItemListener(billId) }
