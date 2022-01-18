@@ -1,21 +1,21 @@
 package com.mwaiterdev.waiter.ui.tables
 
 import com.mwaiterdev.domain.ScreenState
+import com.mwaiterdev.domain.usecase.tablesscreen.GetTablesUseCase
 import com.mwaiterdev.domain.usecase.tablesscreen.ITablesInteractor
 import kotlinx.coroutines.launch
 
 class TablesViewModel(
-    private val interactor: ITablesInteractor
+    private val interactor: ITablesInteractor,
+    private val getTablesUseCase: GetTablesUseCase
 ) : BaseTablesViewModel() {
 
-    private fun getTables() =
+    private suspend fun getTables() =
         viewModelScopeCoroutine.launch {
-            val result = interactor.getTables()
-            if (result.data.isNullOrEmpty().not()) {
-                getLiveData().postValue(ScreenState.Success(data = result))
-            } else {
-                getLiveData().postValue(ScreenState.Error(error = Exception(ERROR_MESSAGE)))
-            }
+            getTablesUseCase.execute(
+                onSuccess = {getLiveData().postValue(ScreenState.Success(data = it.data))},
+                onError = {getLiveData().postValue(ScreenState.Error(error = Exception(ERROR_MESSAGE)))}
+            )
         }
 
     private fun getTableGroups() =

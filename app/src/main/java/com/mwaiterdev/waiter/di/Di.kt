@@ -95,7 +95,10 @@ object Di {
 
         scope<TablesFragment> {
             viewModel() {
-                TablesViewModel(interactor = get())
+                TablesViewModel(
+                    interactor = get(),
+                    getTablesUseCase = get()
+                )
             }
         }
 
