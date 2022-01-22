@@ -19,6 +19,15 @@ dependencies {
     implementation(Retrofit2.COROUTINES_ADAPTER)
     implementation(Retrofit2.LOGGING_INTERCEPTOR)
 
+    // Coroutines
+    implementation(Coroutines.ANDROID)
+    implementation(Coroutines.CORE)
+
     //Tests
     testImplementation(Tests.JUNIT)
+}
+
+repositories {
+    google()
+    mavenCentral()
 }

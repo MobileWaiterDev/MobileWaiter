@@ -3,7 +3,7 @@ package com.mwaiterdev.waiter
 import android.app.Application
 import com.mwaiterdev.waiter.di.Di
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import org.koin.core.context.GlobalContext.startKoin
 
 class App : Application() {
 

@@ -63,16 +63,13 @@ class BillViewModel(
             operationLiveData().postValue(
                 ScreenState.Loading
             )
-            val newBill = createBillUseCase.execute(tableId = tableId)
-            if (newBill.data != ZERO_VALUE) {
-                operationLiveData().postValue(
-                    ScreenState.Success(data = newBill)
-                )
-            } else {
-                operationLiveData().postValue(
+            createBillUseCase.execute(
+                arg = tableId,
+                onSuccess = {operationLiveData().postValue(ScreenState.Success(data = it.data))},
+                onError = {operationLiveData().postValue(
                     ScreenState.Error(error = Exception(ERROR_MESSAGE))
-                )
-            }
+                )})
+
         }
 
     override fun loadBill(billId: Long) =
