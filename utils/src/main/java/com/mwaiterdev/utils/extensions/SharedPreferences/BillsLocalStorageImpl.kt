@@ -1,19 +1,20 @@
-package com.mwaiterdev.utils.extensions
+package com.mwaiterdev.utils.extensions.SharedPreferences
 
 import android.content.Context
 import android.content.SharedPreferences
 
-class SharedPreferenceHelper(val context: Context) {
+class BillsLocalStorageImpl(val context: Context) :
+    BillsLocalStorage {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
-    var userName: String? = null
+    override var userName: String? = null
         set(value) {
             field = value
             sharedPreferences.edit().putString(USER_NAME, value).apply()
         }
         get() = sharedPreferences.getString(USER_NAME, null)
 
-    var halsSwitcher : Int = 0
+    override var halsSwitcher: Int = 0
         set(value) {
             field = value
             sharedPreferences.edit().putInt(HALL_NAME, value).apply()
@@ -21,18 +22,12 @@ class SharedPreferenceHelper(val context: Context) {
         get() = sharedPreferences.getInt(HALL_NAME, 0)
 
 
-    var isSwitchToMine: Boolean = false
-         set(value) {
-             field = value
-             sharedPreferences.edit().putBoolean(SWITCHER_MINE_BILLS, value).apply()
-         }
-    get() = sharedPreferences.getBoolean(SWITCHER_MINE_BILLS, false)
-
-    var hallExpand : Map<Int, Boolean>? = null
-        set(value){
+    override var isSwitchToMine: Boolean = false
+        set(value) {
             field = value
-
+            sharedPreferences.edit().putBoolean(SWITCHER_MINE_BILLS, value).apply()
         }
+        get() = sharedPreferences.getBoolean(SWITCHER_MINE_BILLS, false)
 
 
     companion object {
