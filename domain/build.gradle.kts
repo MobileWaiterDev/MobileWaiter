@@ -26,8 +26,3 @@ dependencies {
     //Tests
     testImplementation(Tests.JUNIT)
 }
-
-repositories {
-    google()
-    mavenCentral()
-}
