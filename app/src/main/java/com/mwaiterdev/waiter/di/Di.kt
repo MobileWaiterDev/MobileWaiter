@@ -14,6 +14,7 @@ import com.mwaiterdev.domain.repository.Repository
 import com.mwaiterdev.domain.usecase.billscreen.*
 import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractor
 import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractorImpl
+import com.mwaiterdev.domain.usecase.tablesscreen.GetTablesUseCase
 import com.mwaiterdev.domain.usecase.tablesscreen.ITablesInteractor
 import com.mwaiterdev.domain.usecase.tablesscreen.TablesInteractorImpl
 import com.mwaiterdev.utils.extensions.SharedPreferences.BillsLocalStorage
@@ -152,6 +153,14 @@ object Di {
     }
 
     fun useCasesModule() = module {
+        factory<GetTablesUseCase> {
+            GetTablesUseCase(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
+        }
+
         factory<GetBillItemsUseCase> {
             GetBillItemsUseCase(
                 repository = get(
