@@ -1,32 +1,29 @@
 package com.mwaiterdev.waiter.ui.bills.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.mwaiterdev.domain.models.TableGroup
 import com.mwaiterdev.domain.models.response.BillsResponse
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.ItemBillsBinding
 import com.mwaiterdev.waiter.ui.bills.adapters.interfaces.BillsFilter
 
 class AdapterBills(
-    private val data: List<BillsResponse.TableGroup>?,
+    private val data: List<TableGroup>,
     private val billItemListener: (Long?) -> View.OnClickListener,
-) : RecyclerView.Adapter<AdapterBills.ItemBills>(), Filterable, BillsFilter {
-    private val fullData: MutableList<BillsResponse.TableGroup?> = mutableListOf()
-    private val filteredData: MutableList<BillsResponse.TableGroup?> = mutableListOf()
-    private var isCheckSwitcher: Boolean = false
-    private var userId: Long = 0
+) : RecyclerView.Adapter<AdapterBills.ItemBills>(), BillsFilter {
+    private val fullData: MutableList<TableGroup?> = mutableListOf()
 
     init {
-        data?.map {
+        data.map {
             it.isExpanded = true
         }.apply {
-            if (data != null) {
-                fullData.addAll(data)
-            }
+            fullData.addAll(data)
         }
     }
 
@@ -40,7 +37,7 @@ class AdapterBills(
     )
 
     override fun onBindViewHolder(holder: ItemBills, position: Int) {
-        holder.bind(fullData[position])
+        fullData[position].let { holder.bind(it) }
         fullData[position]?.let { holder.hallItemExpand(it) }
     }
 
@@ -51,62 +48,29 @@ class AdapterBills(
         return 0
     }
 
-
-    override fun getFilter(): Filter = object : Filter() {
-        override fun performFiltering(constraint: CharSequence?): FilterResults {
-            filteredData.clear()
-            fullData.clear()
-            if (constraint.isNullOrBlank() || constraint == ALL_HALS) {
-                if (data != null && !isCheckSwitcher) {
-                    filteredData.addAll(data)
-                } else {
-                    filterBillsByUserId(userId)
-                }
-            } else {
-                val data = data?.filter { it?.name == constraint }
-                if (data != null) {
-                    filteredData.addAll(data)
-                }
-            }
-            return object : FilterResults() {
-                init {
-                    values = filteredData
-                }
-            }
+    override fun getMineBills(data: List<TableGroup>?) {
+        Log.e("MineSwitcher", "Mine Switcher Start")
+        fullData.clear()
+        if (data != null) {
+            fullData.addAll(data)
         }
-
-        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            fullData.addAll(results?.values as MutableList<BillsResponse.TableGroup>)
-            notifyDataSetChanged()
-        }
+        notifyDataSetChanged()
     }
 
-    override fun getMineBills(userId: Long, isCheck: Boolean) {
-        isCheckSwitcher = isCheck
-        this.userId = userId
-        filter.filter(null)
-    }
-
-    private fun filterBillsByUserId(userId: Long) {
-        data?.filter {
-            it.tables?.any {
-                it.bills?.any {
-                    it.createdByUserId == userId
-                } == true
-            } == true
-        }?.let {
-            filteredData.addAll(
-                it
-            )
+    override fun filter(data: List<TableGroup>?) {
+        Log.e("SwitcherHall", "Hals Switcher")
+        fullData.clear()
+        if (data != null) {
+            fullData.addAll(data)
         }
+        notifyDataSetChanged()
     }
-
 
     inner class ItemBills(
         private val binding: ItemBillsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: BillsResponse.TableGroup?) = with(binding) {
+        fun bind(data: TableGroup?) = with(binding) {
             hallsName.text = data?.name
             billsCountAndSum.text = data?.tableGroupId?.let { getCountAndTotalBills(data, it) }
             val bills = data?.tables?.flatMap { table ->
@@ -120,7 +84,7 @@ class AdapterBills(
         }
 
         private fun getCountAndTotalBills(
-            data: BillsResponse.TableGroup?,
+            data: TableGroup?,
             tableGroupId: Long
         ): CharSequence {
             val totalBills = mutableListOf<Float>()
@@ -137,12 +101,12 @@ class AdapterBills(
 
         }
 
-        private fun hallItemListener(data: BillsResponse.TableGroup) = View.OnClickListener {
+        private fun hallItemListener(data: TableGroup) = View.OnClickListener {
             data.isExpanded = !data.isExpanded
             hallItemExpand(data)
         }
 
-        fun hallItemExpand(data: BillsResponse.TableGroup) {
+        fun hallItemExpand(data: TableGroup) {
             if (data.isExpanded && !data.tables.isNullOrEmpty()) {
                 binding.tablesRecycleView.visibility = View.VISIBLE
                 binding.headerTitleHall.setBackgroundColor(

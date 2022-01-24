@@ -11,12 +11,17 @@ import com.mwaiterdev.data.repository.RepositoryMockImp
 import com.mwaiterdev.data.repository.datasource.IRemoteDataSource
 import com.mwaiterdev.data.repository.datasource.RemoteDataSourceImpl
 import com.mwaiterdev.data.repository.sharedpref.LocalRepositoryImpl
+import com.mwaiterdev.domain.models.TableGroup
 import com.mwaiterdev.domain.repository.LocalRepository
 import com.mwaiterdev.domain.repository.Repository
+import com.mwaiterdev.domain.usecase.OutputUseCase
 import com.mwaiterdev.domain.usecase.billscreen.*
 import com.mwaiterdev.domain.usecase.loginscreen.LogInUseCase
-import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractor
-import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractorImpl
+import com.mwaiterdev.domain.usecase.mainbillsscreen.FilterByHallBillsUseCase
+import com.mwaiterdev.domain.usecase.mainbillsscreen.FilterByUserIdUseCase
+import com.mwaiterdev.domain.usecase.mainbillsscreen.GetBillsUseCase
+import com.mwaiterdev.domain.usecase.mainbillsscreen.InputUseCase
+
 import com.mwaiterdev.domain.usecase.tablesscreen.GetTablesUseCase
 import com.mwaiterdev.domain.usecase.tablesscreen.ITablesInteractor
 import com.mwaiterdev.domain.usecase.tablesscreen.TablesInteractorImpl
@@ -43,6 +48,8 @@ object Di {
 
     private const val REPOSITORY_MOCK = "Mock"
     private const val REPOSITORY_REMOTE = "Remote"
+    private const val FILTER_BY_USER_ID_USE_CASE = "filterByUserIdUseCase"
+    private const val FILTER_BY_HALL_USE_CASE = "Remote"
 
     fun repositoryModule() = module {
         single<Repository>(qualifier = named(REPOSITORY_MOCK)) {
@@ -66,21 +73,12 @@ object Di {
                 )
             )
         }
-
-        factory<MainBillsIteractor> {
-            MainBillsIteractorImpl(
-                repository = get(
-                    named(REPOSITORY_REMOTE)
-                )
-            )
-        }
     }
 
     fun sharedPrefModule() = module {
         factory<BillsLocalStorage> {
             BillsLocalStorageImpl(get())
         }
-
         factory<LocalRepository> {
             LocalRepositoryImpl(get())
         }
@@ -99,10 +97,17 @@ object Di {
             viewModel() {
                 BillsViewModel(
                     interactor = get(),
-                    preferences = get()
+                    preferences = get(),
+                    filterUseCase = get(
+                        named(FILTER_BY_HALL_USE_CASE)
+                    ),
+                    filterByUserIdUseCase = get(
+                        named(FILTER_BY_USER_ID_USE_CASE)
+                    )
                 )
             }
         }
+
 
         scope<TablesFragment> {
             viewModel() {
@@ -230,6 +235,23 @@ object Di {
                 repository = get(named(REPOSITORY_REMOTE)),
                 localRepository = get()
             )
+        }
+
+        factory<OutputUseCase<List<TableGroup>?>> {
+            GetBillsUseCase(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
+        }
+
+        factory<InputUseCase<String, List<TableGroup>?>>(qualifier = named(FILTER_BY_HALL_USE_CASE)) {
+            FilterByHallBillsUseCase()
+        }
+
+        factory<InputUseCase<Boolean, List<TableGroup>?>>(
+            qualifier = named(FILTER_BY_USER_ID_USE_CASE)) {
+            FilterByUserIdUseCase()
         }
     }
 }
