@@ -6,7 +6,7 @@ import com.mwaiterdev.domain.models.User
 import com.mwaiterdev.domain.models.response.*
 
 fun mockDataWaitress(): User = User(
-    1, 1, "Василий", true, 1234
+    1, 1, "Василий", true, "1234", ""
 )
 
 fun mockDataHalls(): BillsResponse = BillsResponse("ok", true, null)

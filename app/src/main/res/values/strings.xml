@@ -26,4 +26,7 @@
     <string name="example_item_total">125.0</string>
     <string name="amount_dialog_input_layout_hint_text">Введите количество</string>
     <string name="amount_dialog_input_layout_content_description">Количество</string>
+    <string name="fragment_login_hint_text">Введите PIN</string>
+    <string name="fragment_login_button_text">Вход</string>
+    <string name="fragment_login_input_layout_content_description">Pin</string>
 </resources>

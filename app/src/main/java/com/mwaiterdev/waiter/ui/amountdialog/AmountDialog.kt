@@ -100,8 +100,8 @@ class AmountDialog(private val typeValue: AmountTypeValue) : DialogFragment() {
 
     companion object {
         const val KEY_RESULT = "result"
-        const val OK_BUTTON_TITLE = "Apply"
-        const val CANCEL_BUTTON_TITLE = "Cancel"
+        const val OK_BUTTON_TITLE = "Применить"
+        const val CANCEL_BUTTON_TITLE = "Отмена"
         const val TAG = "dialog"
         const val ARG_TITLE = "dialog.Title"
         const val ARG_MESSAGE = "dialog.Message"
