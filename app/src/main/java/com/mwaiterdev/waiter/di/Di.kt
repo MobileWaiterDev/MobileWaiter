@@ -10,8 +10,11 @@ import com.mwaiterdev.data.repository.RepositoryImpl
 import com.mwaiterdev.data.repository.RepositoryMockImp
 import com.mwaiterdev.data.repository.datasource.IRemoteDataSource
 import com.mwaiterdev.data.repository.datasource.RemoteDataSourceImpl
+import com.mwaiterdev.data.repository.sharedpref.LocalRepositoryImpl
+import com.mwaiterdev.domain.repository.LocalRepository
 import com.mwaiterdev.domain.repository.Repository
 import com.mwaiterdev.domain.usecase.billscreen.*
+import com.mwaiterdev.domain.usecase.loginscreen.LogInUseCase
 import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractor
 import com.mwaiterdev.domain.usecase.mainbillsscreen.MainBillsIteractorImpl
 import com.mwaiterdev.domain.usecase.tablesscreen.GetTablesUseCase
@@ -77,12 +80,18 @@ object Di {
         factory<BillsLocalStorage> {
             BillsLocalStorageImpl(get())
         }
+
+        factory<LocalRepository> {
+            LocalRepositoryImpl(get())
+        }
     }
 
     fun viewModelModule() = module {
         scope<LoginFragment> {
             viewModel() {
-                LoginViewModel()
+                LoginViewModel(
+                    logInUseCase = get()
+                )
             }
         }
 
@@ -94,7 +103,6 @@ object Di {
                 )
             }
         }
-
 
         scope<TablesFragment> {
             viewModel() {
@@ -214,6 +222,13 @@ object Di {
                 repository = get(
                     named(REPOSITORY_REMOTE)
                 )
+            )
+        }
+
+        factory<LogInUseCase> {
+            LogInUseCase(
+                repository = get(named(REPOSITORY_REMOTE)),
+                localRepository = get()
             )
         }
     }

@@ -1,6 +1,8 @@
 package com.mwaiterdev.waiter.ui
 
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -10,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.navigation.NavigationView
+import com.mwaiterdev.domain.models.User
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.ActivityMainBinding
 
@@ -56,5 +59,11 @@ class MainActivity : AppCompatActivity(), TitleToolbarListener {
         } else {
             this.supportActionBar?.hide()
         }
+    }
+
+    override fun setUser(user: User) {
+        val headerView: View = viewBinding.navView.getHeaderView(0)
+        headerView.findViewById<TextView>(R.id.user_group).text = user.groupName
+        headerView.findViewById<TextView>(R.id.user_name).text = user.name
     }
 }
