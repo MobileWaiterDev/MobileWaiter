@@ -8,10 +8,11 @@ import kotlinx.coroutines.*
 abstract class BaseBillViewModel : ViewModel() {
     private val billItemsLiveData = MutableLiveData<ScreenState>()
     private val menuLiveData = MutableLiveData<ScreenState>()
-    private val operationLiveData = MutableLiveData<ScreenState>()
     private val billInfoLiveData = MutableLiveData<ScreenState>()
     private val newBillLiveData = MutableLiveData<ScreenState>()
-    private val delteBillLiveData = MutableLiveData<ScreenState>()
+    private val deleteBillLiveData = MutableLiveData<ScreenState>()
+    private val sendCookBillLiveData = MutableLiveData<ScreenState>()
+    private val deleteEmergencyLiveData = MutableLiveData<ScreenState>()
     protected val viewModelScopeCoroutine = CoroutineScope(
         Dispatchers.IO
                 + SupervisorJob()
@@ -24,10 +25,11 @@ abstract class BaseBillViewModel : ViewModel() {
 
     fun billItemsLiveData() = billItemsLiveData
     fun menuLiveData() = menuLiveData
-    fun operationLiveData() = operationLiveData
     fun billInfoLiveData() = billInfoLiveData
     fun newBillLiveData() = newBillLiveData
-    fun deleteBillLiveData() = delteBillLiveData
+    fun deleteBillLiveData() = deleteBillLiveData
+    fun sendCookBillLiveData() = sendCookBillLiveData
+    fun deleteEmergencyLiveData() = deleteEmergencyLiveData
 
     abstract fun createBill(tableId: Long): Job
     abstract fun getBillInfo(): Job

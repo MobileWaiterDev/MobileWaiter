@@ -71,6 +71,8 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         initNavigationPanel(searchView)
         //Инициализация настроек поиска
         initSearchSettings(searchView)
+        //Инициализация buttons clickListeners
+        initSetClickListeners()
 
         viewBinding.closeBillPanel.isVisible = false
         viewModel.getMenu()
@@ -84,6 +86,16 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
                     isEnabled = true
                 }
             })
+    }
+
+    private fun initSetClickListeners() {
+        viewBinding.cookBtn.setOnClickListener {
+            viewModel.sendCookBill()
+        }
+
+        viewBinding.billCloseBtn.setOnClickListener {
+
+        }
     }
 
     private fun initSearchSettings(searchViewPlateId: Int) {
@@ -236,6 +248,33 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
         viewModel.deleteBillLiveData()
             .observe(viewLifecycleOwner, { result -> renderDeleteBill(result = result) })
+
+        viewModel.sendCookBillLiveData()
+            .observe(viewLifecycleOwner, { result -> renderSendCookBill(result = result) })
+
+        viewModel.deleteEmergencyLiveData()
+            .observe(viewLifecycleOwner, { result -> renderDeleteEmergencyItem(result = result) })
+    }
+
+    private fun renderDeleteEmergencyItem(result: ScreenState?) {
+    }
+
+    private fun renderSendCookBill(result: ScreenState?) {
+        when (result) {
+            is ScreenState.Error -> {
+                renderError(result)
+                showLoading(false)
+            }
+            is ScreenState.Loading -> {
+                showLoading(true)
+            }
+            is ScreenState.Success -> {
+                showLoading(false)
+                if ((result.data as ResultOperation).data) {
+                    viewModel.getBillItems(false)
+                }
+            }
+        }
     }
 
     //Отрисовка удаления счета
@@ -250,7 +289,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
             }
             is ScreenState.Success -> {
                 showLoading(false)
-                if ((result.data as DeleteResult).data) {
+                if ((result.data as ResultOperation).data) {
                     viewBinding.root.showSnakeBar("Пустой счет удален.")
                 }
                 NavHostFragment.findNavController(this).popBackStack()
@@ -399,8 +438,20 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
     }
 
     override fun onDeletePicked(billItem: BillItem) {
-        viewModel.deleteItem(billItem.billItemId)
-        Log.d("waiterDebug", "Удаляем $billItem")
+        when (billItem.printed) {
+            STATE_PRINTED -> {
+                viewModel.deleteEmergencyItem(billItem.billItemId)
+                Log.d("waiterDebug", "Удаляем распечатанный товар $billItem")
+            }
+            STATE_EMERGENCY_DELETED -> {
+                Log.d("waiterDebug", "Отмененный товар нет смысла удалять $billItem")
+                viewModel.getBillItems(false)
+            }
+            else -> {
+                viewModel.deleteItem(billItem.billItemId)
+                Log.d("waiterDebug", "Удаляем $billItem")
+            }
+        }
     }
 
     override fun onItemPicked(item: Item) {
@@ -491,5 +542,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         const val EMPTY_SEARCH_TEXT = "Введите текст для поиска"
         const val ZERO_DISCOUNT_PERCENT = "0%"
         const val ZERO_DISCOUNT_SUM = "0р"
+        const val STATE_PRINTED = 1
+        const val STATE_EMERGENCY_DELETED = 2
     }
 }

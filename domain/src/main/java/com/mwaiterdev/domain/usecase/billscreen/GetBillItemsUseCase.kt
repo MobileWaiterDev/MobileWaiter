@@ -30,7 +30,8 @@ class GetBillItemsUseCase(private val repository: Repository) {
                         subTotal = billItem.subtotal,
                         total = billItem.total,
                         createTime = billItem.createTime,
-                        name = billItem.name
+                        name = billItem.name,
+                        printed = billItem.printed
                     )
                 )
             }

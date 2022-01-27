@@ -52,4 +52,23 @@
     <style name="NavigationBottomStyle">
         <item name="itemIconTint">@drawable/nav_view_shape_color</item>
     </style>
+
+    <style name="CustomCardCornersBlue" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance_custom_corners</item>
+        <item name="strokeColor">@color/blue</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="paddingStart">0dp</item>
+    </style>
+
+    <style name="CustomCardCornersOrange" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance_custom_corners</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="paddingStart">0dp</item>
+    </style>
+
+    <style name="ShapeAppearance_custom_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">15dp</item>
+        <item name="cornerSizeBottomLeft">15dp</item>
+    </style>
 </resources>

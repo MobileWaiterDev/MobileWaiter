@@ -125,4 +125,22 @@ interface IRemoteDataSource {
     suspend fun deleteBill(
         billId: Long
     ): OperationResult
+
+    /**
+     * Готовить продукты
+     * @param billId Id счета
+     * @return OperationResult
+     */
+    suspend fun cookBill(
+        billId: Long
+    ): OperationResult
+
+    /**
+     * Отменить готовку уже распечатанного товара
+     * @param billItemId Id товара
+     * @return OperationResult
+     */
+    suspend fun emergencyCancel(
+        billItemId: Long
+    ): OperationResult
 }
