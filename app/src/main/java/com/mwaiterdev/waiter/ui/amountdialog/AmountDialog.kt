@@ -3,18 +3,27 @@ package com.mwaiterdev.waiter.ui.amountdialog
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.InputType
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.mwaiterdev.utils.extensions.showSnakeBar
 import com.mwaiterdev.waiter.databinding.FragmentAmountDialogBinding
 
 class AmountDialog(private val typeValue: AmountTypeValue) : DialogFragment() {
@@ -37,6 +46,46 @@ class AmountDialog(private val typeValue: AmountTypeValue) : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        viewBinding.btnOk.setOnClickListener {
+            if (viewBinding.inputValue.text.toString().isEmpty()) {
+                viewBinding.root.showSnakeBar(ENTER_AMOUNT_TEXT)
+                return@setOnClickListener
+            }
+            buttonOkClick()
+            dialog?.dismiss()
+        }
+
+        viewBinding.btnCancel.setOnClickListener {
+            buttonNoClick()
+            dialog?.dismiss()
+        }
+
+        viewBinding.inputValue.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (TextUtils.isEmpty(v.text.toString()).not()) {
+                    buttonOkClick()
+                    dialog?.dismiss()
+                    false
+                } else {
+                    viewBinding.root.showSnakeBar(ENTER_AMOUNT_TEXT)
+                    false
+                }
+            }
+            false
+        }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            viewBinding.inputValue.requestFocus()
+            val imm =
+                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(
+                viewBinding.inputValue,
+                InputMethodManager.SHOW_IMPLICIT
+            )
+        }, 100)
+
         return viewBinding.root
     }
 
@@ -46,12 +95,9 @@ class AmountDialog(private val typeValue: AmountTypeValue) : DialogFragment() {
         val message = args?.getString(ARG_MESSAGE)
 
         return AlertDialog.Builder(activity)
-            .setCancelable(false)
             .setTitle(title)
             .setMessage(message)
             .setView(viewBinding.root)
-            .setPositiveButton(OK_BUTTON_TITLE) { _, _ -> buttonOkClick() }
-            .setNegativeButton(CANCEL_BUTTON_TITLE) { _, _ -> buttonNoClick() }
             .create()
             .also {
                 when (typeValue) {
@@ -100,10 +146,9 @@ class AmountDialog(private val typeValue: AmountTypeValue) : DialogFragment() {
 
     companion object {
         const val KEY_RESULT = "result"
-        const val OK_BUTTON_TITLE = "Применить"
-        const val CANCEL_BUTTON_TITLE = "Отмена"
         const val TAG = "dialog"
         const val ARG_TITLE = "dialog.Title"
         const val ARG_MESSAGE = "dialog.Message"
+        const val ENTER_AMOUNT_TEXT = "Введите количество"
     }
 }

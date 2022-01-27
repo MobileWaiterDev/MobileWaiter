@@ -57,4 +57,13 @@ class RemoteDataSourceImpl(private val waiterApi: WaiterApi) : IRemoteDataSource
 
     override suspend fun deleteItem(billItemId: Long): OperationResult =
         waiterApi.deleteItemAsync(billItemId).await()
+
+    override suspend fun search(text: String): ItemsResponse =
+        waiterApi.searchAsync(text).await()
+
+    override suspend fun updateFavouriteState(favourite: Int, itemId: Long): OperationResult =
+        waiterApi.updateFavouriteStateAsync(favourite, itemId).await()
+
+    override suspend fun deleteBill(billId: Long): OperationResult =
+        waiterApi.deleteBillAsync(billId).await()
 }

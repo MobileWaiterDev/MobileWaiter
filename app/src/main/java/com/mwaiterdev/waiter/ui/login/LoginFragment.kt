@@ -33,6 +33,20 @@ class LoginFragment : Fragment(R.layout.fragment_login), IScreenView {
             viewModel.logIn(viewBinding.inputValue.text.toString())
             hideKeyboardForTextView()
         }
+
+        viewBinding.inputValue.setOnEditorActionListener { view, actionId, event ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE) {
+                if (view.text.isNotEmpty()) {
+                    hideKeyboardForTextView()
+                    viewModel.logIn(view.text.toString())
+                    true
+                } else {
+                    false
+                }
+            } else {
+                false
+            }
+        }
     }
 
     private fun renderLogin(result: ScreenState?) {

@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="@dimen/amount_dialog_margin_horizontal"
+    android:background="@color/cream"
     android:fitsSystemWindows="true"
+    app:cardCornerRadius="@dimen/amount_dialog_corner_radius"
     tools:context="com.mwaiterdev.waiter.ui.bill.BillFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout"
-        android:layout_width="@dimen/zero"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/amount_dialog_text_input_margin_horizontal"
         android:layout_marginTop="@dimen/amount_dialog_input_layout_margin_top"
         android:layout_marginBottom="@dimen/amount_dialog_input_layout_margin_bottom"
         android:hint="@string/amount_dialog_input_layout_hint_text"
@@ -28,8 +33,45 @@
             android:id="@+id/input_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/amount_dialog_input_value_margin_bottom"
             android:gravity="start"
             android:inputType="numberDecimal" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/amount_dialog_buttons_margin_top"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/amount_dialog_cancel_button_margin_end"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:gravity="end|center_vertical"
+                android:text="@string/button_cancel_title"
+                android:textSize="@dimen/amount_dialog_button_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:gravity="end"
+                android:text="@string/button_ok_title"
+                android:textColor="#0091EA"
+                android:textSize="@dimen/amount_dialog_button_text_size"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

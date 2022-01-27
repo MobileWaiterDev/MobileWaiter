@@ -44,6 +44,8 @@ class BillItemAdapter(private val delegate: Delegate?) :
 
     override fun getItemCount() = data.size
 
+    fun clear() = data.clear()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BillItemViewHolder =
         BillItemViewHolder(
             LayoutInflater.from(parent.context).inflate(

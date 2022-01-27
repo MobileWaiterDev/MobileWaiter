@@ -29,4 +29,12 @@
     <string name="fragment_login_hint_text">Введите PIN</string>
     <string name="fragment_login_button_text">Вход</string>
     <string name="fragment_login_input_layout_content_description">Pin</string>
+    <string name="button_cancel_title">Отмена</string>
+    <string name="button_ok_title">Ок</string>
+    <string name="button_bill_title">Счет</string>
+    <string name="button_cook_title">Готовить</string>
+    <string name="total">Итого</string>
+    <string name="discount_sum">Сумма скидки</string>
+    <string name="discount">Скидка</string>
+    <string name="subtotal">Подытог</string>
 </resources>

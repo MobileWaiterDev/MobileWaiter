@@ -50,7 +50,15 @@ class MainActivity : AppCompatActivity(), TitleToolbarListener {
     }
 
     override fun updateTitle(title: String) {
-        viewBinding.appBarMain.toolbar.title = title
+        viewBinding.appBarMain.title.text = title
+        viewBinding.appBarMain.topTitle.text = ""
+        viewBinding.appBarMain.downTitle.text = ""
+    }
+
+    override fun setMultiLineTitle(topTitle: String, downTitle: String) {
+        viewBinding.appBarMain.title.text = ""
+        viewBinding.appBarMain.topTitle.text = topTitle
+        viewBinding.appBarMain.downTitle.text = downTitle
     }
 
     override fun showToolBar(isVisible: Boolean) {
@@ -62,8 +70,12 @@ class MainActivity : AppCompatActivity(), TitleToolbarListener {
     }
 
     override fun setUser(user: User) {
-        val headerView: View = viewBinding.navView.getHeaderView(0)
+        val headerView: View = viewBinding.navView.getHeaderView(HEADER_VIEW_INDEX)
         headerView.findViewById<TextView>(R.id.user_group).text = user.groupName
         headerView.findViewById<TextView>(R.id.user_name).text = user.name
+    }
+
+    companion object {
+        const val HEADER_VIEW_INDEX = 0
     }
 }

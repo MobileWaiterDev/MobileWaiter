@@ -62,4 +62,16 @@ class RepositoryMockImp : Repository {
     override suspend fun deleteItem(billItemId: Long): OperationResult {
         TODO("Not yet implemented")
     }
+
+    override suspend fun search(text: String): ItemsResponse {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateFavouriteState(favourite: Int, itemId: Long): OperationResult {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteBill(billId: Long): OperationResult {
+        TODO("Not yet implemented")
+    }
 }

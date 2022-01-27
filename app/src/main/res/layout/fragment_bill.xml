@@ -12,20 +12,78 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero"
         android:layout_marginTop="@dimen/fragment_bill_bill_items_rv_margin_top"
-        app:layout_constraintBottom_toTopOf="@id/button_panel"
+        app:layout_constraintBottom_toTopOf="@id/panel_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/no_data_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/zero"
+        android:layout_marginTop="@dimen/fragment_bill_bill_items_rv_margin_top"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/panel_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Добавьте товары в счет..." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/button_panel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_bill_button_panel_height"
         android:background="#EEEEEE"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/button_panel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bill_items_rv">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/find_menu"
+            android:layout_width="@dimen/fragment_bill_button_size"
+            android:layout_height="@dimen/fragment_bill_button_size"
+            android:backgroundTint="#EEEEEE"
+            android:insetTop="@dimen/zero"
+            android:insetBottom="@dimen/zero"
+            android:stateListAnimator="@null"
+            app:cornerRadius="@dimen/fragment_bill_button_radius"
+            app:icon="@drawable/ic_search"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/zero"
+            app:iconSize="@dimen/fragment_bill_button_icon_size"
+            app:iconTint="@color/dark_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/favourite_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/favourite_menu"
+            android:layout_width="@dimen/fragment_bill_button_size"
+            android:layout_height="@dimen/fragment_bill_button_size"
+            android:backgroundTint="#EEEEEE"
+            android:insetTop="@dimen/zero"
+            android:insetBottom="@dimen/zero"
+            android:stateListAnimator="@null"
+            app:cornerRadius="@dimen/fragment_bill_button_radius"
+            app:icon="@drawable/ic_favourite"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/zero"
+            app:iconSize="@dimen/fragment_bill_button_icon_size"
+            app:iconTint="@color/dark_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/home_menu"
+            app:layout_constraintStart_toEndOf="@id/find_menu"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/home_menu"
@@ -42,11 +100,94 @@
             app:iconSize="@dimen/fragment_bill_button_icon_size"
             app:iconTint="@color/dark_gray"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/arrow_menu"
+            app:layout_constraintStart_toEndOf="@id/favourite_menu"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/arrow_menu"
+            android:layout_width="@dimen/fragment_bill_button_size"
+            android:layout_height="@dimen/fragment_bill_button_size"
+            android:backgroundTint="#EEEEEE"
+            android:insetTop="@dimen/zero"
+            android:insetBottom="@dimen/zero"
+            android:stateListAnimator="@null"
+            app:cornerRadius="@dimen/fragment_bill_button_radius"
+            app:icon="@drawable/ic_arrow_down"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/zero"
+            app:iconSize="@dimen/fragment_bill_button_icon_size"
+            app:iconTint="@color/dark_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/print_menu"
+            app:layout_constraintStart_toEndOf="@id/home_menu"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/print_menu"
+            android:layout_width="@dimen/fragment_bill_button_size"
+            android:layout_height="@dimen/fragment_bill_button_size"
+            android:backgroundTint="#EEEEEE"
+            android:insetTop="@dimen/zero"
+            android:insetBottom="@dimen/zero"
+            android:stateListAnimator="@null"
+            app:cornerRadius="@dimen/fragment_bill_button_radius"
+            app:icon="@drawable/ic_print"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/zero"
+            app:iconSize="@dimen/fragment_bill_button_icon_size"
+            app:iconTint="@color/dark_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/arrow_menu"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/panel_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_bil_panel_info_height"
+        android:layout_marginBottom="@dimen/fragment_bil_panel_info_margin_bottom"
+        android:background="@color/dark_gray"
+        app:layout_constraintBottom_toTopOf="@id/menu_panel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bill_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/fragment_bill_bill_info_margin_horizontal"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menu_panel"
+        style="@style/NavigationBottomStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_bill_menu_panel_height"
+        android:background="@drawable/round"
+        app:elevation="@dimen/zero"
+        app:itemIconSize="@dimen/fragment_bill_menu_panel_icon_size"
+        app:layout_constraintBottom_toTopOf="@id/search_panel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bill_menu" />
+
+    <SearchView
+        android:id="@+id/search_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/menu_items_rv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menu_items_rv"
@@ -55,8 +196,222 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="@dimen/fragment_bill_menu_items_rv_height_percent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_panel" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/no_item_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/zero"
+        android:background="@color/white"
+        android:translationZ="@dimen/fragment_bill_no_item_panel_translation_z"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="@dimen/fragment_bill_menu_items_rv_height_percent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Товары отсутствуют..." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/close_bill_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/zero"
+        android:background="@color/white"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="@dimen/fragment_bill_menu_items_rv_height_percent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:background="@color/dark_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="@dimen/fragment_bill_total_panel_text_height_percent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/close_bill_panel_text_margin"
+                android:text="@string/subtotal"
+                android:textColor="@color/white"
+                android:textSize="@dimen/close_bill_panel_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bill_sub_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/close_bill_panel_text_margin"
+                android:textColor="@color/white"
+                android:textSize="@dimen/close_bill_panel_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/close_bill_panel_text_margin"
+                android:text="@string/discount"
+                android:textColor="@color/white"
+                android:textSize="@dimen/close_bill_panel_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bill_sub_total" />
+
+            <TextView
+                android:id="@+id/bill_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/close_bill_panel_text_margin"
+                android:textColor="@color/white"
+                android:textSize="@dimen/close_bill_panel_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bill_sub_total" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/close_bill_panel_text_margin"
+                android:text="@string/discount_sum"
+                android:textColor="@color/white"
+                android:textSize="@dimen/close_bill_panel_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bill_discount" />
+
+            <TextView
+                android:id="@+id/bill_sum_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/close_bill_panel_text_margin"
+                android:textColor="@color/white"
+                android:textSize="@dimen/close_bill_panel_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bill_discount" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/close_bill_panel_text_margin"
+                android:text="@string/total"
+                android:textColor="@color/white"
+                android:textSize="@dimen/close_bill_panel_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bill_sum_discount" />
+
+            <TextView
+                android:id="@+id/bill_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/close_bill_panel_text_margin"
+                android:textColor="@color/white"
+                android:textSize="@dimen/close_bill_panel_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bill_sum_discount" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="@dimen/zero"
+            android:layout_height="@dimen/zero"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="@dimen/fragment_bill_total_panel_height_percent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cook_btn"
+                android:layout_width="@dimen/zero"
+                android:layout_height="@dimen/fragment_bill_panel_button_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/fragment_bill_panel_button_margin_horizontal"
+                android:layout_marginVertical="@dimen/fragment_bill_panel_button_margin_vertical"
+                android:backgroundTint="@color/red"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="@dimen/fragment_bill_panel_button_radius"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="@dimen/fragment_bill_panel_button_width_percent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/fragment_bill_panel_default_margin"
+                        android:text="@string/button_cook_title"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/fragment_bill_panel_button_text_size" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/fragment_bill_panel_button_icon_size"
+                        android:layout_height="@dimen/fragment_bill_panel_button_icon_size"
+                        android:layout_gravity="end"
+                        android:layout_marginHorizontal="@dimen/fragment_bill_panel_default_margin"
+                        android:src="@drawable/ic_check"
+                        android:tint="@color/white" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bill_close_btn"
+                android:layout_width="@dimen/zero"
+                android:layout_height="@dimen/fragment_bill_panel_button_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/fragment_bill_panel_button_margin_horizontal"
+                android:layout_marginVertical="@dimen/fragment_bill_panel_button_margin_vertical"
+                android:backgroundTint="@color/light_blue"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="@dimen/fragment_bill_panel_button_radius"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="@dimen/fragment_bill_panel_button_width_percent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/fragment_bill_panel_default_margin"
+                        android:text="@string/button_bill_title"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/fragment_bill_panel_button_text_size" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/fragment_bill_panel_button_icon_size"
+                        android:layout_height="@dimen/fragment_bill_panel_button_icon_size"
+                        android:layout_gravity="end"
+                        android:layout_marginHorizontal="@dimen/fragment_bill_panel_default_margin"
+                        android:src="@drawable/ic_print" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress"

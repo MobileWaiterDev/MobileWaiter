@@ -16,7 +16,7 @@ class MenuItemGroupViewHolder(
     fun bind(group: ItemGroup, delegate: MenuAdapter.Delegate?) {
         with(viewBinding) {
             categoryName.text = group.name
-            root.click { delegate?.onGroupPicked(group) }
+            card.click { delegate?.onGroupPicked(group) }
         }
     }
 }
