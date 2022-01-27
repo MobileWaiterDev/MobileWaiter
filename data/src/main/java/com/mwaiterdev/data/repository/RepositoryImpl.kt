@@ -1,10 +1,10 @@
 package com.mwaiterdev.data.repository
 
+import com.mwaiterdev.data.repository.datasource.IRemoteDataSource
 import com.mwaiterdev.domain.models.TableGroup
 import com.mwaiterdev.domain.models.User
 import com.mwaiterdev.domain.models.response.*
 import com.mwaiterdev.domain.repository.Repository
-import com.mwaiterdev.data.repository.datasource.IRemoteDataSource
 
 class RepositoryImpl(private val dataSource: IRemoteDataSource) : Repository {
     override suspend fun getWaitress(id: Int): User {
@@ -71,4 +71,13 @@ class RepositoryImpl(private val dataSource: IRemoteDataSource) : Repository {
 
     override suspend fun deleteItem(billItemId: Long): OperationResult =
         dataSource.deleteItem(billItemId)
+
+    override suspend fun search(text: String): ItemsResponse =
+        dataSource.search(text)
+
+    override suspend fun updateFavouriteState(favourite: Int, itemId: Long): OperationResult =
+        dataSource.updateFavouriteState(favourite, itemId)
+
+    override suspend fun deleteBill(billId: Long): OperationResult =
+        dataSource.deleteBill(billId)
 }

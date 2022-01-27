@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_find"
+        android:icon="@drawable/ic_search"
+        android:iconTint="@color/dark_gray"
+        android:title="" />
+
+    <item
+        android:id="@+id/menu_favourite"
+        android:icon="@drawable/ic_favourite"
+        android:iconTint="@color/dark_gray"
+        android:title="" />
+
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/ic_plus"
+        android:iconTint="@color/dark_gray"
+        android:title="" />
+
+    <item
+        android:id="@+id/menu_arrow"
+        android:icon="@drawable/ic_arrow_down"
+        android:iconTint="@color/dark_gray"
+        android:title="" />
+
+    <item
+        android:id="@+id/menu_print"
+        android:icon="@drawable/ic_print"
+        android:iconTint="@color/dark_gray"
+        android:title="" />
+</menu>

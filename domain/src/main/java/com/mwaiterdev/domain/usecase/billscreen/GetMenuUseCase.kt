@@ -27,7 +27,8 @@ class GetMenuUseCase(private val repository: Repository) {
                             name = item.name,
                             shorName = item.shortName,
                             available = item.available,
-                            price = Price(itemId = item.itemId, price = item.price)
+                            price = Price(itemId = item.itemId, price = item.price),
+                            favourite = item.favourite
                         )
                     )
                 }

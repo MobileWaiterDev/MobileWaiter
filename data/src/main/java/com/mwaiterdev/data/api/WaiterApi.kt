@@ -116,4 +116,39 @@ interface WaiterApi {
     fun deleteItemAsync(
         @Field("billItemId") billItemId: Long,
     ): Deferred<OperationResult>
+
+    /**
+     * Поиск товара по имени
+     * @param text Текст для поиска
+     * @return ItemsResponse
+     */
+    @FormUrlEncoded
+    @POST("/MWaiter/?Method=findItemsByName")
+    fun searchAsync(
+        @Field("request") text: String
+    ): Deferred<ItemsResponse>
+
+    /**
+     * Изменить статус избранного у товара
+     * @param favourite Значение избраного, 0/1
+     * @param itemId Id товара
+     * @return OperationResult
+     */
+    @FormUrlEncoded
+    @POST("/MWaiter/?Method=updateFavouriteStateItem")
+    fun updateFavouriteStateAsync(
+        @Field("favourite") favourite: Int,
+        @Field("itemId") itemId: Long,
+    ): Deferred<OperationResult>
+
+    /**
+     * Удалить счет
+     * @param billId Id счета
+     * @return OperationResult
+     */
+    @FormUrlEncoded
+    @POST("/MWaiter/?Method=deleteBill")
+    fun deleteBillAsync(
+        @Field("billId") billId: Long,
+    ): Deferred<OperationResult>
 }

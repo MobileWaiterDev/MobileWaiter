@@ -38,7 +38,7 @@ interface Repository {
      * @param itemGroupId Id группы товаров
      * @return ItemsResponse
      */
-    suspend fun getItemsById(itemGroupId: Long): ItemsResponse
+    suspend fun getItemsById(itemGroupId: Long = 0L): ItemsResponse
 
     /**
      * Получить пользователя по пин-коду
@@ -108,5 +108,32 @@ interface Repository {
      */
     suspend fun deleteItem(
         billItemId: Long,
+    ): OperationResult
+
+    /**
+     * Поиск товара по имени
+     * @param text Текст для поиска
+     * @return ItemsResponse
+     */
+    suspend fun search(text: String): ItemsResponse
+
+    /**
+     * Изменить статус избранного у товара
+     * @param favourite Значение избраного, 0/1
+     * @param itemId Id товара
+     * @return OperationResult
+     */
+    suspend fun updateFavouriteState(
+        favourite: Int,
+        itemId: Long
+    ): OperationResult
+
+    /**
+     * Удалить счет
+     * @param billId Id счета
+     * @return OperationResult
+     */
+    suspend fun deleteBill(
+        billId: Long
     ): OperationResult
 }

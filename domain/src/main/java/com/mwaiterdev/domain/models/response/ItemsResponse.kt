@@ -22,6 +22,8 @@ data class ItemsResponse(
         @SerializedName("price")
         val price: Float,
         @SerializedName("shortName")
-        val shortName: String
+        val shortName: String,
+        @SerializedName("favourite")
+        val favourite: Int
     )
 }

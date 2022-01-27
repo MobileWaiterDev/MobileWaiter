@@ -58,12 +58,12 @@
     <dimen name="bill_item_name_text_size">14sp</dimen>
     <dimen name="bill_item_total_margin_end">16dp</dimen>
     <dimen name="bill_item_sub_total_text_size">10sp</dimen>
-    <dimen name="menu_button_width">90dp</dimen>
-    <dimen name="menu_button_height">70dp</dimen>
+    <dimen name="menu_button_width">120dp</dimen>
+    <dimen name="menu_button_height">90dp</dimen>
     <dimen name="menu_button_padding">16dp</dimen>
     <dimen name="menu_button_category_text_size">14sp</dimen>
     <item name="bill_menu_product_item_name_max_lines" format="integer" type="dimen">2</item>
-    <dimen name="bill_menu_product_item_name_margin_horizontal">5dp</dimen>
+    <dimen name="bill_menu_product_item_name_margin_horizontal">10dp</dimen>
     <dimen name="bill_menu_product_item_name_text_size">14sp</dimen>
     <dimen name="bill_menu_product_item_price_margin_bottom">5dp</dimen>
     <dimen name="bill_menu_product_item_price_text_size">12sp</dimen>
@@ -82,9 +82,46 @@
     <dimen name="amount_dialog_input_layout_margin_top">32dp</dimen>
     <dimen name="amount_dialog_input_layout_margin_bottom">32dp</dimen>
     <dimen name="fragment_login_button_height">50dp</dimen>
+    <dimen name="toolbar_text_size">12sp</dimen>
+    <dimen name="toolbar_text_margin_top">5dp</dimen>
+    <dimen name="toolbar_text_margin_bottom">10dp</dimen>
+    <dimen name="bill_menu_category_padding_vertical">8dp</dimen>
+    <dimen name="bill_menu_category_card_padding_horizontal">8dp</dimen>
+    <dimen name="bill_menu_product_padding_vertical">8dp</dimen>
+    <dimen name="bill_menu_product_card_margin_horizontal">8dp</dimen>
+    <dimen name="bill_menu_product_icon_size">20dp</dimen>
+    <dimen name="bill_menu_product_icon_margin_start">4dp</dimen>
+    <dimen name="bill_menu_product_icon_translation_z">1dp</dimen>
+    <dimen name="amount_dialog_corner_radius">15dp</dimen>
+    <dimen name="amount_dialog_margin_horizontal">16dp</dimen>
+    <dimen name="amount_dialog_text_input_margin_horizontal">16dp</dimen>
+    <dimen name="amount_dialog_input_value_margin_bottom">10dp</dimen>
+    <dimen name="amount_dialog_buttons_margin_top">32dp</dimen>
+    <dimen name="amount_dialog_cancel_button_margin_end">16dp</dimen>
+    <dimen name="amount_dialog_button_text_size">20sp</dimen>
+    <dimen name="fragment_bill_panel_button_icon_size">30dp</dimen>
+    <dimen name="fragment_bill_panel_button_text_size">18sp</dimen>
+    <dimen name="fragment_bill_panel_default_margin">16dp</dimen>
+    <dimen name="close_bill_panel_text_size">16sp</dimen>
+    <dimen name="fragment_bill_panel_button_height">55dp</dimen>
+    <dimen name="fragment_bill_panel_button_radius">10dp</dimen>
+    <dimen name="fragment_bill_panel_button_margin_vertical">8dp</dimen>
+    <dimen name="fragment_bill_panel_button_margin_horizontal">32dp</dimen>
+    <dimen name="close_bill_panel_text_margin">8dp</dimen>
+    <dimen name="fragment_bill_no_item_panel_translation_z">3dp</dimen>
+    <dimen name="fragment_bill_menu_panel_height">50dp</dimen>
+    <dimen name="fragment_bill_menu_panel_icon_size">35dp</dimen>
+    <dimen name="fragment_bill_bill_info_margin_horizontal">3dp</dimen>
+    <dimen name="fragment_bil_panel_info_height">35dp</dimen>
+    <dimen name="fragment_bil_panel_info_margin_bottom">10dp</dimen>
     <item name="nav_header_logo_width_percent" format="float" type="dimen">1.0</item>
     <item name="fragment_bill_menu_items_rv_height_percent" format="float" type="dimen">0.3</item>
     <item name="amount_dialog_input_layout_width_percent" format="float" type="dimen">0.8</item>
     <item name="nav_header_logo_height_percent" format="float" type="dimen">1.0</item>
-    <item name="fragment_login_default_width" type="dimen" format="float">0.8</item>
+    <item name="fragment_login_default_width" format="float" type="dimen">0.8</item>
+    <item name="toolbar_text_height_percent" format="float" type="dimen">0.5</item>
+    <item name="fragment_bill_total_panel_height_percent" format="float" type="dimen">0.4</item>
+    <item name="fragment_bill_total_panel_text_height_percent" format="float" type="dimen">0.6
+    </item>
+    <item name="fragment_bill_panel_button_width_percent" format="float" type="dimen">0.3</item>
 </resources>

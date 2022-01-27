@@ -16,4 +16,11 @@ interface TitleToolbarListener {
      * @param user - Пользователь
      */
     fun setUser(user: User)
+
+    /**
+     * Установить текст в туллбар
+     * @param topTitle - Верхняя строка
+     * @param downTitle - Нижняя строка
+     */
+    fun setMultiLineTitle(topTitle: String, downTitle: String)
 }

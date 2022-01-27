@@ -27,6 +27,13 @@ class MenuAdapter(private val delegate: Delegate?) :
          * @param group Товар
          */
         fun onGroupPicked(group: ItemGroup)
+
+        /**
+         * Событие наступает при длительном
+         * клике по товару.
+         * @param item Товар
+         */
+        fun onItemLongClick(item: Item)
     }
 
     private val data = ArrayList<IMenuItem>()
@@ -113,5 +120,4 @@ class MenuAdapter(private val delegate: Delegate?) :
         const val GROUP = 1
         const val ERROR_UNKNOWN_VIEW_TYPE = "Неизвестный view type"
     }
-
 }

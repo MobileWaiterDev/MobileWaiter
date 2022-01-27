@@ -1,6 +1,5 @@
 package com.mwaiterdev.domain.models.response
 
-
 import com.google.gson.annotations.SerializedName
 
 data class BillsInfoResponse(
@@ -39,6 +38,12 @@ data class BillsInfoResponse(
         @SerializedName("userGroupId")
         val userGroupId: Int,
         @SerializedName("userName")
-        val userName: String
+        val userName: String,
+        @SerializedName("count")
+        val count: Int,
+        @SerializedName("tableName")
+        val tableName: String,
+        @SerializedName("tableGroup")
+        val tableGroup: String
     )
 }

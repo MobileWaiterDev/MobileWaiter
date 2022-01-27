@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
-import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -17,7 +18,6 @@ import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.FragmentBillsBinding
 import com.mwaiterdev.waiter.ui.TitleToolbarListener
 import com.mwaiterdev.waiter.ui.bills.adapters.AdapterBills
-import okhttp3.internal.wait
 import org.koin.android.ext.android.getKoin
 
 class BillsFragment : Fragment(R.layout.fragment_bills) {
@@ -28,10 +28,32 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     private var data: List<TableGroup>? = null
     private var adapter: AdapterBills? = null
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         setFloatingActionButtonListener()
+
+        initBackPressListener()
+    }
+
+    private fun initBackPressListener() {
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setTitle(APP_TITLE)
+                        .setMessage(APP_CLOSE_QUESTIONS)
+                        .setIcon(R.drawable.ic_launcher_foreground)
+                        .setPositiveButton(DIALOG_OK_BUTTON_TEXT) { _, _ ->
+                            requireActivity().finish()
+                        }
+                        .setNegativeButton(DIALOG_CANCEL_BUTTON_TEXT) { dialog, id ->
+                            dialog.cancel()
+                        }
+                    builder.create()
+                    builder.show()
+                }
+            })
     }
 
     override fun onStart() {
@@ -40,7 +62,6 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
         viewBinding.mineBillsSwitcher.isChecked = viewModel.initFilterData()
         super.onStart()
     }
-
 
     private fun setFloatingActionButtonListener() {
         viewBinding.addBill.setOnClickListener {
@@ -53,7 +74,6 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
             billId?.let { billId -> putLong(BILL_ID, billId) }
         })
     }
-
 
     private fun renderData(appState: AppState?) {
         when (appState) {
@@ -141,10 +161,13 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
             }
     }
 
-
     companion object {
         const val BILL_ID = "billId"
         const val ALL_HALS = "All Hals"
+        const val APP_TITLE = "Mobile Waiter"
+        const val APP_CLOSE_QUESTIONS = "Вы уверены, что хотите закрыть приложение?"
+        const val DIALOG_OK_BUTTON_TEXT = "Закрыть"
+        const val DIALOG_CANCEL_BUTTON_TEXT = "Отмена"
         fun newInstance() = BillsFragment()
     }
 }

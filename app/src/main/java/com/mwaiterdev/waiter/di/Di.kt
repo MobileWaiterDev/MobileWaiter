@@ -14,6 +14,7 @@ import com.mwaiterdev.data.repository.sharedpref.LocalRepositoryImpl
 import com.mwaiterdev.domain.models.TableGroup
 import com.mwaiterdev.domain.repository.LocalRepository
 import com.mwaiterdev.domain.repository.Repository
+import com.mwaiterdev.domain.usecase.GetUserUseCase
 import com.mwaiterdev.domain.usecase.OutputUseCase
 import com.mwaiterdev.domain.usecase.billscreen.*
 import com.mwaiterdev.domain.usecase.loginscreen.LogInUseCase
@@ -79,6 +80,7 @@ object Di {
         factory<BillsLocalStorage> {
             BillsLocalStorageImpl(get())
         }
+
         factory<LocalRepository> {
             LocalRepositoryImpl(get())
         }
@@ -108,7 +110,6 @@ object Di {
             }
         }
 
-
         scope<TablesFragment> {
             viewModel() {
                 TablesViewModel(
@@ -127,7 +128,11 @@ object Di {
                     getBillInfoUseCase = get(),
                     addItemIntoBillUseCase = get(),
                     updateAmountItemUseCase = get(),
-                    deleteItemUseCase = get()
+                    deleteItemUseCase = get(),
+                    searchItemUseCase = get(),
+                    updateFavouriteStateUseCase = get(),
+                    getFavouriteMenuUseCase = get(),
+                    deleteBillUseCase = get()
                 )
             }
         }
@@ -250,8 +255,48 @@ object Di {
         }
 
         factory<InputUseCase<Boolean, List<TableGroup>?>>(
-            qualifier = named(FILTER_BY_USER_ID_USE_CASE)) {
+            qualifier = named(FILTER_BY_USER_ID_USE_CASE)
+        ) {
             FilterByUserIdUseCase()
+        }
+
+        /*Получить текущего авторизованного пользователя*/
+        factory<GetUserUseCase> {
+            GetUserUseCase(
+                localRepository = get()
+            )
+        }
+
+        factory<SearchItemUseCase> {
+            SearchItemUseCase(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
+        }
+
+        factory<UpdateFavouriteStateUseCase> {
+            UpdateFavouriteStateUseCase(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
+        }
+
+        factory<GetFavouriteMenuUseCase> {
+            GetFavouriteMenuUseCase(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
+        }
+
+        factory<DeleteBillUseCase> {
+            DeleteBillUseCase(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
         }
     }
 }
