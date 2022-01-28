@@ -2,10 +2,14 @@ package com.mwaiterdev.utils.extensions
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
+import com.mwaiterdev.domain.models.BillItem
+import com.mwaiterdev.utils.R
 
 fun View.showSnakeBar(text: String, length: Int = Snackbar.LENGTH_SHORT) {
     Snackbar.make(this, text, length).show()
@@ -27,3 +31,41 @@ fun showAlertDialogFragment(context: Context, message: String?) {
         .setPositiveButton("ok", { dialog, _ -> dialog.cancel() })
         .show()
 }
+
+fun MaterialCardView.setStrokeColorByState(billItem: BillItem) {
+    strokeColor = when (billItem.printed) {
+        ITEM_NOT_PRINTED -> {
+            Color.parseColor(ITEM_NOT_PRINTED_COLOR)
+        }
+        ITEM_PRINTED -> {
+            Color.parseColor(ITEM_PRINTED_COLOR)
+        }
+        ITEM_CANCELED -> {
+            Color.parseColor(ITEM_CANCELED_COLOR)
+        }
+        else -> 0
+    }
+}
+
+fun View.setBackgroundByState(billItem: BillItem) {
+    val backgroundStyle = when (billItem.printed) {
+        ITEM_NOT_PRINTED -> {
+            R.drawable.round_bill_item_blue
+        }
+        ITEM_PRINTED -> {
+            R.drawable.round_bill_item_orange
+        }
+        ITEM_CANCELED -> {
+            R.drawable.round_bill_item_red
+        }
+        else -> 0
+    }
+    setBackgroundResource(backgroundStyle)
+}
+
+const val ITEM_PRINTED = 1
+const val ITEM_NOT_PRINTED = 0
+const val ITEM_CANCELED = 2
+const val ITEM_PRINTED_COLOR = "#FFAB00"
+const val ITEM_NOT_PRINTED_COLOR = "#0087D4"
+const val ITEM_CANCELED_COLOR = "#FF3738"

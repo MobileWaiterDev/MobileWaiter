@@ -2,7 +2,7 @@ package com.mwaiterdev.waiter.ui.bill
 
 import android.util.Log
 import com.mwaiterdev.domain.ScreenState
-import com.mwaiterdev.domain.models.response.DeleteResult
+import com.mwaiterdev.domain.models.response.ResultOperation
 import com.mwaiterdev.domain.usecase.billscreen.*
 import com.mwaiterdev.waiter.ui.bill.enums.TypeUpdate
 import kotlinx.coroutines.launch
@@ -18,7 +18,9 @@ class BillViewModel(
     private val searchItemUseCase: SearchItemUseCase,
     private val updateFavouriteStateUseCase: UpdateFavouriteStateUseCase,
     private val getFavouriteMenuUseCase: GetFavouriteMenuUseCase,
-    private val deleteBillUseCase: DeleteBillUseCase
+    private val deleteBillUseCase: DeleteBillUseCase,
+    private val sendCookItemsUseCase: SendCookItemsUseCase,
+    private val deleteItemEmergencyUseCase: DeleteItemEmergencyUseCase
 ) : BaseBillViewModel() {
 
     var currentBillId: Long = ZERO_VALUE
@@ -150,7 +152,7 @@ class BillViewModel(
 
     fun deleteItem(billItemId: Long) {
         viewModelScopeCoroutine.launch {
-            val result = deleteItemUseCase.execute(
+            deleteItemUseCase.execute(
                 billItemId = billItemId,
             )
             getBillItems(needScrollToPosition = false)
@@ -164,9 +166,9 @@ class BillViewModel(
             val billInfo = getBillInfoUseCase.execute(billId = currentBillId)
             if (billInfo.data.countItems == 0) {
                 val result = deleteBillUseCase.execute(billId = currentBillId)
-                deleteBillLiveData().postValue(ScreenState.Success(DeleteResult(result)))
+                deleteBillLiveData().postValue(ScreenState.Success(ResultOperation(result)))
             } else {
-                deleteBillLiveData().postValue(ScreenState.Success(DeleteResult(false)))
+                deleteBillLiveData().postValue(ScreenState.Success(ResultOperation(false)))
             }
         }
     }
@@ -216,6 +218,24 @@ class BillViewModel(
                 )
             }
         }
+
+    fun sendCookBill() =
+        viewModelScopeCoroutine.launch {
+            val result = sendCookItemsUseCase.execute(billId = currentBillId)
+            println("VVV sendCookBill: ${result}")
+            sendCookBillLiveData().postValue(ScreenState.Success(ResultOperation(result)))
+
+        }
+
+    fun deleteEmergencyItem(billItemId: Long) {
+        viewModelScopeCoroutine.launch {
+            deleteItemEmergencyUseCase.execute(
+                billItemId = billItemId,
+            )
+            getBillItems(needScrollToPosition = false)
+            getBillInfo()
+        }
+    }
 
     companion object {
         //ToDo Вынести в ресурсы и создать интерактор для получения данных с ресурсов

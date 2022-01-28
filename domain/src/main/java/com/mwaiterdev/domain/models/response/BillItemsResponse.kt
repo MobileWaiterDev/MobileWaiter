@@ -36,6 +36,8 @@ data class BillItemsResponse(
         @SerializedName("subtotal")
         val subtotal: Float,
         @SerializedName("total")
-        val total: Float
+        val total: Float,
+        @SerializedName("printed")
+        val printed: Int
     )
 }

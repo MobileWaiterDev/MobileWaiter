@@ -66,4 +66,10 @@ class RemoteDataSourceImpl(private val waiterApi: WaiterApi) : IRemoteDataSource
 
     override suspend fun deleteBill(billId: Long): OperationResult =
         waiterApi.deleteBillAsync(billId).await()
+
+    override suspend fun cookBill(billId: Long): OperationResult =
+        waiterApi.cookBillAsync(billId).await()
+
+    override suspend fun emergencyCancel(billItemId: Long): OperationResult =
+        waiterApi.emergencyCancelAsync(billItemId).await()
 }

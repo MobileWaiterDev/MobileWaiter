@@ -9,5 +9,6 @@ data class BillItem(
     val subTotal: Float,
     val total: Float,
     val createTime: String,
-    val name: String
+    val name: String,
+    val printed: Int
 )

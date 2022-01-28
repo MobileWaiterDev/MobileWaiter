@@ -80,4 +80,10 @@ class RepositoryImpl(private val dataSource: IRemoteDataSource) : Repository {
 
     override suspend fun deleteBill(billId: Long): OperationResult =
         dataSource.deleteBill(billId)
+
+    override suspend fun cookBill(billId: Long): OperationResult =
+        dataSource.cookBill(billId)
+
+    override suspend fun emergencyCancel(billItemId: Long): OperationResult =
+        dataSource.emergencyCancel(billItemId)
 }

@@ -151,4 +151,26 @@ interface WaiterApi {
     fun deleteBillAsync(
         @Field("billId") billId: Long,
     ): Deferred<OperationResult>
+
+    /**
+     * Готовить продукты
+     * @param billId Id счета
+     * @return OperationResult
+     */
+    @FormUrlEncoded
+    @POST("/MWaiter/?Method=cookBill")
+    fun cookBillAsync(
+        @Field("billId") billId: Long,
+    ): Deferred<OperationResult>
+
+    /**
+     * Отменить готовку уже распечатанного товара
+     * @param billItemId Id товара
+     * @return OperationResult
+     */
+    @FormUrlEncoded
+    @POST("/MWaiter/?Method=emergencyDeleteItem")
+    fun emergencyCancelAsync(
+        @Field("billItemId") billItemId: Long,
+    ): Deferred<OperationResult>
 }

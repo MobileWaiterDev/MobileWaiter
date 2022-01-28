@@ -16,6 +16,9 @@ android {
 
 dependencies {
 
+    //Modules
+    implementation(project(Modules.MODULE_DOMAIN))
+
     // Kotlin
     implementation(Kotlin.CORE)
     implementation(Kotlin.STDLIB)

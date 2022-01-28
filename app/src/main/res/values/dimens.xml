@@ -49,15 +49,15 @@
     <dimen name="table_group_item_group_name_margin_horizontal">16dp</dimen>
     <dimen name="bill_item_card_view_height">80dp</dimen>
     <dimen name="bill_item_card_view_margin">5dp</dimen>
-    <dimen name="bill_item_card_view_elevation">2dp</dimen>
-    <dimen name="bill_item_amount_button_size">30dp</dimen>
+    <dimen name="bill_item_card_view_elevation">0dp</dimen>
+    <dimen name="bill_item_amount_button_size">40dp</dimen>
     <dimen name="bill_item_amount_button_margin_start">16dp</dimen>
     <dimen name="bill_item_amount_button_radius">5dp</dimen>
-    <dimen name="bill_item_amount_button_text_size">12sp</dimen>
-    <dimen name="bill_item_name_margin_start">70dp</dimen>
-    <dimen name="bill_item_name_text_size">14sp</dimen>
+    <dimen name="bill_item_amount_button_text_size">14sp</dimen>
+    <dimen name="bill_item_name_margin_start">16dp</dimen>
+    <dimen name="bill_item_name_text_size">18sp</dimen>
     <dimen name="bill_item_total_margin_end">16dp</dimen>
-    <dimen name="bill_item_sub_total_text_size">10sp</dimen>
+    <dimen name="bill_item_sub_total_text_size">14sp</dimen>
     <dimen name="menu_button_width">120dp</dimen>
     <dimen name="menu_button_height">90dp</dimen>
     <dimen name="menu_button_padding">16dp</dimen>
@@ -74,9 +74,9 @@
     <dimen name="table_item_card_margin">16dp</dimen>
     <dimen name="table_item_card_stroke_width">1dp</dimen>
     <dimen name="fr_bills_margin_start_switches">15dp</dimen>
-    <dimen name="bill_item_data_create_text_size">10sp</dimen>
-    <dimen name="bill_item_name_margin_top">15dp</dimen>
-    <dimen name="bill_item_sub_total_margin_top">20dp</dimen>
+    <dimen name="bill_item_data_create_text_size">14sp</dimen>
+    <dimen name="bill_item_name_margin_top">25dp</dimen>
+    <dimen name="bill_item_sub_total_margin_top">16dp</dimen>
     <dimen name="height_of_order_items_bills_fragment">100dp</dimen>
     <dimen name="fragment_bill_bill_items_rv_margin_top">5dp</dimen>
     <dimen name="amount_dialog_input_layout_margin_top">32dp</dimen>
@@ -114,6 +114,12 @@
     <dimen name="fragment_bill_bill_info_margin_horizontal">3dp</dimen>
     <dimen name="fragment_bil_panel_info_height">35dp</dimen>
     <dimen name="fragment_bil_panel_info_margin_bottom">10dp</dimen>
+    <dimen name="bill_item_name_margin_end">5dp</dimen>
+    <dimen name="bill_item_amount_stroke_width">1dp</dimen>
+    <dimen name="bill_item_decor_size">50dp</dimen>
+    <dimen name="bill_item_decor_margin_end">-25dp</dimen>
+    <dimen name="bill_item_decor_margin_bottom">-25dp</dimen>
+    <item name="bill_item_name_max_line" format="integer" type="dimen">2</item>
     <item name="nav_header_logo_width_percent" format="float" type="dimen">1.0</item>
     <item name="fragment_bill_menu_items_rv_height_percent" format="float" type="dimen">0.3</item>
     <item name="amount_dialog_input_layout_width_percent" format="float" type="dimen">0.8</item>

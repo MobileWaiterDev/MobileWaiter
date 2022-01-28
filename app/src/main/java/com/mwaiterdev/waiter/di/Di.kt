@@ -132,7 +132,9 @@ object Di {
                     searchItemUseCase = get(),
                     updateFavouriteStateUseCase = get(),
                     getFavouriteMenuUseCase = get(),
-                    deleteBillUseCase = get()
+                    deleteBillUseCase = get(),
+                    deleteItemEmergencyUseCase = get(),
+                    sendCookItemsUseCase = get()
                 )
             }
         }
@@ -293,6 +295,22 @@ object Di {
 
         factory<DeleteBillUseCase> {
             DeleteBillUseCase(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
+        }
+
+        factory<SendCookItemsUseCase> {
+            SendCookItemsUseCase(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
+        }
+
+        factory<DeleteItemEmergencyUseCase> {
+            DeleteItemEmergencyUseCase(
                 repository = get(
                     named(REPOSITORY_REMOTE)
                 )

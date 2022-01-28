@@ -10,9 +10,17 @@ class BillItemTouchHelperCallback(private val adapter: BillItemTouchHelperAdapte
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        val dragDirection: Int = ItemTouchHelper.UP or ItemTouchHelper.DOWN
-        val swipeDirection: Int = ItemTouchHelper.START
-        return makeMovementFlags(dragDirection, swipeDirection)
+        return if (BillItemViewHolder.NO_SWIPE_TAG.equals(
+                viewHolder.itemView.tag as String?,
+                ignoreCase = true
+            )
+        ) {
+            BillItemViewHolder.ZERO_VALUE
+        } else {
+            val dragDirection: Int = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            val swipeDirection: Int = ItemTouchHelper.START
+            makeMovementFlags(dragDirection, swipeDirection)
+        }
     }
 
     override fun onMove(
