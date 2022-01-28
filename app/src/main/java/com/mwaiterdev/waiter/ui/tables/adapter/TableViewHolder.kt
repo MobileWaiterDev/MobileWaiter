@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mwaiterdev.domain.models.TableItem
 import com.mwaiterdev.utils.extensions.click
+import com.mwaiterdev.utils.extensions.setBackgroundColorByState
 import com.mwaiterdev.waiter.databinding.TableItemBinding
 
 class TableViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -15,6 +16,7 @@ class TableViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         with(viewBinding) {
             tableName.text = table.name
             root.click { delegate?.onItemPicked(table) }
+            root.setBackgroundColorByState(table.state)
         }
     }
 }

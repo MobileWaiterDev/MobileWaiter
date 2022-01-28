@@ -5,6 +5,7 @@ import com.mwaiterdev.domain.ScreenState
 import com.mwaiterdev.domain.models.response.ResultOperation
 import com.mwaiterdev.domain.usecase.billscreen.*
 import com.mwaiterdev.waiter.ui.bill.enums.TypeUpdate
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class BillViewModel(
@@ -221,6 +222,8 @@ class BillViewModel(
 
     fun sendCookBill() =
         viewModelScopeCoroutine.launch {
+            sendCookBillLiveData().postValue(ScreenState.Loading)
+            delay(DELAY_SEND_COOK_REQUEST)
             val result = sendCookItemsUseCase.execute(billId = currentBillId)
             println("VVV sendCookBill: ${result}")
             sendCookBillLiveData().postValue(ScreenState.Success(ResultOperation(result)))
@@ -242,5 +245,6 @@ class BillViewModel(
         const val ERROR_MESSAGE = "Данные отсутствуют"
         const val ERROR_NO_DATA = "Отсутствуют данные..."
         const val ZERO_VALUE = 0L
+        const val DELAY_SEND_COOK_REQUEST = 2500L
     }
 }

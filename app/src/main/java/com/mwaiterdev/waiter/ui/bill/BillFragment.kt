@@ -264,12 +264,15 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
             is ScreenState.Error -> {
                 renderError(result)
                 showLoading(false)
+                viewBinding.cookingProcessPanel.isVisible = false
             }
             is ScreenState.Loading -> {
                 showLoading(true)
+                viewBinding.cookingProcessPanel.isVisible = true
             }
             is ScreenState.Success -> {
                 showLoading(false)
+                viewBinding.cookingProcessPanel.isVisible = false
                 if ((result.data as ResultOperation).data) {
                     viewModel.getBillItems(false)
                 }
