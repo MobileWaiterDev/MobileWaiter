@@ -63,9 +63,27 @@ fun View.setBackgroundByState(billItem: BillItem) {
     setBackgroundResource(backgroundStyle)
 }
 
+fun MaterialCardView.setBackgroundColorByState(state: Int) {
+    val color: Int = when (state) {
+        TABLE_STATE_FREE -> {
+            Color.parseColor(TABLE_COLOR_FREE)
+        }
+        TABLE_STATE_BUSY -> {
+            Color.parseColor(TABLE_COLOR_BUSY)
+        }
+        else -> 0
+    }
+    setCardBackgroundColor(color)
+}
+
 const val ITEM_PRINTED = 1
 const val ITEM_NOT_PRINTED = 0
 const val ITEM_CANCELED = 2
 const val ITEM_PRINTED_COLOR = "#FFAB00"
 const val ITEM_NOT_PRINTED_COLOR = "#0087D4"
 const val ITEM_CANCELED_COLOR = "#FF3738"
+
+const val TABLE_STATE_FREE = 0
+const val TABLE_STATE_BUSY = 1
+const val TABLE_COLOR_FREE = "#FFFFFF"
+const val TABLE_COLOR_BUSY = "#B4E4FF"

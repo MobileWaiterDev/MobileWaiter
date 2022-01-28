@@ -1,5 +1,6 @@
 package com.mwaiterdev.waiter.ui.bill.adapter
 
+import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -17,6 +18,8 @@ class MenuItemGroupViewHolder(
         with(viewBinding) {
             categoryName.text = group.name
             card.click { delegate?.onGroupPicked(group) }
+            card.setCardBackgroundColor(Color.parseColor(group.bgColor))
+            categoryName.setTextColor(Color.parseColor(group.textColor))
         }
     }
 }

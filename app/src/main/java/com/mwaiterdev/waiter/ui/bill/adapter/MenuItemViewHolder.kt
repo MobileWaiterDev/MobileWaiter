@@ -1,5 +1,6 @@
 package com.mwaiterdev.waiter.ui.bill.adapter
 
+import android.graphics.Color
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -17,10 +18,18 @@ class MenuItemViewHolder(
     fun bind(item: Item, delegate: MenuAdapter.Delegate?) {
         with(viewBinding) {
             itemName.text = item.name
-            itemPrice.text = item.price.price.toString()
+            itemPrice.text = String.format(TOTAL_STRING_TEMPLATE, item.price.price)
             favIcon.isVisible = item.favourite > 0
             card.click { delegate?.onItemPicked(item) }
             card.longClick { delegate?.onItemLongClick(item);true }
+            card.setCardBackgroundColor(Color.parseColor(item.bgColor))
+            itemName.setTextColor(Color.parseColor(item.textColor))
+            itemPrice.setTextColor(Color.parseColor(item.textColor))
         }
+    }
+
+    //ToDo Вынести в ресурсы и создать интерактор для получения данных с ресурсов
+    companion object {
+        const val TOTAL_STRING_TEMPLATE = "%s₽"
     }
 }

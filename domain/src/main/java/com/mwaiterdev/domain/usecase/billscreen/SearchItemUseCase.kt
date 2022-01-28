@@ -26,7 +26,9 @@ class SearchItemUseCase(private val repository: Repository) {
                         shorName = item.shortName,
                         available = item.available,
                         price = Price(itemId = item.itemId, price = item.price),
-                        favourite = item.favourite
+                        favourite = item.favourite,
+                        bgColor = item.bgColor,
+                        textColor = item.textColor
                     )
                 )
             }

@@ -18,6 +18,10 @@ data class ItemGroupsResponse(
         @SerializedName("name")
         val name: String,
         @SerializedName("shortName")
-        val shortName: String
+        val shortName: String,
+        @SerializedName("bgColor")
+        val bgColor: String = "#FFFFFF",
+        @SerializedName("textColor")
+        val textColor: String = "#000000"
     )
 }

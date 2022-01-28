@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/bill_menu_product_card_margin_horizontal"
-        android:backgroundTint="#FFAB00"
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"

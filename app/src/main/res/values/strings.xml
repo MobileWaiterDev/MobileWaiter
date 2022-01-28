@@ -37,4 +37,7 @@
     <string name="discount_sum">Сумма скидки</string>
     <string name="discount">Скидка</string>
     <string name="subtotal">Подытог</string>
+    <string name="cooking_process_panel_text_title">Отправка заказа на кухню..</string>
+    <string name="need_items_add">Добавьте товары в счет...</string>
+    <string name="no_items_message">Товары отсутствуют...</string>
 </resources>

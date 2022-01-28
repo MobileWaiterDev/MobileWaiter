@@ -7,6 +7,52 @@
     android:fitsSystemWindows="true"
     tools:context="com.mwaiterdev.waiter.ui.bill.BillFragment">
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cooking_process_panel"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/zero"
+        android:backgroundTint="@color/gray"
+        android:clickable="false"
+        android:focusable="false"
+        android:translationZ="@dimen/cooking_process_panel_translation_z"
+        android:visibility="gone"
+        app:cardCornerRadius="@dimen/cooking_process_panel_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="@dimen/cooking_process_panel_height_percent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="@dimen/cooking_process_panel_width_percent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/cooking_process_panel_text_margin_horizontal"
+                android:layout_marginTop="@dimen/cooking_process_panel_text_margin_top"
+                android:text="@string/cooking_process_panel_text_title"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/cooking_process_panel_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/cooking_process_panel_progress_margin_bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bill_items_rv"
         android:layout_width="match_parent"
@@ -32,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Добавьте товары в счет..." />
+            android:text="@string/need_items_add" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -214,7 +260,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Товары отсутствуют..." />
+            android:text="@string/no_items_message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

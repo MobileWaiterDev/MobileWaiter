@@ -24,6 +24,10 @@ data class ItemsResponse(
         @SerializedName("shortName")
         val shortName: String,
         @SerializedName("favourite")
-        val favourite: Int
+        val favourite: Int,
+        @SerializedName("bgColor")
+        val bgColor: String = "#FFFFFF",
+        @SerializedName("textColor")
+        val textColor: String = "#000000"
     )
 }

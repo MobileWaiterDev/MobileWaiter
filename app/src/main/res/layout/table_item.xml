@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/table_item_card_size"
     android:layout_height="@dimen/table_item_card_size"
     android:layout_margin="@dimen/table_item_card_margin"
-    android:backgroundTint="@color/white"
     android:orientation="vertical"
     android:padding="@dimen/zero"
     app:cardCornerRadius="@dimen/zero"
@@ -21,6 +19,6 @@
         android:textAlignment="center"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/table_item_table_text_size"
-        android:textStyle="bold"
-        tools:text="@string/example_table_name" />
+        android:textStyle="bold" />
+
 </com.google.android.material.card.MaterialCardView>
