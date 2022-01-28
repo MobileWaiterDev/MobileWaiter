@@ -28,7 +28,9 @@ class GetMenuUseCase(private val repository: Repository) {
                             shorName = item.shortName,
                             available = item.available,
                             price = Price(itemId = item.itemId, price = item.price),
-                            favourite = item.favourite
+                            favourite = item.favourite,
+                            bgColor = item.bgColor,
+                            textColor = item.textColor
                         )
                     )
                 }
@@ -46,7 +48,9 @@ class GetMenuUseCase(private val repository: Repository) {
                             itemGroupId = itemGroup.itemGroupId,
                             name = itemGroup.name,
                             shortName = itemGroup.shortName,
-                            available = itemGroup.available
+                            available = itemGroup.available,
+                            bgColor = itemGroup.bgColor,
+                            textColor = itemGroup.textColor
                         )
                     )
                 }

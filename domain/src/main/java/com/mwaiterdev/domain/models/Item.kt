@@ -7,5 +7,7 @@ data class Item(
     val shorName: String,
     val available: Boolean,
     val price: Price,
-    val favourite: Int
+    val favourite: Int,
+    val bgColor: String = "#FFFFFF",
+    val textColor: String = "#000000"
 ) : IMenuItem

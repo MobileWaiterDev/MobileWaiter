@@ -20,8 +20,9 @@ class BillItemViewHolder(
     @SuppressLint("ResourceType")
     fun bind(billItem: BillItem, delegate: BillItemAdapter.Delegate?) {
         with(viewBinding) {
-            subTotal.text = String.format(TOTAL_STRING_TEMPLATE, billItem.amount, billItem.price)
-            total.text = billItem.total.toString()
+            subTotal.text =
+                String.format(TOTAL_STRING_DETAIL_TEMPLATE, billItem.amount, billItem.price)
+            total.text = String.format(TOTAL_STRING_TEMPLATE, billItem.total)
             amount.text = billItem.amount.toString()
             name.text = billItem.name
             dataCreate.text = billItem.createTime
@@ -49,11 +50,12 @@ class BillItemViewHolder(
 
     //ToDo Вынести в ресурсы и создать интерактор для получения данных с ресурсов
     companion object {
-        const val TOTAL_STRING_TEMPLATE = "%s x %s"
+        const val TOTAL_STRING_DETAIL_TEMPLATE = "%s x %s"
         const val NO_SWIPE_TAG = "no_swipe"
         const val SWIPE_TAG = "swipe"
         const val ZERO_VALUE = 0
         const val STATE_EMERGENCY_DELETED = 2
         const val DEFAULT_PAINT_FLAGS = 1281
+        const val TOTAL_STRING_TEMPLATE = "%s₽"
     }
 }
