@@ -133,7 +133,8 @@ object Di {
                     getFavouriteMenuUseCase = get(),
                     deleteBillUseCase = get(),
                     deleteItemEmergencyUseCase = get(),
-                    sendCookItemsUseCase = get()
+                    sendCookItemsUseCase = get(),
+                    getUserUseCase = get()
                 )
             }
         }

@@ -62,9 +62,10 @@ interface Repository {
     /**
      * Создать новый счет
      * @param tableId Id столика
+     * @param userId Id пользователя
      * @return NewBillResponse
      */
-    suspend fun createBill(tableId: Long): NewBillResponse
+    suspend fun createBill(tableId: Long, userId: Long): NewBillResponse
 
     /**
      * Информация о счете
