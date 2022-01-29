@@ -2,7 +2,9 @@ package com.mwaiterdev.waiter.ui.bill
 
 import android.util.Log
 import com.mwaiterdev.domain.ScreenState
+import com.mwaiterdev.domain.models.CreateBillData
 import com.mwaiterdev.domain.models.response.ResultOperation
+import com.mwaiterdev.domain.usecase.GetUserUseCase
 import com.mwaiterdev.domain.usecase.billscreen.*
 import com.mwaiterdev.waiter.ui.bill.enums.TypeUpdate
 import kotlinx.coroutines.delay
@@ -21,7 +23,8 @@ class BillViewModel(
     private val getFavouriteMenuUseCase: GetFavouriteMenuUseCase,
     private val deleteBillUseCase: DeleteBillUseCase,
     private val sendCookItemsUseCase: SendCookItemsUseCase,
-    private val deleteItemEmergencyUseCase: DeleteItemEmergencyUseCase
+    private val deleteItemEmergencyUseCase: DeleteItemEmergencyUseCase,
+    private val getUserUseCase: GetUserUseCase
 ) : BaseBillViewModel() {
 
     var currentBillId: Long = ZERO_VALUE
@@ -96,18 +99,24 @@ class BillViewModel(
             newBillLiveData().postValue(
                 ScreenState.Loading
             )
-            createBillUseCase.execute(
-                arg = tableId,
-                onSuccess = {
-                    newBillLiveData().postValue(ScreenState.Success(data = it.data))
-                    setCurrentBill(it.data.data)
-                    getBillInfo()
-                },
-                onError = {
-                    newBillLiveData().postValue(
-                        ScreenState.Error(error = Exception(ERROR_MESSAGE))
-                    )
-                })
+
+            val userId: Long? = getUserUseCase.execute()?.userId
+            userId?.let {
+                val arg = CreateBillData(tableId, it)
+
+                createBillUseCase.execute(
+                    arg = arg,
+                    onSuccess = {
+                        newBillLiveData().postValue(ScreenState.Success(data = it.data))
+                        setCurrentBill(it.data.data)
+                        getBillInfo()
+                    },
+                    onError = {
+                        newBillLiveData().postValue(
+                            ScreenState.Error(error = Exception(ERROR_MESSAGE))
+                        )
+                    })
+            }
         }
 
     override fun getBillInfo() =

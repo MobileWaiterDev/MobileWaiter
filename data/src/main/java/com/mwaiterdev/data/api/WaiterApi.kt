@@ -61,10 +61,14 @@ interface WaiterApi {
     /**
      * Создать новый счет
      * @param tableId Id столика
+     * @param userId Id пользователя
      * @return NewBillResponse
      */
     @GET("/MWaiter/?Method=createBill")
-    fun createBillAsync(@Query("tableId") tableId: Long): Deferred<NewBillResponse>
+    fun createBillAsync(
+        @Query("tableId") tableId: Long,
+        @Query("userId") userId: Long
+    ): Deferred<NewBillResponse>
 
     /**
      * Информация о счете
