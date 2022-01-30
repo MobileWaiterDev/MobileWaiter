@@ -2,6 +2,8 @@ package com.mwaiterdev.waiter.ui.bills
 
 import com.mwaiterdev.domain.AppState
 import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.usecase.GetUserUseCase
+import com.mwaiterdev.domain.usecase.mainbillsscreen.InputOutputUseCase
 import com.mwaiterdev.domain.usecase.mainbillsscreen.InputUseCase
 import com.mwaiterdev.utils.extensions.SharedPreferences.BillsLocalStorage
 import com.mwaiterdev.waiter.ui.base.viemodel.BaseViewModel
@@ -11,7 +13,8 @@ class BillsViewModel(
     private val interactor: com.mwaiterdev.domain.usecase.OutputUseCase<List<TableGroup>?>,
     private val preferences: BillsLocalStorage,
     private val filterUseCase: InputUseCase<String, List<TableGroup>?>,
-    private val filterByUserIdUseCase: InputUseCase<Boolean, List<TableGroup>?>
+    private val filterByUserIdUseCase: InputOutputUseCase<Boolean, List<TableGroup>?, String>,
+    private val getUserUseCase: GetUserUseCase
 ) : BaseViewModel() {
 
     override fun handleError(throwable: Throwable) {
@@ -34,7 +37,13 @@ class BillsViewModel(
     fun filterBillsByHall(name: String, data: List<TableGroup>?): List<TableGroup>? =
         filterUseCase.execute(name, data)
 
-    fun filterByUserId(isCheck: Boolean, data: List<TableGroup>?): List<TableGroup>? =
-        filterByUserIdUseCase.execute(isCheck, data)
+    fun filterByUserId(isCheck: Boolean, data: List<TableGroup>?, userName: String?): List<TableGroup>? =
+        userName?.let { filterByUserIdUseCase.execute(isCheck, data, it) }
+
+    fun getUserName() {
+        viewModelScopeCoroutine.launch {
+            getLiveData().postValue(AppState.Success(getUserUseCase.execute()))
+        }
+    }
 
 }

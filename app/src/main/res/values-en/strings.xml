@@ -45,4 +45,10 @@
     <string name="fragment_bill_text_input_layout_hint">Payment methods</string>
     <string name="fragment_bill_close_form_button_cancel_title">Cancel</string>
     <string name="fragment_bill_close_form_button_ok_title">Ok</string>
+    <string name="before_exit_question_alarm">Do you really want to close the app?</string>
+    <string name="cancel_btn_text_quit_alarm">Cancel</string>
+    <string name="ok_btn_text_quit_alarm">Close</string>
+    <string name="all_halls_text">All Hals</string>
+    <string name="count_of_bills_text">Count of Bills</string>
+    <string name="add_bill_description_text">Add Bill</string>
 </resources>

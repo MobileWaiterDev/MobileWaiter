@@ -10,7 +10,6 @@
        android:id="@+id/filter_bills_controler"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_margin="7dp"
        android:orientation="horizontal"
        app:layout_constraintTop_toTopOf="parent">
        <androidx.appcompat.widget.AppCompatSpinner
@@ -26,7 +25,7 @@
            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
            android:theme="@style/ThemeOverlay.AppCompat.Light" />
        <LinearLayout
-           android:layout_width="wrap_content"
+           android:layout_width="0dp"
            android:layout_height="wrap_content"
            android:orientation="horizontal"
            android:layout_weight="2">
@@ -48,22 +47,25 @@
                />
        </LinearLayout>
    </LinearLayout>
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/comtainer_order_rv"
+
+    <RelativeLayout
+        android:id="@+id/container_order_rv"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/filter_bills_controler"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/filter_bills_controler">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bills_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
             android:nestedScrollingEnabled="false"
+            android:paddingBottom="60dp"
+            android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_bills"/>
-    </androidx.core.widget.NestedScrollView>
+            tools:listitem="@layout/item_bills" />
+    </RelativeLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_bill"
         android:layout_width="wrap_content"
@@ -71,5 +73,6 @@
         android:layout_margin="10dp"
         android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/add_bill_description_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

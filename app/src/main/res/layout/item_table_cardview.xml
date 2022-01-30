@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height= "0dp"
     app:layout_constraintDimensionRatio="1"
+    app:rippleColor="@color/blue"
     android:layout_margin="10dp"
     app:cardCornerRadius="15dp"
     android:orientation="vertical">
@@ -38,10 +39,6 @@
             android:layout_margin="@dimen/item_table_cardview_margin"
             tools:text="14:35"/>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1.5dp"
-        android:background="@color/gray"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/item_table_cardview_margin"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_printer"
+            android:src="@drawable/circle_printer_blue"
             />
         <TextView
             android:id="@+id/waitress_observe"
@@ -62,30 +59,30 @@
             android:gravity="center|end"
             android:textStyle="bold"
             android:textSize="@dimen/item_table_cardview_textsize"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:layout_margin="@dimen/item_table_cardview_margin"
             tools:text="Петров П."/>
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/order_recycle_view"
+    <TextView
+        android:id="@+id/items_text"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_of_order_items_bills_fragment"
         android:layout_weight="3"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_margin="5dp"
-        tools:listitem="@layout/item_orders_list"
-        tools:itemCount="10"/>
+        android:lineSpacingExtra="@dimen/space_between_orders_item"
+        android:layout_margin="5dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@color/color_blue_200"
         android:orientation="horizontal">
-        <androidx.appcompat.widget.AppCompatImageButton
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/icon_count_customers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_customer_count"
             />
@@ -104,7 +101,7 @@
             android:id="@+id/total_bill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_margin="10dp"
             android:layout_weight="2"
             android:gravity="center|end"
             android:textSize="@dimen/item_table_cardview_textsize"

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mwaiterdev.domain.models.response.BillsResponse
+import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.ItemTableCardviewBinding
 
 class AdapterTables(
@@ -24,7 +25,7 @@ class AdapterTables(
     }
 
     override fun getItemCount(): Int {
-        if (!bills.isNullOrEmpty()){
+        if (!bills.isNullOrEmpty()) {
             return bills.size
         }
         return 0
@@ -39,11 +40,21 @@ class AdapterTables(
             totalBill.text = data?.total.toString()
             waitressObserve.text = data?.createdByUserName
             countOfBills.text = data?.customers.toString()
-            orderRecycleView.adapter =
-                data?.billId?.let { AdapterOrders(data?.billItems, billItemListener, it) }
+            if (data?.billItems?.size ?: 0 >= 3) {
+                itemsText.text = data?.billItems?.subList(0, 3)?.joinToString("\r\n") {
+                    it.name
+                }
+            } else {
+                itemsText.text = data?.billItems?.joinToString("\r\n") {
+                    it.name
+                }
+            }
+            if (data?.printed == 0) {
+                iconPrintBill.setImageResource(R.drawable.circle_printer_grey)
+            } else {
+                iconPrintBill.setImageResource(R.drawable.circle_printer_blue)
+            }
             root.setOnClickListener(billItemListener.invoke(data?.billId))
-
-            orderRecycleView.setOnClickListener(billItemListener.invoke(data?.billId))
         }
     }
 }

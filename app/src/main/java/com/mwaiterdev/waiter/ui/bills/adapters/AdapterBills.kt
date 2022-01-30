@@ -4,14 +4,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.mwaiterdev.domain.models.TableGroup
 import com.mwaiterdev.domain.models.response.BillsResponse
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.ItemBillsBinding
 import com.mwaiterdev.waiter.ui.bills.adapters.interfaces.BillsFilter
+import kotlin.math.roundToLong
 
 class AdapterBills(
     private val data: List<TableGroup>,
@@ -72,7 +71,7 @@ class AdapterBills(
 
         fun bind(data: TableGroup?) = with(binding) {
             hallsName.text = data?.name
-            billsCountAndSum.text = data?.tableGroupId?.let { getCountAndTotalBills(data, it) }
+            billsCountAndSum.text = data?.tableGroupId?.let { getCountAndTotalBills(data, it, root.context.getText(R.string.count_of_bills_text)) }
             val bills = data?.tables?.flatMap { table ->
                 table.bills as List<BillsResponse.TableGroup.Table.Bill>
             }
@@ -85,7 +84,8 @@ class AdapterBills(
 
         private fun getCountAndTotalBills(
             data: TableGroup?,
-            tableGroupId: Long
+            tableGroupId: Long,
+            phrase: CharSequence
         ): CharSequence {
             val totalBills = mutableListOf<Float>()
             val tablesGroupByTableGroup = data
@@ -93,17 +93,22 @@ class AdapterBills(
                 ?.filter { table -> table.tableGroupId == tableGroupId }
 
             tablesGroupByTableGroup?.forEach {
-                it?.bills?.forEach { bill ->
+                it.bills?.forEach { bill ->
                     totalBills.add(bill.total)
                 }
             }
-            return "Count of Bills ${totalBills.size} - ${totalBills.sum()} $"
-
+            val result = if(totalBills.sum() > MAX_TOTAL_BILL_BEFORE_ROUND){
+                "${(totalBills.sum() / REDUCE_NUMBER).roundToLong()} тыс."
+            }  else {
+                totalBills.sum()
+            }
+            return "$phrase ${totalBills.size} - $result $"
         }
 
         private fun hallItemListener(data: TableGroup) = View.OnClickListener {
             data.isExpanded = !data.isExpanded
             hallItemExpand(data)
+            notifyItemChanged(layoutPosition)
         }
 
         fun hallItemExpand(data: TableGroup) {
@@ -126,9 +131,8 @@ class AdapterBills(
             }
         }
     }
-
     companion object {
-        private const val ALL_HALS = "All Hals"
+        private const val MAX_TOTAL_BILL_BEFORE_ROUND = 10000
+        private const val REDUCE_NUMBER = 1000
     }
-
 }

@@ -9,15 +9,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.SimpleItemAnimator
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mwaiterdev.domain.AppState
 import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.models.User
 import com.mwaiterdev.utils.extensions.showAlertDialogFragment
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.FragmentBillsBinding
 import com.mwaiterdev.waiter.ui.TitleToolbarListener
 import com.mwaiterdev.waiter.ui.bills.adapters.AdapterBills
+import com.mwaiterdev.waiter.ui.login.LoginFragment
 import org.koin.android.ext.android.getKoin
 
 class BillsFragment : Fragment(R.layout.fragment_bills) {
@@ -27,11 +28,11 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     private val viewBinding: FragmentBillsBinding by viewBinding()
     private var data: List<TableGroup>? = null
     private var adapter: AdapterBills? = null
+    private var userName: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         setFloatingActionButtonListener()
-
         initBackPressListener()
     }
 
@@ -42,12 +43,12 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
                 override fun handleOnBackPressed() {
                     val builder = AlertDialog.Builder(requireContext())
                     builder.setTitle(APP_TITLE)
-                        .setMessage(APP_CLOSE_QUESTIONS)
+                        .setMessage(context?.getString(APP_CLOSE_QUESTIONS))
                         .setIcon(R.drawable.ic_launcher_foreground)
-                        .setPositiveButton(DIALOG_OK_BUTTON_TEXT) { _, _ ->
+                        .setPositiveButton(context?.getText(DIALOG_OK_BUTTON_TEXT)) { _, _ ->
                             requireActivity().finish()
                         }
-                        .setNegativeButton(DIALOG_CANCEL_BUTTON_TEXT) { dialog, id ->
+                        .setNegativeButton(context?.getString(DIALOG_CANCEL_BUTTON_TEXT)) { dialog, _ ->
                             dialog.cancel()
                         }
                     builder.create()
@@ -59,6 +60,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     override fun onStart() {
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getData()
+        viewModel.getUserName()
         viewBinding.mineBillsSwitcher.isChecked = viewModel.initFilterData()
         super.onStart()
     }
@@ -83,9 +85,12 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
                     data?.let { data ->
                         initAdapter(data)
                         initExpandedFilter(data)
-                        initTitleToolBar(data)
                         initSwitchMine()
                     }
+                }
+                if (appState.data is User?) {
+                    userName = (appState.data as User?)?.name
+                    initTitleToolBar(appState.data as User?)
                 }
             }
             is AppState.Error -> {
@@ -100,28 +105,22 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
             viewModel.setFilter(isChecked)
             viewBinding.spinnerTableGroups.setSelection(0).apply {
                 adapter?.getMineBills(
-                    viewModel.filterByUserId(isChecked, data)
+                    viewModel.filterByUserId(isChecked, data, userName)
                 )
             }
         }
     }
 
-    private fun initTitleToolBar(data: List<TableGroup>) {
-        data
-            .firstOrNull()
-            ?.tables
-            ?.firstOrNull()
-            ?.bills
-            ?.firstOrNull()?.let {
-                (activity as TitleToolbarListener).updateTitle(
-                    it.createdByUserName
-                )
-            }
+    private fun initTitleToolBar(data: User?) {
+        data?.name?.let { userName ->
+            (activity as TitleToolbarListener).updateTitle(
+                userName
+            )
+        }
     }
 
     private fun initAdapter(data: List<TableGroup>) {
-        (viewBinding.billsRecycleView.itemAnimator as SimpleItemAnimator)
-            .supportsChangeAnimations = false
+        viewBinding.billsRecycleView.setHasFixedSize(true)
         adapter = AdapterBills(
             data
         ) { billId: Long? -> setBillItemListener(billId) }
@@ -132,7 +131,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
         val listTitleOfHals = data.map {
             it.name
         } as MutableList<String>
-        listTitleOfHals.add(0, ALL_HALS)
+        context?.getString(ALL_HALS)?.let { listTitleOfHals.add(0, it) }
 
         viewBinding.spinnerTableGroups.adapter = ArrayAdapter(
             requireContext(),
@@ -163,11 +162,11 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
 
     companion object {
         const val BILL_ID = "billId"
-        const val ALL_HALS = "All Hals"
+        const val ALL_HALS = R.string.all_halls_text
         const val APP_TITLE = "Mobile Waiter"
-        const val APP_CLOSE_QUESTIONS = "Вы уверены, что хотите закрыть приложение?"
-        const val DIALOG_OK_BUTTON_TEXT = "Закрыть"
-        const val DIALOG_CANCEL_BUTTON_TEXT = "Отмена"
+        const val APP_CLOSE_QUESTIONS = R.string.before_exit_question_alarm
+        const val DIALOG_OK_BUTTON_TEXT = R.string.ok_btn_text_quit_alarm
+        const val DIALOG_CANCEL_BUTTON_TEXT = R.string.cancel_btn_text_quit_alarm
         fun newInstance() = BillsFragment()
     }
 }

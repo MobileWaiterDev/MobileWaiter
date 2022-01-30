@@ -28,10 +28,10 @@
     <dimen name="activity_main_version_text_size">16sp</dimen>
     <dimen name="nav_header_user_panel_margin_top">220dp</dimen>
     <dimen name="margin_filter_component">7dp</dimen>
-    <dimen name="item_bills_margin_text_view">18dp</dimen>
+    <dimen name="item_bills_margin_text_view">10dp</dimen>
     <dimen name="item_bills_text_size">20sp</dimen>
-    <dimen name="item_table_cardview_margin">5dp</dimen>
-    <dimen name="item_table_cardview_textsize">20sp</dimen>
+    <dimen name="item_table_cardview_margin">8dp</dimen>
+    <dimen name="item_table_cardview_textsize">18sp</dimen>
     <dimen name="fragment_tables_spinner_width">130dp</dimen>
     <dimen name="fragment_tables_spinner_height">35dp</dimen>
     <dimen name="fragment_tables_spinner_margin">16dp</dimen>
@@ -78,7 +78,7 @@
     <dimen name="bill_item_data_create_text_size">14sp</dimen>
     <dimen name="bill_item_name_margin_top">25dp</dimen>
     <dimen name="bill_item_sub_total_margin_top">16dp</dimen>
-    <dimen name="height_of_order_items_bills_fragment">100dp</dimen>
+    <dimen name="height_of_order_items_bills_fragment">80dp</dimen>
     <dimen name="fragment_bill_bill_items_rv_margin_top">5dp</dimen>
     <dimen name="amount_dialog_input_layout_margin_top">32dp</dimen>
     <dimen name="amount_dialog_input_layout_margin_bottom">32dp</dimen>
@@ -142,6 +142,7 @@
     <dimen name="nav_header_app_title_text_size">26sp</dimen>
     <dimen name="nav_header_logo_image_margin">16dp</dimen>
     <dimen name="logotype_height">180dp</dimen>
+    <dimen name="space_between_orders_item">8dp</dimen>
     <item name="bill_item_name_max_line" format="integer" type="dimen">2</item>
     <item name="nav_header_logo_width_percent" format="float" type="dimen">1.0</item>
     <item name="fragment_bill_menu_items_rv_height_percent" format="float" type="dimen">0.3</item>
