@@ -44,6 +44,7 @@
                android:layout_marginTop="@dimen/margin_filter_component"
                android:layout_marginBottom="@dimen/margin_filter_component"
                android:text="@string/mine_bills_switcher"
+               android:visibility="invisible"
                />
        </LinearLayout>
    </LinearLayout>
