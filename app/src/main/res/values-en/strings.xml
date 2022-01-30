@@ -24,4 +24,10 @@
     <string name="example_item_name">Item name</string>
     <string name="example_item_sub_total">2.0 x 125.0</string>
     <string name="example_item_total">125.0</string>
+    <string name="before_exit_question_alarm">Do you really want to close the app?</string>
+    <string name="cancel_btn_text_quit_alarm">Cancel</string>
+    <string name="ok_btn_text_quit_alarm">Close</string>
+    <string name="all_halls_text">All Hals</string>
+    <string name="count_of_bills_text">Count of Bills</string>
+
 </resources>
