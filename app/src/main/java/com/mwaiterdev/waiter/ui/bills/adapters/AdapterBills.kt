@@ -57,6 +57,7 @@ class AdapterBills(
     }
 
     override fun filter(data: List<TableGroup>?) {
+        Log.e("SwitcherHall", "Hals Switcher")
         fullData.clear()
         if (data != null) {
             fullData.addAll(data)
@@ -107,6 +108,7 @@ class AdapterBills(
         private fun hallItemListener(data: TableGroup) = View.OnClickListener {
             data.isExpanded = !data.isExpanded
             hallItemExpand(data)
+            notifyItemChanged(layoutPosition)
         }
 
         fun hallItemExpand(data: TableGroup) {
