@@ -103,11 +103,9 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     private fun initSwitchMine() {
         viewBinding.mineBillsSwitcher.setOnCheckedChangeListener { _, isChecked ->
             viewModel.setFilter(isChecked)
-            viewBinding.spinnerTableGroups.setSelection(0).apply {
-                adapter?.getMineBills(
-                    viewModel.filterByUserId(isChecked, data, userName)
-                )
-            }
+            adapter?.getMineBills(
+                viewModel.filterByUserId(isChecked, data, userName)
+            )
         }
     }
 

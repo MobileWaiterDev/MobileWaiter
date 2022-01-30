@@ -48,7 +48,6 @@ class AdapterBills(
     }
 
     override fun getMineBills(data: List<TableGroup>?) {
-        Log.e("MineSwitcher", "Mine Switcher Start")
         fullData.clear()
         if (data != null) {
             fullData.addAll(data)
