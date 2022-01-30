@@ -89,6 +89,7 @@ dependencies {
     implementation(Design.NAVIGATION_FRAGMENT)
     implementation(Design.NAVIGATION_UI_KTX)
 
+
     // Koin
     implementation(Koin.ANDROID)
     implementation(Koin.ANDROID_COMPAT)

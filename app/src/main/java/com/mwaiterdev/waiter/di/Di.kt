@@ -18,10 +18,7 @@ import com.mwaiterdev.domain.usecase.GetUserUseCase
 import com.mwaiterdev.domain.usecase.OutputUseCase
 import com.mwaiterdev.domain.usecase.billscreen.*
 import com.mwaiterdev.domain.usecase.loginscreen.LogInUseCase
-import com.mwaiterdev.domain.usecase.mainbillsscreen.FilterByHallBillsUseCase
-import com.mwaiterdev.domain.usecase.mainbillsscreen.FilterByUserIdUseCase
-import com.mwaiterdev.domain.usecase.mainbillsscreen.GetBillsUseCase
-import com.mwaiterdev.domain.usecase.mainbillsscreen.InputUseCase
+import com.mwaiterdev.domain.usecase.mainbillsscreen.*
 
 import com.mwaiterdev.domain.usecase.tablesscreen.GetTablesUseCase
 import com.mwaiterdev.domain.usecase.tablesscreen.ITablesInteractor
@@ -258,7 +255,7 @@ object Di {
             FilterByHallBillsUseCase()
         }
 
-        factory<InputUseCase<Boolean, List<TableGroup>?>>(
+        factory<InputOutputUseCase<Boolean, List<TableGroup>?, String>>(
             qualifier = named(FILTER_BY_USER_ID_USE_CASE)
         ) {
             FilterByUserIdUseCase()

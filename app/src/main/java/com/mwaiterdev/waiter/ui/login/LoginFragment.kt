@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
@@ -78,7 +79,9 @@ class LoginFragment : Fragment(R.layout.fragment_login), IScreenView {
             is User -> {
                 val user = (result.data as User)
                 (activity as TitleToolbarListener).setUser(user)
-                NavHostFragment.findNavController(this).navigate(R.id.nav_bills)
+                NavHostFragment.findNavController(this).navigate(R.id.nav_bills, bundleOf().apply {
+                    putString(BUNDLE_KEY_USER_NAME, user.name)
+                })
             }
         }
     }
@@ -120,5 +123,6 @@ class LoginFragment : Fragment(R.layout.fragment_login), IScreenView {
     companion object {
         fun newInstance() = LoginFragment()
         private const val INPUT_METHOD_MANAGER_FLAGS = 0
+        const val BUNDLE_KEY_USER_NAME = "User_name"
     }
 }

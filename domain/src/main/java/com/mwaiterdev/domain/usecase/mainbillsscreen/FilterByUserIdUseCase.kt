@@ -2,26 +2,18 @@ package com.mwaiterdev.domain.usecase.mainbillsscreen
 
 import com.mwaiterdev.domain.models.TableGroup
 
-class FilterByUserIdUseCase : InputUseCase<Boolean, List<TableGroup>?> {
-    override fun execute(arg: Boolean, args: List<TableGroup>?): List<TableGroup>? {
-        if (arg) {
-            val userId = args
-                ?.first()
-                ?.tables
-                ?.first()
-                ?.bills
-                ?.first()
-                ?.createdByUserId
-
-            return args?.filter { tableGroup ->
+class FilterByUserIdUseCase : InputOutputUseCase<Boolean, List<TableGroup>?, String> {
+    override fun execute(argIn: Boolean, args: List<TableGroup>?, arg: String): List<TableGroup>? {
+        return if (argIn) {
+            args?.filter { tableGroup ->
                 tableGroup.tables?.any { table ->
                     table.bills?.any {
-                        it.createdByUserId == userId
+                        it.createdByUserName == arg
                     } == true
                 } == true
             }
         } else {
-            return args
+            args
         }
     }
 }

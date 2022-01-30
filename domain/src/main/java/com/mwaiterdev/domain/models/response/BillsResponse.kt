@@ -68,6 +68,8 @@ data class BillsResponse(
                 val tableId: Long,
                 @SerializedName("TableName")
                 val tableName: String,
+                @SerializedName("printed")
+                val printed: Int,
                 @SerializedName("total")
                 val total: Float,
                 @SerializedName("userId")
