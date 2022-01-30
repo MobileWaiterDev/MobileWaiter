@@ -13,13 +13,31 @@
         android:id="@+id/logo"
         android:layout_width="@dimen/zero"
         android:layout_height="@dimen/nav_header_logo_height"
+        android:layout_margin="@dimen/nav_header_logo_image_margin"
         android:contentDescription="@string/nav_header_logo_description"
-        android:scaleType="fitXY"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo_waiter"
+        app:layout_constraintBottom_toTopOf="@id/user_panel"
+        app:layout_constraintEnd_toStartOf="@id/app_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="@dimen/nav_header_logo_width_percent" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/app_title"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/nav_header_logo_height"
+        android:layout_marginEnd="@dimen/nav_header_app_title_margin_end"
+        android:fontFamily="@font/delius_unicase"
+        android:gravity="center"
+        android:maxLines="@dimen/nav_header_logo_max_lines"
+        android:text="Mobile waiter"
+        android:textAlignment="center"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/nav_header_app_title_text_size"
+        app:layout_constraintBottom_toTopOf="@id/user_panel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/logo"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/user_panel"

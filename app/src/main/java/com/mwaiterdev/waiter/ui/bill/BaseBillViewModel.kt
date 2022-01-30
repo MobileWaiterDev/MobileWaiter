@@ -13,6 +13,8 @@ abstract class BaseBillViewModel : ViewModel() {
     private val deleteBillLiveData = MutableLiveData<ScreenState>()
     private val sendCookBillLiveData = MutableLiveData<ScreenState>()
     private val deleteEmergencyLiveData = MutableLiveData<ScreenState>()
+    private val printBillLiveData = MutableLiveData<ScreenState>()
+    private val closeBillLiveData = MutableLiveData<ScreenState>()
     protected val viewModelScopeCoroutine = CoroutineScope(
         Dispatchers.IO
                 + SupervisorJob()
@@ -30,12 +32,24 @@ abstract class BaseBillViewModel : ViewModel() {
     fun deleteBillLiveData() = deleteBillLiveData
     fun sendCookBillLiveData() = sendCookBillLiveData
     fun deleteEmergencyLiveData() = deleteEmergencyLiveData
+    fun printBillLiveData() = printBillLiveData
+    fun closeBillLiveData() = closeBillLiveData
 
     abstract fun createBill(tableId: Long): Job
     abstract fun getBillInfo(): Job
     abstract fun getMenu(itemGroupId: Long = 0L): Job
     abstract fun getBillItems(needScrollToPosition: Boolean = false): Job
     abstract fun search(text: String): Job
+    abstract fun addItemIntoBill(itemId: Long, amount: Float, price: Float): Job
+    abstract fun updateAmount(billItemId: Long, amount: Float, price: Float): Job
+    abstract fun deleteItem(billItemId: Long): Job
+    abstract fun deleteBill(): Job
+    abstract fun getFavouriteMenu(): Job
+    abstract fun sendCookBill(): Job
+    abstract fun deleteEmergencyItem(billItemId: Long): Job
+
+    abstract fun printBill(): Job
+    abstract fun closeBill(): Job
 
     override fun onCleared() {
         super.onCleared()

@@ -10,7 +10,7 @@
     <dimen name="nav_header_title_text_size">24sp</dimen>
     <dimen name="nav_header_user_text_size">14sp</dimen>
     <dimen name="zero">0dp</dimen>
-    <dimen name="nav_header_logo_height">180dp</dimen>
+    <dimen name="nav_header_logo_height">160dp</dimen>
     <dimen name="nav_header_user_panel_height">180dp</dimen>
     <dimen name="nav_header_title_margin_horizontal">10dp</dimen>
     <dimen name="nav_header_title_margin_vertical">16dp</dimen>
@@ -63,6 +63,7 @@
     <dimen name="menu_button_padding">16dp</dimen>
     <dimen name="menu_button_category_text_size">14sp</dimen>
     <item name="bill_menu_product_item_name_max_lines" format="integer" type="dimen">2</item>
+    <item name="nav_header_logo_max_lines" format="integer" type="dimen">2</item>
     <dimen name="bill_menu_product_item_name_margin_horizontal">10dp</dimen>
     <dimen name="bill_menu_product_item_name_text_size">14sp</dimen>
     <dimen name="bill_menu_product_item_price_margin_bottom">5dp</dimen>
@@ -82,7 +83,7 @@
     <dimen name="amount_dialog_input_layout_margin_top">32dp</dimen>
     <dimen name="amount_dialog_input_layout_margin_bottom">32dp</dimen>
     <dimen name="fragment_login_button_height">50dp</dimen>
-    <dimen name="toolbar_text_size">14sp</dimen>
+    <dimen name="toolbar_text_size">12sp</dimen>
     <dimen name="toolbar_text_margin_top">5dp</dimen>
     <dimen name="toolbar_text_margin_bottom">10dp</dimen>
     <dimen name="bill_menu_category_padding_vertical">8dp</dimen>
@@ -107,7 +108,7 @@
     <dimen name="fragment_bill_panel_button_radius">10dp</dimen>
     <dimen name="fragment_bill_panel_button_margin_vertical">8dp</dimen>
     <dimen name="fragment_bill_panel_button_margin_horizontal">32dp</dimen>
-    <dimen name="close_bill_panel_text_margin">8dp</dimen>
+    <dimen name="close_bill_panel_text_margin">4dp</dimen>
     <dimen name="fragment_bill_no_item_panel_translation_z">3dp</dimen>
     <dimen name="fragment_bill_menu_panel_height">50dp</dimen>
     <dimen name="fragment_bill_menu_panel_icon_size">35dp</dimen>
@@ -126,6 +127,21 @@
     <dimen name="cooking_process_panel_text_size">20sp</dimen>
     <dimen name="cooking_process_panel_text_margin_horizontal">16dp</dimen>
     <dimen name="cooking_process_panel_progress_margin_bottom">16dp</dimen>
+    <dimen name="close_bill_form_radius">25dp</dimen>
+    <dimen name="fragment_bill_close_form_translation_z">999dp</dimen>
+    <dimen name="fragment_bill_close_form_title_text_size">28sp</dimen>
+    <dimen name="fragment_bill_total_text_margin">16dp</dimen>
+    <dimen name="fragment_bill_total_text_text_size">24sp</dimen>
+    <dimen name="fragment_bill_total_value_margin">16dp</dimen>
+    <dimen name="fragment_bill_total_value_text_size">24sp</dimen>
+    <dimen name="fragment_bill_text_input_layout_margin">16dp</dimen>
+    <dimen name="fragment_bill_close_form_button_height">60dp</dimen>
+    <dimen name="fragment_bill_close_form_button_margin">16dp</dimen>
+    <dimen name="payment_item_padding">16dp</dimen>
+    <dimen name="nav_header_app_title_margin_end">16dp</dimen>
+    <dimen name="nav_header_app_title_text_size">26sp</dimen>
+    <dimen name="nav_header_logo_image_margin">16dp</dimen>
+    <dimen name="logotype_height">180dp</dimen>
     <item name="bill_item_name_max_line" format="integer" type="dimen">2</item>
     <item name="nav_header_logo_width_percent" format="float" type="dimen">1.0</item>
     <item name="fragment_bill_menu_items_rv_height_percent" format="float" type="dimen">0.3</item>
@@ -134,9 +150,11 @@
     <item name="fragment_login_default_width" format="float" type="dimen">0.8</item>
     <item name="toolbar_text_height_percent" format="float" type="dimen">0.5</item>
     <item name="fragment_bill_total_panel_height_percent" format="float" type="dimen">0.4</item>
-    <item name="fragment_bill_total_panel_text_height_percent" format="float" type="dimen">0.6
-    </item>
+    <item name="fragment_bill_total_text_height_percent" format="float" type="dimen">0.6</item>
     <item name="fragment_bill_panel_button_width_percent" format="float" type="dimen">0.3</item>
     <item name="cooking_process_panel_width_percent" format="float" type="dimen">0.8</item>
-    <item name="cooking_process_panel_height_percent" format="float" type="dimen">0.18</item>
+    <item name="cooking_process_panel_height_percent" format="float" type="dimen">0.22</item>
+    <item name="close_bill_form_width_percent" format="float" type="dimen">0.99</item>
+    <item name="close_bill_form_height_percent" format="float" type="dimen">0.5</item>
+    <item name="close_form_button_width_percent" format="float" type="dimen">0.45</item>
 </resources>

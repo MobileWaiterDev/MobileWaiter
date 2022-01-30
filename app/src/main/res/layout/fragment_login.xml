@@ -7,6 +7,16 @@
     android:fitsSystemWindows="true"
     tools:context="com.mwaiterdev.waiter.ui.login.LoginFragment">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/logotype_height"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_waiter"
+        app:layout_constraintBottom_toTopOf="@id/text_input_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout"
         android:layout_width="@dimen/zero"

@@ -156,4 +156,18 @@ interface Repository {
     suspend fun emergencyCancel(
         billItemId: Long
     ): OperationResult
+
+    /**
+     * Печать счета
+     * @param billId Id счета
+     * @return OperationResult
+     */
+    suspend fun printBill(billId: Long): OperationResult
+
+    /**
+     * Закрытие счета
+     * @param billId Id счета
+     * @return OperationResult
+     */
+    suspend fun closeBill(billId: Long): OperationResult
 }

@@ -38,6 +38,11 @@
     <string name="discount">Скидка</string>
     <string name="subtotal">Подытог</string>
     <string name="cooking_process_panel_text_title">Отправка заказа на кухню..</string>
-    <string name="need_items_add">Добавьте товары в счет...</string>
-    <string name="no_items_message">Товары отсутствуют...</string>
+    <string name="need_items_add">Добавьте товары в счет…</string>
+    <string name="no_items_message">Товары отсутствуют…</string>
+    <string name="close_bill_question">Закрыть счет?</string>
+    <string name="fragment_bill_total_text_title">Всего к оплате:</string>
+    <string name="fragment_bill_text_input_layout_hint">Способ оплаты</string>
+    <string name="fragment_bill_close_form_button_cancel_title">Отмена</string>
+    <string name="fragment_bill_close_form_button_ok_title">Ок</string>
 </resources>

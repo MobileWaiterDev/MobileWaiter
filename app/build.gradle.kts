@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat
 import java.io.FileInputStream
 import java.util.*
 
@@ -7,6 +8,9 @@ plugins {
     kotlin("android")
     kotlin("kapt")
 }
+
+val sdf = SimpleDateFormat("yyyy.M.dd")
+val currentDate: String = sdf.format(Date())
 
 android {
     compileSdk = Config.COMPILE_SDK
@@ -28,7 +32,7 @@ android {
         minSdk = Config.MIN_SDK_VERSION
         targetSdk = Config.TARGET_SDK
         versionCode = Config.VERSION_CODE
-        versionName = Config.VERSION_NAME
+        versionName = currentDate
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

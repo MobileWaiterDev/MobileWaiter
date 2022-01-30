@@ -8,10 +8,125 @@
     tools:context="com.mwaiterdev.waiter.ui.bill.BillFragment">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/close_bill_form"
+        style="@style/CardCorners"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/zero"
+        android:backgroundTint="@color/white"
+        android:clickable="false"
+        android:focusable="false"
+        android:translationZ="@dimen/fragment_bill_close_form_translation_z"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="@dimen/close_bill_form_height_percent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progress_close_bill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/ok_pay_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_input_layout" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/close_bill_query_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/close_bill_question"
+                android:textAlignment="center"
+                android:textSize="@dimen/fragment_bill_close_form_title_text_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/total_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fragment_bill_total_text_margin"
+                android:text="@string/fragment_bill_total_text_title"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/fragment_bill_total_text_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/close_bill_query_text" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/total_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fragment_bill_total_value_margin"
+                android:textAlignment="textEnd"
+                android:textSize="@dimen/fragment_bill_total_value_text_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/close_bill_query_text" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/fragment_bill_text_input_layout_margin"
+                android:hint="@string/fragment_bill_text_input_layout_hint"
+                app:boxBackgroundColor="@color/white"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/total_value"
+                app:layout_constraintWidth_percent="@dimen/amount_dialog_input_layout_width_percent">
+
+                <AutoCompleteTextView
+                    android:id="@+id/pay_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:labelFor="@id/text_input_layout" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel_pay_btn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="@dimen/zero"
+                android:layout_height="@dimen/fragment_bill_close_form_button_height"
+                android:layout_margin="@dimen/fragment_bill_close_form_button_margin"
+                android:text="@string/fragment_bill_close_form_button_cancel_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="@dimen/close_form_button_width_percent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ok_pay_btn"
+                android:layout_width="@dimen/zero"
+                android:layout_height="@dimen/fragment_bill_close_form_button_height"
+                android:layout_margin="@dimen/fragment_bill_close_form_button_margin"
+                android:enabled="false"
+                android:text="@string/fragment_bill_close_form_button_ok_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="@dimen/close_form_button_width_percent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cooking_process_panel"
         android:layout_width="@dimen/zero"
         android:layout_height="@dimen/zero"
-        android:backgroundTint="@color/gray"
+        android:backgroundTint="@color/white"
         android:clickable="false"
         android:focusable="false"
         android:translationZ="@dimen/cooking_process_panel_translation_z"
@@ -29,13 +144,14 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/send_bill__process_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/cooking_process_panel_text_margin_horizontal"
                 android:layout_marginTop="@dimen/cooking_process_panel_text_margin_top"
                 android:text="@string/cooking_process_panel_text_title"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_gray"
                 android:textSize="@dimen/cooking_process_panel_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +163,8 @@
                 android:layout_marginBottom="@dimen/cooking_process_panel_progress_margin_bottom"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/send_bill__process_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,114 +196,6 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/need_items_add" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/button_panel"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragment_bill_button_panel_height"
-        android:background="#EEEEEE"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/button_panel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bill_items_rv">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/find_menu"
-            android:layout_width="@dimen/fragment_bill_button_size"
-            android:layout_height="@dimen/fragment_bill_button_size"
-            android:backgroundTint="#EEEEEE"
-            android:insetTop="@dimen/zero"
-            android:insetBottom="@dimen/zero"
-            android:stateListAnimator="@null"
-            app:cornerRadius="@dimen/fragment_bill_button_radius"
-            app:icon="@drawable/ic_search"
-            app:iconGravity="textStart"
-            app:iconPadding="@dimen/zero"
-            app:iconSize="@dimen/fragment_bill_button_icon_size"
-            app:iconTint="@color/dark_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/favourite_menu"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/favourite_menu"
-            android:layout_width="@dimen/fragment_bill_button_size"
-            android:layout_height="@dimen/fragment_bill_button_size"
-            android:backgroundTint="#EEEEEE"
-            android:insetTop="@dimen/zero"
-            android:insetBottom="@dimen/zero"
-            android:stateListAnimator="@null"
-            app:cornerRadius="@dimen/fragment_bill_button_radius"
-            app:icon="@drawable/ic_favourite"
-            app:iconGravity="textStart"
-            app:iconPadding="@dimen/zero"
-            app:iconSize="@dimen/fragment_bill_button_icon_size"
-            app:iconTint="@color/dark_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/home_menu"
-            app:layout_constraintStart_toEndOf="@id/find_menu"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/home_menu"
-            android:layout_width="@dimen/fragment_bill_button_size"
-            android:layout_height="@dimen/fragment_bill_button_size"
-            android:backgroundTint="#EEEEEE"
-            android:insetTop="@dimen/zero"
-            android:insetBottom="@dimen/zero"
-            android:stateListAnimator="@null"
-            app:cornerRadius="@dimen/fragment_bill_button_radius"
-            app:icon="@drawable/ic_home"
-            app:iconGravity="textStart"
-            app:iconPadding="@dimen/zero"
-            app:iconSize="@dimen/fragment_bill_button_icon_size"
-            app:iconTint="@color/dark_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/arrow_menu"
-            app:layout_constraintStart_toEndOf="@id/favourite_menu"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/arrow_menu"
-            android:layout_width="@dimen/fragment_bill_button_size"
-            android:layout_height="@dimen/fragment_bill_button_size"
-            android:backgroundTint="#EEEEEE"
-            android:insetTop="@dimen/zero"
-            android:insetBottom="@dimen/zero"
-            android:stateListAnimator="@null"
-            app:cornerRadius="@dimen/fragment_bill_button_radius"
-            app:icon="@drawable/ic_arrow_down"
-            app:iconGravity="textStart"
-            app:iconPadding="@dimen/zero"
-            app:iconSize="@dimen/fragment_bill_button_icon_size"
-            app:iconTint="@color/dark_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/print_menu"
-            app:layout_constraintStart_toEndOf="@id/home_menu"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/print_menu"
-            android:layout_width="@dimen/fragment_bill_button_size"
-            android:layout_height="@dimen/fragment_bill_button_size"
-            android:backgroundTint="#EEEEEE"
-            android:insetTop="@dimen/zero"
-            android:insetBottom="@dimen/zero"
-            android:stateListAnimator="@null"
-            app:cornerRadius="@dimen/fragment_bill_button_radius"
-            app:icon="@drawable/ic_print"
-            app:iconGravity="textStart"
-            app:iconPadding="@dimen/zero"
-            app:iconSize="@dimen/fragment_bill_button_icon_size"
-            app:iconTint="@color/dark_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/arrow_menu"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -280,7 +289,7 @@
             android:layout_height="@dimen/zero"
             android:background="@color/dark_gray"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="@dimen/fragment_bill_total_panel_text_height_percent"
+            app:layout_constraintHeight_percent="@dimen/fragment_bill_total_text_height_percent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

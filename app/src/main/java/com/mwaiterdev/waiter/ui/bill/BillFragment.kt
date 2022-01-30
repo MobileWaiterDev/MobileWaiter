@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -47,6 +47,13 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
     private val billItemsAdapter by lazy { BillItemAdapter(this) }
     private val menuAdapter by lazy { MenuAdapter(this) }
+    private val paymentAdapter by lazy {
+        ArrayAdapter(
+            requireContext(),
+            R.layout.payment_item,
+            resources.getStringArray(R.array.payments)
+        )
+    }
 
     private val billId: Long by lazy { arguments?.getLong(KEY_BILL_ID) ?: ZERO_VALUE }
     private val tableId: Long by lazy { arguments?.getLong(KEY_TABLE_ID) ?: ZERO_VALUE }
@@ -73,8 +80,9 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         initSearchSettings(searchView)
         //Инициализация buttons clickListeners
         initSetClickListeners()
+        //Инициализация первоначальных настроек
+        initStartSettings()
 
-        viewBinding.closeBillPanel.isVisible = false
         viewModel.getMenu()
 
         //Обработаем нажатие системной кнопки назад. Если счет пустой, то перед выходом удалим его
@@ -88,13 +96,40 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
             })
     }
 
+    private fun initStartSettings() {
+        with(viewBinding) {
+            closeBillPanel.isVisible = false
+            closeBillForm.isVisible = false
+            payInput.setAdapter(paymentAdapter)
+            billItemsRv.isEnabled = true
+        }
+    }
+
     private fun initSetClickListeners() {
         viewBinding.cookBtn.setOnClickListener {
             viewModel.sendCookBill()
         }
 
         viewBinding.billCloseBtn.setOnClickListener {
+            viewModel.printBill()
+        }
 
+        viewBinding.okPayBtn.setOnClickListener {
+            if (billItemsAdapter.itemCount > 0) {
+                viewModel.closeBill()
+            } else {
+                viewBinding.root.showSnakeBar(EMPTY_BILL_STRING)
+            }
+        }
+
+        viewBinding.cancelPayBtn.setOnClickListener {
+            viewBinding.closeBillForm.isVisible = false
+            viewBinding.billItemsRv.isEnabled = true
+        }
+
+        viewBinding.payInput.setOnItemClickListener { _, _, position, _ ->
+            val value = paymentAdapter.getItem(position) ?: ""
+            viewBinding.okPayBtn.isEnabled = !value.isEmpty()
         }
     }
 
@@ -254,10 +289,63 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
         viewModel.deleteEmergencyLiveData()
             .observe(viewLifecycleOwner, { result -> renderDeleteEmergencyItem(result = result) })
+
+        viewModel.printBillLiveData()
+            .observe(viewLifecycleOwner, { result -> renderPrintBill(result = result) })
+
+        viewModel.closeBillLiveData()
+            .observe(viewLifecycleOwner, { result -> renderCloseBill(result = result) })
     }
 
-    private fun renderDeleteEmergencyItem(result: ScreenState?) {
+    private fun renderCloseBill(result: ScreenState?) {
+        when (result) {
+            is ScreenState.Error -> {
+                renderError(result)
+                showLoading(false)
+                viewBinding.progressCloseBill.isVisible = false
+            }
+            is ScreenState.Loading -> {
+                showLoading(true)
+                viewBinding.progressCloseBill.isVisible = true
+            }
+            is ScreenState.Success -> {
+                showLoading(false)
+                viewBinding.progressCloseBill.isVisible = false
+                if ((result.data as ResultOperation).data) {
+                    NavHostFragment.findNavController(this).popBackStack()
+                }
+            }
+        }
     }
+
+    private fun renderPrintBill(result: ScreenState?) {
+        when (result) {
+            is ScreenState.Error -> {
+                renderError(result)
+                showLoading(false)
+            }
+            is ScreenState.Loading -> {
+                showLoading(true)
+            }
+            is ScreenState.Success -> {
+                showLoading(false)
+                if ((result.data as ResultOperation).data) {
+                    initPaymentSettings()
+                }
+            }
+        }
+    }
+
+    private fun initPaymentSettings() {
+        with(viewBinding) {
+            okPayBtn.isEnabled = false
+            payInput.setText("")
+            closeBillForm.isVisible = true
+            billItemsRv.isEnabled = false
+        }
+    }
+
+    private fun renderDeleteEmergencyItem(result: ScreenState?) {}
 
     private fun renderSendCookBill(result: ScreenState?) {
         when (result) {
@@ -400,6 +488,7 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
             billTotal.text = billInfo.total.toString()
             billDiscount.text = ZERO_DISCOUNT_PERCENT
             billSumDiscount.text = ZERO_DISCOUNT_SUM
+            totalValue.text = String.format(TOTAL_STRING, billInfo.total)
         }
 
         (activity as TitleToolbarListener).setMultiLineTitle(topTitle, downTitle)
@@ -412,7 +501,6 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
     //Отображение информации о товарах счета
     private fun showBillItems(result: ScreenState.Success) {
-        Log.d("WaiterDebug", "renderData -> BillItems")
         billItemsAdapter.addItems((result.data as BillItems).data)
         if ((result.data as BillItems).needScrollToEndPosition) {
             viewBinding.billItemsRv.smoothScrollToPosition(billItemsAdapter.itemCount)
@@ -421,13 +509,10 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
     //Отображение меню
     private fun showMenu(result: ScreenState.Success) {
-        Log.d("WaiterDebug", "renderData -> ItemGroups")
         menuAdapter.addItems((result.data as ItemGroups).data)
     }
 
-    override fun onBillItemPicked(billItem: BillItem) {
-        viewBinding.root.showSnakeBar(billItem.name)
-    }
+    override fun onBillItemPicked(billItem: BillItem) {}
 
     override fun onUpdateAmountPicked(billItem: BillItem) {
         val dialogFragment = AmountDialog(AmountTypeValue.FLOAT)
@@ -444,15 +529,12 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         when (billItem.printed) {
             STATE_PRINTED -> {
                 viewModel.deleteEmergencyItem(billItem.billItemId)
-                Log.d("waiterDebug", "Удаляем распечатанный товар $billItem")
             }
             STATE_EMERGENCY_DELETED -> {
-                Log.d("waiterDebug", "Отмененный товар нет смысла удалять $billItem")
                 viewModel.getBillItems(false)
             }
             else -> {
                 viewModel.deleteItem(billItem.billItemId)
-                Log.d("waiterDebug", "Удаляем $billItem")
             }
         }
     }
@@ -538,14 +620,16 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         const val ILLEGAL_STATE_ERROR = "Unknown State"
         const val ARG_BILL_ITEM_ID = "billItemId"
         const val ARG_PRICE = "price"
-        const val BILL_INFO = "Позиций - %s Количество - %s Итого - %s"
+        const val BILL_INFO = "Позиций - %s Количество - %s Итого - %s₽"
         const val BILL_TOP_TITLE = "%s - %s - Счет %s"
-        const val BILL_DOWN_TITLE = "%s %s (%sр.)"
+        const val BILL_DOWN_TITLE = "%s %s (%s₽)"
         const val SEARCH_VIEW_TEXTVIEW = "android:id/search_src_text"
         const val EMPTY_SEARCH_TEXT = "Введите текст для поиска"
         const val ZERO_DISCOUNT_PERCENT = "0%"
         const val ZERO_DISCOUNT_SUM = "0р"
         const val STATE_PRINTED = 1
         const val STATE_EMERGENCY_DELETED = 2
+        const val TOTAL_STRING = "%s₽"
+        const val EMPTY_BILL_STRING = "Пустой счет. Добавьте товары."
     }
 }

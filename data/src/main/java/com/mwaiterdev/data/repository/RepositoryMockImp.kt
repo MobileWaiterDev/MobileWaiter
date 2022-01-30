@@ -82,4 +82,12 @@ class RepositoryMockImp : Repository {
     override suspend fun emergencyCancel(billItemId: Long): OperationResult {
         TODO("Not yet implemented")
     }
+
+    override suspend fun printBill(billId: Long): OperationResult {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun closeBill(billId: Long): OperationResult {
+        TODO("Not yet implemented")
+    }
 }

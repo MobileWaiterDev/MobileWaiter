@@ -71,4 +71,17 @@
         <item name="cornerSizeTopRight">10dp</item>
         <item name="cornerSizeBottomLeft">10dp</item>
     </style>
+
+    <style name="CardCorners" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance_corners</item>
+        <item name="strokeColor">@color/blue</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="paddingStart">0dp</item>
+    </style>
+
+    <style name="ShapeAppearance_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">25dp</item>
+        <item name="cornerSizeTopLeft">25dp</item>
+    </style>
 </resources>
