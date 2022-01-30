@@ -1,0 +1,7 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:padding="@dimen/payment_item_padding"
+    android:textAppearance="?attr/textAppearanceSubtitle1"
+    android:textColor="@color/dark_gray" />

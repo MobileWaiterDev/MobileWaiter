@@ -3,6 +3,7 @@ package com.mwaiterdev.waiter.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -13,8 +14,10 @@ import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.navigation.NavigationView
 import com.mwaiterdev.domain.models.User
+import com.mwaiterdev.waiter.BuildConfig
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.ActivityMainBinding
+import com.mwaiterdev.waiter.ui.bills.BillsFragment
 
 class MainActivity : AppCompatActivity(), TitleToolbarListener {
 
@@ -28,6 +31,31 @@ class MainActivity : AppCompatActivity(), TitleToolbarListener {
         setSupportActionBar(viewBinding.appBarMain.toolbar)
 
         initNavigation()
+
+        init()
+    }
+
+    private fun init() {
+        viewBinding.version.text = String.format(
+            VERSION_STRING_TEMPLATE,
+            BuildConfig.VERSION_CODE,
+            BuildConfig.VERSION_NAME
+        )
+
+        viewBinding.exitButton.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle(BillsFragment.APP_TITLE)
+                .setMessage(BillsFragment.APP_CLOSE_QUESTIONS)
+                .setIcon(R.drawable.ic_launcher_foreground)
+                .setPositiveButton(BillsFragment.DIALOG_OK_BUTTON_TEXT) { _, _ ->
+                    finish()
+                }
+                .setNegativeButton(BillsFragment.DIALOG_CANCEL_BUTTON_TEXT) { dialog, id ->
+                    dialog.cancel()
+                }
+            builder.create()
+            builder.show()
+        }
     }
 
     private fun initNavigation() {
@@ -77,5 +105,6 @@ class MainActivity : AppCompatActivity(), TitleToolbarListener {
 
     companion object {
         const val HEADER_VIEW_INDEX = 0
+        const val VERSION_STRING_TEMPLATE = "Версия: %s.%s"
     }
 }

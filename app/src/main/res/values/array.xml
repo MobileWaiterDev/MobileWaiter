@@ -5,4 +5,7 @@
         <item>@color/blue</item>
         <item>@color/red</item>
     </integer-array>
+    <string-array name="payments">
+        <item>Наличные</item>
+    </string-array>
 </resources>

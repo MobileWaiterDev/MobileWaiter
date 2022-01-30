@@ -72,4 +72,10 @@ class RemoteDataSourceImpl(private val waiterApi: WaiterApi) : IRemoteDataSource
 
     override suspend fun emergencyCancel(billItemId: Long): OperationResult =
         waiterApi.emergencyCancelAsync(billItemId).await()
+
+    override suspend fun printBill(billId: Long): OperationResult =
+        waiterApi.printBillAsync(billId = billId).await()
+
+    override suspend fun closeBill(billId: Long): OperationResult =
+        waiterApi.closeBillAsync(billId = billId).await()
 }

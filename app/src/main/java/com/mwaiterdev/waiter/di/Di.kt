@@ -134,7 +134,9 @@ object Di {
                     deleteBillUseCase = get(),
                     deleteItemEmergencyUseCase = get(),
                     sendCookItemsUseCase = get(),
-                    getUserUseCase = get()
+                    getUserUseCase = get(),
+                    printBillUseCase = get(),
+                    closeBillUseCase = get()
                 )
             }
         }
@@ -311,6 +313,22 @@ object Di {
 
         factory<DeleteItemEmergencyUseCase> {
             DeleteItemEmergencyUseCase(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
+        }
+
+        factory<PrintBillUseCase> {
+            PrintBillUseCase(
+                repository = get(
+                    named(REPOSITORY_REMOTE)
+                )
+            )
+        }
+
+        factory<CloseBillUseCase> {
+            CloseBillUseCase(
                 repository = get(
                     named(REPOSITORY_REMOTE)
                 )

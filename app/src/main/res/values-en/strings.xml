@@ -24,4 +24,25 @@
     <string name="example_item_name">Item name</string>
     <string name="example_item_sub_total">2.0 x 125.0</string>
     <string name="example_item_total">125.0</string>
+    <string name="amount_dialog_input_layout_hint_text">Enter amount</string>
+    <string name="amount_dialog_input_layout_content_description">Amount</string>
+    <string name="fragment_login_hint_text">Enter PIN</string>
+    <string name="fragment_login_button_text">Enter</string>
+    <string name="fragment_login_input_layout_content_description">Pin</string>
+    <string name="button_cancel_title">Cancel</string>
+    <string name="button_ok_title">Ok</string>
+    <string name="button_bill_title">Bill</string>
+    <string name="button_cook_title">Cooking</string>
+    <string name="total">Total</string>
+    <string name="discount_sum">Sum discount</string>
+    <string name="discount">Percent discount</string>
+    <string name="subtotal">SubTotal</string>
+    <string name="cooking_process_panel_text_title">Sends bill to kitchen</string>
+    <string name="need_items_add">Add items in bill</string>
+    <string name="no_items_message">Item missing</string>
+    <string name="close_bill_question">Close bill?</string>
+    <string name="fragment_bill_total_text_title">Total to pay</string>
+    <string name="fragment_bill_text_input_layout_hint">Payment methods</string>
+    <string name="fragment_bill_close_form_button_cancel_title">Cancel</string>
+    <string name="fragment_bill_close_form_button_ok_title">Ok</string>
 </resources>

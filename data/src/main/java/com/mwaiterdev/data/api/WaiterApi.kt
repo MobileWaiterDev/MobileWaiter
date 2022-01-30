@@ -177,4 +177,26 @@ interface WaiterApi {
     fun emergencyCancelAsync(
         @Field("billItemId") billItemId: Long,
     ): Deferred<OperationResult>
+
+    /**
+     * Печать счета
+     * @param billId Id счета
+     * @return OperationResult
+     */
+    @FormUrlEncoded
+    @POST("/MWaiter/?Method=printBill")
+    fun printBillAsync(
+        @Field("billId") billId: Long
+    ): Deferred<OperationResult>
+
+    /**
+     * Закрытие счета
+     * @param billId Id счета
+     * @return OperationResult
+     */
+    @FormUrlEncoded
+    @POST("/MWaiter/?Method=closeBill")
+    fun closeBillAsync(
+        @Field("billId") billId: Long,
+    ): Deferred<OperationResult>
 }

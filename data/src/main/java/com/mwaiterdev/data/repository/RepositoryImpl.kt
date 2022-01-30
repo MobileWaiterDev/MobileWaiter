@@ -70,20 +70,26 @@ class RepositoryImpl(private val dataSource: IRemoteDataSource) : Repository {
         )
 
     override suspend fun deleteItem(billItemId: Long): OperationResult =
-        dataSource.deleteItem(billItemId)
+        dataSource.deleteItem(billItemId = billItemId)
 
     override suspend fun search(text: String): ItemsResponse =
-        dataSource.search(text)
+        dataSource.search(text = text)
 
     override suspend fun updateFavouriteState(favourite: Int, itemId: Long): OperationResult =
-        dataSource.updateFavouriteState(favourite, itemId)
+        dataSource.updateFavouriteState(favourite = favourite, itemId = itemId)
 
     override suspend fun deleteBill(billId: Long): OperationResult =
-        dataSource.deleteBill(billId)
+        dataSource.deleteBill(billId = billId)
 
     override suspend fun cookBill(billId: Long): OperationResult =
-        dataSource.cookBill(billId)
+        dataSource.cookBill(billId = billId)
 
     override suspend fun emergencyCancel(billItemId: Long): OperationResult =
-        dataSource.emergencyCancel(billItemId)
+        dataSource.emergencyCancel(billItemId = billItemId)
+
+    override suspend fun printBill(billId: Long): OperationResult =
+        dataSource.printBill(billId = billId)
+
+    override suspend fun closeBill(billId: Long): OperationResult =
+        dataSource.closeBill(billId = billId)
 }

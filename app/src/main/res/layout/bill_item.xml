@@ -16,7 +16,7 @@
     android:orientation="vertical"
     app:cardBackgroundColor="#F6F6F8"
     app:cardElevation="@dimen/bill_item_card_view_elevation"
-    app:rippleColor="@color/blue">
+    app:rippleColor="@color/ripple_color_default">
 
     <View
         android:id="@+id/round"
@@ -53,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:rippleColor="@color/blue"
+            app:rippleColor="@color/ripple_color_default"
             app:strokeColor="#818A99"
             app:strokeWidth="@dimen/bill_item_amount_stroke_width" />
 
