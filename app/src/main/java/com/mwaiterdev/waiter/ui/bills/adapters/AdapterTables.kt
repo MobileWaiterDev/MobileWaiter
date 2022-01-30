@@ -50,9 +50,9 @@ class AdapterTables(
                 }
             }
             if (data?.printed == 0) {
-                iconPrintBill.setImageResource(R.drawable.circle_printer_blue)
-            } else {
                 iconPrintBill.setImageResource(R.drawable.circle_printer_grey)
+            } else {
+                iconPrintBill.setImageResource(R.drawable.circle_printer_blue)
             }
             root.setOnClickListener(billItemListener.invoke(data?.billId))
         }

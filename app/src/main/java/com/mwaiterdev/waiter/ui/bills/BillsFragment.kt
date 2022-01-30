@@ -9,10 +9,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.SimpleItemAnimator
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mwaiterdev.domain.AppState
 import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.models.User
 import com.mwaiterdev.utils.extensions.showAlertDialogFragment
 import com.mwaiterdev.waiter.R
 import com.mwaiterdev.waiter.databinding.FragmentBillsBinding
@@ -28,7 +28,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     private val viewBinding: FragmentBillsBinding by viewBinding()
     private var data: List<TableGroup>? = null
     private var adapter: AdapterBills? = null
-    private val userName: String? by lazy { arguments?.getString(LoginFragment.BUNDLE_KEY_USER_NAME) }
+    private var userName: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
@@ -60,6 +60,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     override fun onStart() {
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.getData()
+        viewModel.getUserName()
         viewBinding.mineBillsSwitcher.isChecked = viewModel.initFilterData()
         super.onStart()
     }
@@ -84,9 +85,12 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
                     data?.let { data ->
                         initAdapter(data)
                         initExpandedFilter(data)
-                        initTitleToolBar()
                         initSwitchMine()
                     }
+                }
+                if (appState.data is User?) {
+                    userName = (appState.data as User?)?.name
+                    initTitleToolBar(appState.data as User?)
                 }
             }
             is AppState.Error -> {
@@ -107,8 +111,8 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
         }
     }
 
-    private fun initTitleToolBar() {
-        userName?.let { userName ->
+    private fun initTitleToolBar(data: User?) {
+        data?.name?.let { userName ->
             (activity as TitleToolbarListener).updateTitle(
                 userName
             )
@@ -116,8 +120,7 @@ class BillsFragment : Fragment(R.layout.fragment_bills) {
     }
 
     private fun initAdapter(data: List<TableGroup>) {
-        (viewBinding.billsRecycleView.itemAnimator as SimpleItemAnimator)
-            .supportsChangeAnimations = false
+        viewBinding.billsRecycleView.setHasFixedSize(true)
         adapter = AdapterBills(
             data
         ) { billId: Long? -> setBillItemListener(billId) }

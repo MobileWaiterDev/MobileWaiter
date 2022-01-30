@@ -2,6 +2,7 @@ package com.mwaiterdev.waiter.ui.bills
 
 import com.mwaiterdev.domain.AppState
 import com.mwaiterdev.domain.models.TableGroup
+import com.mwaiterdev.domain.usecase.GetUserUseCase
 import com.mwaiterdev.domain.usecase.mainbillsscreen.InputOutputUseCase
 import com.mwaiterdev.domain.usecase.mainbillsscreen.InputUseCase
 import com.mwaiterdev.utils.extensions.SharedPreferences.BillsLocalStorage
@@ -12,7 +13,8 @@ class BillsViewModel(
     private val interactor: com.mwaiterdev.domain.usecase.OutputUseCase<List<TableGroup>?>,
     private val preferences: BillsLocalStorage,
     private val filterUseCase: InputUseCase<String, List<TableGroup>?>,
-    private val filterByUserIdUseCase: InputOutputUseCase<Boolean, List<TableGroup>?, String>
+    private val filterByUserIdUseCase: InputOutputUseCase<Boolean, List<TableGroup>?, String>,
+    private val getUserUseCase: GetUserUseCase
 ) : BaseViewModel() {
 
     override fun handleError(throwable: Throwable) {
@@ -37,5 +39,11 @@ class BillsViewModel(
 
     fun filterByUserId(isCheck: Boolean, data: List<TableGroup>?, userName: String?): List<TableGroup>? =
         userName?.let { filterByUserIdUseCase.execute(isCheck, data, it) }
+
+    fun getUserName() {
+        viewModelScopeCoroutine.launch {
+            getLiveData().postValue(AppState.Success(getUserUseCase.execute()))
+        }
+    }
 
 }

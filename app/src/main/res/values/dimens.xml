@@ -142,6 +142,7 @@
     <dimen name="nav_header_app_title_text_size">26sp</dimen>
     <dimen name="nav_header_logo_image_margin">16dp</dimen>
     <dimen name="logotype_height">180dp</dimen>
+    <dimen name="space_between_orders_item">8dp</dimen>
     <item name="bill_item_name_max_line" format="integer" type="dimen">2</item>
     <item name="nav_header_logo_width_percent" format="float" type="dimen">1.0</item>
     <item name="fragment_bill_menu_items_rv_height_percent" format="float" type="dimen">0.3</item>

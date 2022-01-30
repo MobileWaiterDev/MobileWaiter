@@ -44,11 +44,9 @@
     <string name="cancel_btn_text_quit_alarm">Отмена</string>
     <string name="ok_btn_text_quit_alarm">Закрыть</string>
     <string name="all_halls_text">Все залы</string>
-    <string name="count_of_bills_text">Количество счетов</string>
-    <string name="add_bill_description_text">Add Bill</string>
+    <string name="count_of_bills_text">Счета</string>
+    <string name="add_bill_description_text">Добавить счет</string>
 
-    <string name="need_items_add">Добавьте товары в счет…</string>
-    <string name="no_items_message">Товары отсутствуют…</string>
     <string name="close_bill_question">Закрыть счет?</string>
     <string name="fragment_bill_total_text_title">Всего к оплате:</string>
     <string name="fragment_bill_text_input_layout_hint">Способ оплаты</string>

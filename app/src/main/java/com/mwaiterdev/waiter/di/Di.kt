@@ -102,7 +102,8 @@ object Di {
                     ),
                     filterByUserIdUseCase = get(
                         named(FILTER_BY_USER_ID_USE_CASE)
-                    )
+                    ),
+                    getUserUseCase = get()
                 )
             }
         }

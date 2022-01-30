@@ -59,6 +59,8 @@
             android:gravity="center|end"
             android:textStyle="bold"
             android:textSize="@dimen/item_table_cardview_textsize"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:layout_margin="@dimen/item_table_cardview_margin"
             tools:text="Петров П."/>
     </LinearLayout>

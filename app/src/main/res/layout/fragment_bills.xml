@@ -61,8 +61,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="false"
-            android:scrollbars="vertical"
             android:paddingBottom="60dp"
+            android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_bills" />
     </RelativeLayout>
