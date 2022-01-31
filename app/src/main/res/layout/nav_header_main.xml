@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/logo"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/nav_header_logo_height"
+        android:layout_margin="@dimen/nav_header_logo_image_margin"
+        android:contentDescription="@string/nav_header_logo_description"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo_waiter"
+        app:layout_constraintBottom_toTopOf="@id/user_panel"
+        app:layout_constraintEnd_toStartOf="@id/app_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/app_title"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/nav_header_logo_height"
+        android:layout_marginEnd="@dimen/nav_header_app_title_margin_end"
+        android:fontFamily="@font/delius_unicase"
+        android:gravity="center"
+        android:maxLines="@dimen/nav_header_logo_max_lines"
+        android:text="Mobile waiter"
+        android:textAlignment="center"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/nav_header_app_title_text_size"
+        app:layout_constraintBottom_toTopOf="@id/user_panel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/logo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/user_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_header_user_panel_height"
+        android:background="#949494"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/nav_header_title_margin_horizontal"
+            android:layout_marginVertical="@dimen/nav_header_title_margin_vertical"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="@string/nav_header_sample_company_title"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/nav_header_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="@dimen/nav_header_user_icon_size"
+            android:layout_height="@dimen/nav_header_user_icon_size"
+            android:layout_marginHorizontal="@dimen/nav_header_user_icon_margin_horizontal"
+            android:layout_marginTop="@dimen/nav_header_user_icon_margin_top"
+            android:contentDescription="@string/nav_header_user_icon_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_user_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/user_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/nav_header_user_margin_start"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/nav_header_user_text_size"
+            app:layout_constraintBottom_toTopOf="@id/user_name"
+            app:layout_constraintStart_toEndOf="@id/user_icon"
+            app:layout_constraintTop_toTopOf="@id/user_icon" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/nav_header_user_margin_start"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/nav_header_user_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/user_icon"
+            app:layout_constraintStart_toEndOf="@id/user_icon"
+            app:layout_constraintTop_toBottomOf="@id/user_group" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

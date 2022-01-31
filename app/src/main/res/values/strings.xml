@@ -1,3 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mobile Waiter</string>
+    <string name="app_name">Мобильный официант</string>
+    <string name="nav_header_logo_description">Логотип</string>
+    <string name="nav_header_user_icon_description">Иконка пользователя</string>
+    <string name="nav_header_sample_company_title">Кафе "Улыбка"</string>
+    <string name="nav_header_sample_user_group">Официант</string>
+    <string name="nav_header_sample_user_login">Иванов И.И.</string>
+    <string name="menu_bills">Счета</string>
+    <string name="menu_login">Вход/Смена пользователя</string>
+    <string name="menu_tables">Столы</string>
+    <string name="menu_bill">Счет</string>
+    <string name="activity_main_exit_button_text">Выход</string>
+    <string name="version">Версия ....</string>
+    <string name="menu_item_hals">Залы</string>
+    <string name="menu_item_my_bills">Мои</string>
+    <string name="all_hals_switcher">Все залы</string>
+    <string name="mine_bills_switcher">Мои</string>
+    <string name="empty" />
+    <string name="error_unknown_view_type">Unknown view type</string>
+    <string name="example_table_name">1</string>
+    <string name="example_table_group_name">ЗАЛ</string>
+    <string name="example_amount_text">1</string>
+    <string name="example_item_name">Наименование блюда</string>
+    <string name="example_item_sub_total">2.0 x 125.0</string>
+    <string name="example_item_total">125.0</string>
+    <string name="amount_dialog_input_layout_hint_text">Введите количество</string>
+    <string name="amount_dialog_input_layout_content_description">Количество</string>
+    <string name="fragment_login_hint_text">Введите PIN</string>
+    <string name="fragment_login_button_text">Вход</string>
+    <string name="fragment_login_input_layout_content_description">Pin</string>
+    <string name="button_cancel_title">Отмена</string>
+    <string name="button_ok_title">Ок</string>
+    <string name="button_bill_title">Счет</string>
+    <string name="button_cook_title">Готовить</string>
+    <string name="total">Итого</string>
+    <string name="discount_sum">Сумма скидки</string>
+    <string name="discount">Скидка</string>
+    <string name="subtotal">Подытог</string>
+    <string name="cooking_process_panel_text_title">Отправка заказа на кухню..</string>
+    <string name="need_items_add">Добавьте товары в счет...</string>
+    <string name="no_items_message">Товары отсутствуют...</string>
+    <string name="before_exit_question_alarm">Вы уверены, что хотите закрыть приложение?</string>
+    <string name="cancel_btn_text_quit_alarm">Отмена</string>
+    <string name="ok_btn_text_quit_alarm">Закрыть</string>
+    <string name="all_halls_text">Все залы</string>
+    <string name="count_of_bills_text">Счета</string>
+    <string name="add_bill_description_text">Добавить счет</string>
+
+    <string name="close_bill_question">Закрыть счет?</string>
+    <string name="fragment_bill_total_text_title">Всего к оплате:</string>
+    <string name="fragment_bill_text_input_layout_hint">Способ оплаты</string>
+    <string name="fragment_bill_close_form_button_cancel_title">Отмена</string>
+    <string name="fragment_bill_close_form_button_ok_title">Ок</string>
 </resources>
