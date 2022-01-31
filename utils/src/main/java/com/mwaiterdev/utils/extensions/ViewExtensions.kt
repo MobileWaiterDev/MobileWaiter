@@ -40,6 +40,9 @@ fun MaterialCardView.setStrokeColorByState(billItem: BillItem) {
         ITEM_PRINTED -> {
             Color.parseColor(ITEM_PRINTED_COLOR)
         }
+        BILL_PRINTED -> {
+            Color.parseColor(ITEM_PRINTED_COLOR)
+        }
         ITEM_CANCELED -> {
             Color.parseColor(ITEM_CANCELED_COLOR)
         }
@@ -53,6 +56,9 @@ fun View.setBackgroundByState(billItem: BillItem) {
             R.drawable.round_bill_item_blue
         }
         ITEM_PRINTED -> {
+            R.drawable.round_bill_item_orange
+        }
+        BILL_PRINTED -> {
             R.drawable.round_bill_item_orange
         }
         ITEM_CANCELED -> {
@@ -79,6 +85,7 @@ fun MaterialCardView.setBackgroundColorByState(state: Int) {
 const val ITEM_PRINTED = 1
 const val ITEM_NOT_PRINTED = 0
 const val ITEM_CANCELED = 2
+const val BILL_PRINTED = 3
 const val ITEM_PRINTED_COLOR = "#FFAB00"
 const val ITEM_NOT_PRINTED_COLOR = "#0087D4"
 const val ITEM_CANCELED_COLOR = "#FF3738"

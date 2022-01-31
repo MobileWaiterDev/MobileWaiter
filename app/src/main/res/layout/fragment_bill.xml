@@ -16,7 +16,7 @@
         android:clickable="false"
         android:focusable="false"
         android:translationZ="@dimen/fragment_bill_close_form_translation_z"
-        android:visibility="visible"
+        android:visibility="gone"
         app:cardBackgroundColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
