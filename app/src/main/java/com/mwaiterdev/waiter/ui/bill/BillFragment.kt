@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.forEach
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
@@ -125,6 +126,9 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
         viewBinding.cancelPayBtn.setOnClickListener {
             viewBinding.closeBillForm.isVisible = false
             viewBinding.billItemsRv.isEnabled = true
+            viewBinding.menuItemsRv.isVisible = false
+            viewBinding.closeBillPanel.isVisible = false
+            viewBinding.searchPanel.isVisible = false
         }
 
         viewBinding.payInput.setOnItemClickListener { _, _, position, _ ->
@@ -295,6 +299,26 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
 
         viewModel.closeBillLiveData()
             .observe(viewLifecycleOwner, { result -> renderCloseBill(result = result) })
+
+        viewModel.blockEditLiveData()
+            .observe(viewLifecycleOwner, { result -> blockEditRender(result) })
+    }
+
+    private fun blockEditRender(result: Boolean?) {
+        if (result == true) {
+            viewBinding.menuPanel.menu.forEach {
+                if (it.itemId != R.id.menu_print
+                    && it.itemId != R.id.menu_arrow
+                ) {
+                    it.isEnabled = false
+                }
+            }
+
+        } else {
+            viewBinding.menuPanel.menu.forEach {
+                it.isEnabled = true
+            }
+        }
     }
 
     private fun renderCloseBill(result: ScreenState?) {
@@ -331,6 +355,8 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
                 showLoading(false)
                 if ((result.data as ResultOperation).data) {
                     initPaymentSettings()
+                    viewModel.getBillInfo()
+                    viewModel.getBillItems(false)
                 }
             }
         }
@@ -417,6 +443,11 @@ class BillFragment : Fragment(R.layout.fragment_bill), BillItemAdapter.Delegate,
             }
             is ScreenState.Success -> {
                 showBillInfo(result)
+                if ((result.data as BillsInfo).data.printed == 1) {
+                    viewModel.setBillPrinted(true)
+                } else {
+                    viewModel.setBillPrinted(false)
+                }
                 showLoading(false)
             }
         }

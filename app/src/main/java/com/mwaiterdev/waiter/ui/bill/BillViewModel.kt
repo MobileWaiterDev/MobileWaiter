@@ -28,10 +28,15 @@ class BillViewModel(
     private val closeBillUseCase: CloseBillUseCase
 ) : BaseBillViewModel() {
 
-    var currentBillId: Long = ZERO_VALUE
+    private var currentBillId: Long = ZERO_VALUE
 
     fun setCurrentBill(billId: Long) {
         currentBillId = billId
+    }
+
+
+    fun setBillPrinted(printed: Boolean) {
+        blockEditLiveData().postValue(printed)
     }
 
     private var currentItemGroupId: Long = ZERO_VALUE

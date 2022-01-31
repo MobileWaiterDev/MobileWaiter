@@ -38,8 +38,13 @@ class BillItemViewHolder(
                 }
             }
 
-            if (billItem.printed == STATE_EMERGENCY_DELETED) {
-                name.paintFlags = name.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            if (billItem.printed == STATE_EMERGENCY_DELETED
+                || billItem.printed == BILL_PRINTED
+            ) {
+                if (billItem.printed == STATE_EMERGENCY_DELETED) {
+                    name.paintFlags = name.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                }
+
                 root.tag = NO_SWIPE_TAG
             } else {
                 root.tag = SWIPE_TAG
@@ -55,6 +60,7 @@ class BillItemViewHolder(
         const val SWIPE_TAG = "swipe"
         const val ZERO_VALUE = 0
         const val STATE_EMERGENCY_DELETED = 2
+        const val BILL_PRINTED = 3
         const val DEFAULT_PAINT_FLAGS = 1281
         const val TOTAL_STRING_TEMPLATE = "%s₽"
     }

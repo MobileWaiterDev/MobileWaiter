@@ -15,6 +15,7 @@ abstract class BaseBillViewModel : ViewModel() {
     private val deleteEmergencyLiveData = MutableLiveData<ScreenState>()
     private val printBillLiveData = MutableLiveData<ScreenState>()
     private val closeBillLiveData = MutableLiveData<ScreenState>()
+    private val blockEditLiveData = MutableLiveData<Boolean>()
     protected val viewModelScopeCoroutine = CoroutineScope(
         Dispatchers.IO
                 + SupervisorJob()
@@ -34,6 +35,7 @@ abstract class BaseBillViewModel : ViewModel() {
     fun deleteEmergencyLiveData() = deleteEmergencyLiveData
     fun printBillLiveData() = printBillLiveData
     fun closeBillLiveData() = closeBillLiveData
+    fun blockEditLiveData() = blockEditLiveData
 
     abstract fun createBill(tableId: Long): Job
     abstract fun getBillInfo(): Job

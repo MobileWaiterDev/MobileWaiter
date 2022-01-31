@@ -78,7 +78,7 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
 
     override fun onItemPicked(table: TableItem) {
         if (table.state == TABLE_STATE_BUSY) {
-            viewBinding.root.showSnakeBar("Данный столик занят, выберите другой.")
+            viewBinding.root.showSnakeBar(TABLE_IS_BUSY_MESSAGE)
             return
         }
 
@@ -94,12 +94,12 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
 
     override fun onStart() {
         super.onStart()
-        (activity as TitleToolbarListener).updateTitle("Выбор столика")
+        (activity as TitleToolbarListener).updateTitle(TABLE_SELECT_TITLE)
     }
 
     override fun onStop() {
         super.onStop()
-        (activity as TitleToolbarListener).updateTitle("")
+        (activity as TitleToolbarListener).updateTitle(EMPTY_STRING)
     }
 
     companion object {
@@ -108,5 +108,8 @@ class TablesFragment : Fragment(R.layout.fragment_tables), TablesAdapter.Delegat
         private const val HEADER_SIZE = 4
         private const val TABLE_SIZE = 1
         const val KEY_TABLE_ID = "tableId"
+        const val TABLE_IS_BUSY_MESSAGE = "Данный столик занят, выберите другой."
+        const val TABLE_SELECT_TITLE = "Выбор столика"
+        const val EMPTY_STRING = ""
     }
 }
